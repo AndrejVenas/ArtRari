@@ -261,12 +261,12 @@ fontsize=15
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
-      <y>808</y>
-      <w>128</w>
-      <h>112</h>
+      <y>872</y>
+      <w>120</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>140.0;10.0;10.0;120.0</additional_attributes>
+    <additional_attributes>130.0;10.0;10.0;40.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -305,8 +305,8 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1360</x>
-      <y>792</y>
+      <x>1352</x>
+      <y>856</y>
       <w>240</w>
       <h>48</h>
     </coordinates>
@@ -316,8 +316,8 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1376</x>
-      <y>936</y>
+      <x>1368</x>
+      <y>1000</y>
       <w>240</w>
       <h>40</h>
     </coordinates>
@@ -327,8 +327,8 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1368</x>
-      <y>888</y>
+      <x>1360</x>
+      <y>952</y>
       <w>240</w>
       <h>48</h>
     </coordinates>
@@ -339,29 +339,29 @@ fontsize=15
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
-      <y>888</y>
-      <w>136</w>
-      <h>40</h>
+      <y>896</y>
+      <w>128</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>150.0;30.0;10.0;20.0</additional_attributes>
+    <additional_attributes>140.0;100.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
       <y>896</y>
-      <w>152</w>
-      <h>80</h>
+      <w>144</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>165.0;79.0;10.0;10.0</additional_attributes>
+    <additional_attributes>155.0;159.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>472</x>
-      <y>608</y>
+      <x>736</x>
+      <y>616</y>
       <w>224</w>
       <h>48</h>
     </coordinates>
@@ -426,8 +426,8 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1360</x>
-      <y>840</y>
+      <x>1352</x>
+      <y>904</y>
       <w>240</w>
       <h>48</h>
     </coordinates>
@@ -438,12 +438,12 @@ fontsize=15
     <id>Relation</id>
     <coordinates>
       <x>1248</x>
-      <y>856</y>
-      <w>128</w>
-      <h>64</h>
+      <y>896</y>
+      <w>120</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>140.0;10.0;10.0;60.0</additional_attributes>
+    <additional_attributes>130.0;40.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
@@ -550,8 +550,8 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1400</x>
-      <y>1008</y>
+      <x>1392</x>
+      <y>1072</y>
       <w>168</w>
       <h>32</h>
     </coordinates>
@@ -561,8 +561,8 @@ fontsize=15
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1472</x>
-      <y>968</y>
+      <x>1464</x>
+      <y>1032</y>
       <w>80</w>
       <h>56</h>
     </coordinates>
@@ -608,13 +608,13 @@ fontsize=15
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>960</x>
+      <x>952</x>
       <y>632</y>
-      <w>128</w>
+      <w>136</w>
       <h>176</h>
     </coordinates>
     <panel_attributes/>
-    <additional_attributes>10.0;10.0;140.0;200.0</additional_attributes>
+    <additional_attributes>10.0;10.0;150.0;200.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -630,24 +630,23 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>744</x>
-      <y>616</y>
-      <w>224</w>
+      <x>1352</x>
+      <y>808</y>
+      <w>240</w>
       <h>48</h>
     </coordinates>
-    <panel_attributes>Керування особистим кабінетом</panel_attributes>
+    <panel_attributes>Зміна ролі акаунта</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>688</x>
-      <y>616</y>
-      <w>72</w>
-      <h>32</h>
+      <x>1248</x>
+      <y>824</y>
+      <w>120</w>
+      <h>96</h>
     </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;20.0;70.0;20.0</additional_attributes>
+    <panel_attributes/>
+    <additional_attributes>130.0;10.0;10.0;100.0</additional_attributes>
   </element>
 </diagram>
