@@ -16,9 +16,11 @@ const Menu = () => {
               <Link to={item.link} className="menu__link">{item.title}</Link>
             </li>
           })}
+          </ul>
           <li className="menu__item">
             <img src={logo} alt="logo" />
           </li>
+        <ul className="menu__list">
           {secondMenu.map((item) => {
             return <li className="menu__item">
               <Link to={item.link} className="menu__link">{item.title}</Link>

@@ -6,7 +6,7 @@ import './style.css'
 
 const Header = () => {
   return (
-    <div class="header">
+    <header class="header">
         <div className="header__container">
             <div className="header__items items">
                 <div className="items_light light">
@@ -20,7 +20,7 @@ const Header = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </header>
   )
 }
 

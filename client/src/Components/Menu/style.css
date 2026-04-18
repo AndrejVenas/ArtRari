@@ -1,5 +1,14 @@
+.menu__navigation {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
 .menu__list {
     display: flex;
+    flex-direction: row;
     gap: 27px;
-    align-items: center;
+    background-color: #313131;
+    padding: 14px 35px;
+    border-radius: 20px;
 }
