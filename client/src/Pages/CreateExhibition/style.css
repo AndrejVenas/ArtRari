@@ -1,0 +1,83 @@
+.form {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-top: 25px;
+}
+
+.form__block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form__mainBlock {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form__block-input, .dropZone__input {
+    background-color: #313131;
+    padding: 16px 0px;
+    border: 1px solid #313131;
+    border-radius: 20px;
+    color: #ffffff30;
+    width: 100%;
+}
+
+.form__mainBlock:first-child .form__block:nth-child(2) textarea {
+    height: 218px;
+}
+.form__mainBlock:first-child  .form__block:not(:first-child) {
+    margin-top: 25px;
+}
+
+.form__mainBlock:first-child .form__block .form__block-input {
+    margin-top: 10px;
+}
+
+.form__mainBlock:last-child .form__block:first-child {
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.dropZone__input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 316px;
+}
+
+.dropZone__plus {
+    max-width: 134px;
+    height: 100px;
+    background-color: #1B1B1B;
+    margin: 0px auto;
+    font-size: 90px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.dropZone__block {
+    margin-top: -210px;
+    padding-bottom: 110px;
+}
+
+.dropZone__subTitle {
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.form__block-button {
+    background-color: #ECC68B;
+    padding: 14px 0px;
+    border-radius: 10px;
+    border: 1px solid #ECC68B;
+    color: #313131;
+    font-size: 20px;
+    cursor: pointer;
+}
