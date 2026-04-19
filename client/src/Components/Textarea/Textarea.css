@@ -1,0 +1,35 @@
+.input-group {
+}
+
+.input-label {
+    font-size: 20px;
+    font-weight: 300;
+    display: block;
+    text-align: start;
+    margin-left: 30px;
+    margin-bottom: 5px;
+}
+
+.input-field {
+    display: block;
+    padding: 15px 25px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    background-color: #313131;
+    color: #fff;
+    width: 100%;
+    min-height: 50px;
+    font-size: 20px;
+}
+
+.input-field::placeholder {
+    font-size: 20px;
+}
+
+textarea.input-textarea {
+    resize: none;
+    min-height: 120px;
+    font-family: inherit;
+    font-size: 20px;
+}

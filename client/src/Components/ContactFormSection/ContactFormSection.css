@@ -1,0 +1,19 @@
+.contact {
+    padding: 100px 20px;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.contact-container {
+    max-width: 670px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+/* форма */
+.contact-form * {
+    margin-bottom: 25px;
+}

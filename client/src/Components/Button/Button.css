@@ -1,0 +1,26 @@
+.btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px;
+    background-color: #ECC68B;
+    color: #313131;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.btn:hover {
+    background-color: #e0a549;
+}
+
+.btn:active {
+    transform: scale(0.98);
+}
+
+.btn:disabled {
+    background-color: #777;
+    cursor: not-allowed;
+    opacity: 0.6;
+}

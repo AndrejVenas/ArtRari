@@ -1,0 +1,30 @@
+.hero {
+    line-height: 1.21;
+    color: #fff;
+
+    background-size: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: #000;
+}
+
+.hero-content{
+    margin: 0 165px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.hero-title{
+    font-weight: 700;
+    font-size: 120px;
+    margin-top: auto;
+}
+
+.hero-subtitle{
+    font-weight: 300;
+    font-size: 32px;
+    max-width: 385px;
+    margin-bottom: auto;
+}

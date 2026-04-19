@@ -1,0 +1,63 @@
+.exhibition-card {
+    background: #313131;
+    border-radius: 30px;
+    overflow: hidden;
+    transition: 0.3s;
+    max-width: 650px;
+    width: 100%;
+    cursor: pointer;
+    position: relative;
+}
+
+.exhibition-card:hover .overlay{
+    opacity: 1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(226, 190, 53, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: 0.3s;
+}
+
+.overlay p {
+    text-decoration: underline;
+    font-weight: 700;
+
+}
+
+.exhibition-image {
+    height: 250px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #4f46e5, #9333ea);
+    margin-bottom: 30px;
+}
+
+p {
+    font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.exhibition-card h4 {
+    margin: 0 30px 30px;
+    font-weight: 700;
+}
+
+.exhibitions-time,
+.exhibitions-theme{
+    max-width: 330px;
+    width: 100%;
+}
+
+.exhibition-card-content{
+    padding: 0 30px 30px;
+    display: flex;
+    justify-content: space-between;
+}

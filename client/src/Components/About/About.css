@@ -1,0 +1,17 @@
+.about {
+    padding: 100px 0;
+    background-color: #000000;
+    color: #fff;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.about-text {
+    max-width: 570px;
+    margin: 0 auto 50px;
+}
+
+.about .section-title{
+    text-align: center;
+}

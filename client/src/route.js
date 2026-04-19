@@ -4,6 +4,8 @@ import Exhibitions from "./Pages/Exhibitions/Exhibitions";
 import Login from "./Pages/Login/Login";
 import Registration from "./Pages/Registration/Registration";
 import WorkDownload from "./Pages/WorkDownload/WorkDownload";
+import Main from "./Pages/Main/Main";
+import AboutUs from "./Pages/AboutUs/About";
 
 export const route = [
     {
@@ -29,5 +31,13 @@ export const route = [
     {
         path: "/WorkDownload",
         Element: WorkDownload
+    },
+    {
+        path: "/main",
+        Element: Main
+    },
+    {
+        path: "/aboutUs",
+        Element: AboutUs
     }
 ]

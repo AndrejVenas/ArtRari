@@ -1,0 +1,26 @@
+.current-exhibitions {
+    padding: 100px 0;
+    /*background: #0f0f0f;*/
+    background: #000;
+    color: #fff;
+}
+
+.exhibitions-header {
+    margin-bottom: 50px;
+}
+
+.exhibitions-header h2 {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.exhibitions-header p {
+    opacity: 0.6;
+}
+
+.exhibitions-box {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}

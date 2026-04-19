@@ -1,0 +1,36 @@
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 45px;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-links a {
+    color: white;
+    opacity: 0.8;
+    transition: 0.2s;
+}
+
+.social-links a:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+/**/
+
+.social-links-item, .social-link-target{
+    background-color: #313131;
+}
+
+.social-links-item {
+    padding: 10px;
+    display: flex;
+    gap: 20px;
+    border-radius: 25px;
+}
+
+.social-link-target {
+    padding: 8px;
+    border-radius: 50%;
+}
