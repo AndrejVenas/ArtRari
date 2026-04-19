@@ -6,7 +6,7 @@ import AppRouter from './Components/AppRouter';
 
 function App() {
   return (
-    <div className="App">
+    <div className="wrapper">
       <Header />
       <AppRouter />
       <Footer />
