@@ -1,8 +1,9 @@
 import React from 'react'
+import LoginSection from "../../Components/LoginSection/LoginSection";
 
 const Login = () => {
   return (
-    <div>Login</div>
+    <LoginSection/>
   )
 }
 

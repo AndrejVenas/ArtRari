@@ -9,6 +9,7 @@ const Input = ({
                    value,
                    onChange,
                    placeholder,
+                   error = false,
                }) => {
     return (
         <div className="input-group">
@@ -19,7 +20,7 @@ const Input = ({
             )}
 
             <input
-                className="input-field"
+                className={`input-field ${error ? "input-error" : ""}`}
                 type={type}
                 name={name}
                 id={id || name}

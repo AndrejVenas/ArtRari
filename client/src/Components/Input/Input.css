@@ -10,19 +10,29 @@
     margin-bottom: 5px;
 }
 
-.input-field {
+form input.input-field {
     display: block;
     padding: 15px 25px;
     border-radius: 25px;
-    border: none;
+    border: 1px solid transparent; /* важно */
     outline: none;
     background-color: #313131;
     color: #fff;
     width: 100%;
     min-height: 50px;
     font-size: 20px;
+    transition: border 0.2s ease;
 }
 
 .input-field::placeholder {
     font-size: 20px;
+}
+
+/* фокус */
+.input-field:focus {
+    border: 1px solid #666;
+}
+
+form input.input-field.input-error {
+    border: 1px solid #ff3b3b;
 }

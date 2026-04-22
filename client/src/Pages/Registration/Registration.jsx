@@ -1,8 +1,9 @@
 import React from 'react'
+import RegisterSection from "../../Components/RegisterScetion/RegisterSection";
 
 const Registration = () => {
   return (
-    <div>Registration</div>
+    <RegisterSection/>
   )
 }
 

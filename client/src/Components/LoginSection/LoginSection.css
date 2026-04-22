@@ -1,0 +1,35 @@
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.login .section-title{
+    margin-bottom: 70px;
+}
+
+.login-left {
+    flex: 1;
+    max-width: 450px;
+}
+
+.login-right {
+    /*flex: 1;*/
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.login-text {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 70px;
+}
+
+.autorization-img{
+    max-width: 700px;
+}
