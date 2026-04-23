@@ -33,7 +33,7 @@ export const route = [
         Element: WorkDownload
     },
     {
-        path: "/main",
+        path: "/",
         Element: Main
     },
     {
