@@ -1,8 +1,11 @@
 import React from 'react'
+import AuctionsSection from "../../Components/Section/AuctionsSection/AuctionsSection";
 
 const Auctions = () => {
   return (
-    <div>Auctions</div>
+    <>
+      <AuctionsSection/>
+    </>
   )
 }
 

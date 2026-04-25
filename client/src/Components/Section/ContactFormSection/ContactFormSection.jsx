@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./ContactFormSection.css";
-import Title from "../title/Title";
-import Input from "../Input/Input";
-import Textarea from "../Textarea/Textarea";
-import Button from "../Button/Button";
+import Title from "../../UI/title/Title";
+import Input from "../../UI/Input/Input";
+import Textarea from "../../UI/Textarea/Textarea";
+import Button from "../../UI/Button/Button";
 
 const Contact = () => {
     const [form, setForm] = useState({

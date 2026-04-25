@@ -1,6 +1,6 @@
 import "./Hero.css";
-import heroBg from "../../Images/hero-bg.png";
-import SocialLinks from "../social-links/SocialLinks";
+import heroBg from "../../../Images/hero-bg.png";
+import SocialLinks from "../../UI/social-links/SocialLinks";
 
 function Hero() {
     return (

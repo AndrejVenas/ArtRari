@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { auctionsArray } from '../../Arrays/arrayMenu'
 import './style.css'
 import '../../Images/auction.svg'
-import Button from '../Button/Button'
+import Button from '../UI/Button/Button'
 
 const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks}) => {
     const addWork = (item) => {

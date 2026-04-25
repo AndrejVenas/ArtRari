@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./LoginSection.css";
-import Title from "../title/Title";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
+import Title from "../../UI/title/Title";
+import Input from "../../UI/Input/Input";
+import Button from "../../UI/Button/Button";
 
 const Login = () => {
     const [form, setForm] = useState({

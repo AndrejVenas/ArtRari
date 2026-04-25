@@ -1,9 +1,9 @@
 import "./SocialLinks.css";
-import redditIcon from "../../Images/socialIcons/reddit.svg";
-import facebookIcon from "../../Images/socialIcons/facebook.svg";
-import instagramIcon from "../../Images/socialIcons/instagram.svg";
-import xtwitterIcon from "../../Images/socialIcons/x-twitter.svg";
-import angleDown45 from "../../Images/angle-down-45.svg";
+import redditIcon from "../../../Images/socialIcons/reddit.svg";
+import facebookIcon from "../../../Images/socialIcons/facebook.svg";
+import instagramIcon from "../../../Images/socialIcons/instagram.svg";
+import xtwitterIcon from "../../../Images/socialIcons/x-twitter.svg";
+import angleDown45 from "../../../Images/angle-down-45.svg";
 
 function SocialLinks() {
     return (

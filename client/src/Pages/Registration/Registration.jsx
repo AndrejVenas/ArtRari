@@ -1,5 +1,5 @@
 import React from 'react'
-import RegisterSection from "../../Components/RegisterScetion/RegisterSection";
+import RegisterSection from "../../Components/Section/RegisterScetion/RegisterSection";
 
 const Registration = () => {
   return (

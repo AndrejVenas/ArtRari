@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './style.css'
-import Input from '../../Components/Input/Input'
-import Textarea from '../../Components/Textarea/Textarea'
-import Button from '../../Components/Button/Button'
+import Input from '../../Components/UI/Input/Input'
+import Textarea from '../../Components/UI/Textarea/Textarea'
+import Button from '../../Components/UI/Button/Button'
 import Popup from '../../Components/Popup/Popup'
 
 const CreateExhibition = () => {

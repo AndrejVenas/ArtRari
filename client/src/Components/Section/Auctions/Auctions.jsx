@@ -1,6 +1,6 @@
 import "./Auctions.css";
-import Title from "../title/Title";
-import Link from "../link/Link";
+import Title from "../../UI/title/Title";
+import Link from "../../UI/link/Link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";

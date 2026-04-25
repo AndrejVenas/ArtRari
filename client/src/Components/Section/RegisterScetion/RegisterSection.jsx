@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./RegisterSection.css";
-import Title from "../title/Title";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import CodeInput from "../CodeInput/CodeInput";
+import Title from "../../UI/title/Title";
+import Input from "../../UI/Input/Input";
+import Button from "../../UI/Button/Button";
+import CodeInput from "../../UI/CodeInput/CodeInput";
 
 const stepAssets = {
     1: "/images/register-step1.png",

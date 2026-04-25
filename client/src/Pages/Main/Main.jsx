@@ -1,7 +1,7 @@
 import React from 'react'
-import Hero from "../../Components/hero/Hero";
-import Auctions from "../../Components/Auctions/Auctions";
-import CurrentExhibitions from "../../Components/currentExhibitions/CurrentExhibitions";
+import Hero from "../../Components/Section/hero/Hero";
+import Auctions from "../../Components/Section/Auctions/Auctions";
+import CurrentExhibitions from "../../Components/Section/currentExhibitions/CurrentExhibitions";
 
 const Main = () => {
     return (

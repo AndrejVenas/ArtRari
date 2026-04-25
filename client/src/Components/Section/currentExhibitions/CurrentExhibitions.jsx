@@ -1,7 +1,7 @@
 import "./CurrentExhibitions.css";
-import Title from "../title/Title";
-import CardCurrentExhibitions from "../CardCurrentExhibitions/CardCurrentExhibitions";
-import Link from "../link/Link";
+import Title from "../../UI/title/Title";
+import CardCurrentExhibitions from "../../CardCurrentExhibitions/CardCurrentExhibitions";
+import Link from "../../UI/link/Link";
 
 function CurrentExhibitions() {
     const exhibitions = [

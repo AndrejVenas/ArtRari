@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./FAQ.css";
-import Title from "../title/Title";
+import Title from "../../UI/title/Title";
 
 const data = [
     {

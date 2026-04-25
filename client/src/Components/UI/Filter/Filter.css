@@ -1,0 +1,23 @@
+.filters {
+    display: flex;
+    gap: 12px;
+    margin: 30px 0 40px;
+    flex-wrap: wrap;
+}
+
+.filters select {
+    background: #2a2a2a;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 20px;
+}
+
+.filter-btn {
+    background: #2a2a2a;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+}

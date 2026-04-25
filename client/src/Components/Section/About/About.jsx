@@ -1,6 +1,6 @@
 import React from "react";
 import "./About.css";
-import Title from "../title/Title";
+import Title from "../../UI/title/Title";
 
 const About = () => {
     return (

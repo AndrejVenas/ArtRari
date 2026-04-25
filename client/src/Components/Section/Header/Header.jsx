@@ -1,7 +1,7 @@
 import React from 'react'
-import Menu from '../Menu/Menu'
-import Profile from '../Profile/Profile'
-import light from '../../Images/light.svg'
+import Menu from '../../Menu/Menu'
+import Profile from '../../Profile/Profile'
+import light from '../../../Images/light.svg'
 import './style.css'
 
 const Header = () => {
