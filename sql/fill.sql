@@ -76,7 +76,7 @@ INSERT INTO bid (user_id, lot_id, amount, created_at, is_win) VALUES
 (7, 3, 1700.00, CURRENT_TIMESTAMP - INTERVAL '1.5 hours', FALSE), -- Этот парень должен победить при вызове процедуры
 (6, 5, 5500.00, CURRENT_TIMESTAMP - INTERVAL '6 days', TRUE),
 (7, 6, 4500.00, CURRENT_TIMESTAMP - INTERVAL '6 days', TRUE),
-(6, 7, 10000.00, CURRENT_TIMESTAMP - INTERVAL '11 days', TRUE);
+(6, 7, 8000.00, CURRENT_TIMESTAMP - INTERVAL '11 days', TRUE);
 
 -- ==========================================
 -- 8. ИСТОРИЯ ПОКУПОК (Наш "отдел финансов")

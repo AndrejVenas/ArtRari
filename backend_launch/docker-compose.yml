@@ -1,7 +1,9 @@
 
 services:
   db:
-    image: postgres:15-alpine
+    #image: postgres:15-alpine
+    build:
+      context: ../sql
     container_name: artrari-db
     environment:
       POSTGRES_USER: postgres
