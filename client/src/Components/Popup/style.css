@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #00000050;
     position: fixed;
+    z-index: 1;
     top: 0;
     left: 0;
     display: none;
@@ -26,6 +27,9 @@
     display: flex;
     justify-content: space-between;
     padding: 50px;
+    position: sticky;
+    top: 0px;
+    background-color: #1B1B1B;
 }
 
 .popup__top-title {

@@ -1,0 +1,21 @@
+.form__search {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+
+.form__search > * {
+    background-color: #313131;
+    border-radius: 10px;
+    border: 1px solid #313131;
+}
+
+.form__search-input {
+    padding: 0px 30px;
+    color: #FFFFFF;
+    font-size: 20px;
+}
+
+.form__search-button {
+    cursor: pointer;
+}

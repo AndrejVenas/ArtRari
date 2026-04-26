@@ -10,6 +10,10 @@ const CreateExhibition = () => {
     const [workOpen, setWorkOpen] = useState(false);
     const [works, setWorks] = useState([])
 
+    const deleteWork = (work) => {
+        setWorkOpen(false);
+        setWorks(prevWork => prevWork.filter((item) => item.id != work.id))
+    }
     useEffect(() => {
         console.log(workOpen, works);
     }, [workOpen, works])
@@ -36,7 +40,7 @@ const CreateExhibition = () => {
                     <div className="form__block">
                         <label htmlFor="" className="form__block-label">Додавання робіт</label>
                         
-                        {workOpen ?
+                        {works.length > 0 ?
                         <table className="form__block-table table">
                             <thead>
                                 <tr>
@@ -51,10 +55,15 @@ const CreateExhibition = () => {
                                     <td className="table__tr-td">{item.title}</td>
                                     <td className="table__tr-td">{item.category}</td>
                                     <td className="table__tr-td">{item.price}</td>
-                                    <td className="table__tr-td"><img src={require('../../Images/close.svg').default} alt="закрити" /></td>
+                                    <td className="table__tr-td"><img src={require('../../Images/close.svg').default} alt="закрити" onClick={() => deleteWork(item)}/></td>
                                 </tr>
                             })}
                             </tbody>
+                            <tfoot>
+                                <tr className="table__trFooter">
+                                    <td colSpan="4" className="table__trFooter-td" onClick={() => setClose('open')}>Додати ще роботи <span className='table__trFooter-span'>+</span></td>
+                                </tr>
+                            </tfoot>
                         </table>
                         :
                         <label className="form__block-dropZone dropZone">
