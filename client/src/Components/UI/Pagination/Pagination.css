@@ -2,15 +2,13 @@
     margin-top: 40px;
     display: flex;
     justify-content: center;
-    gap: 10px;
+    align-items: center;
+    gap: 15px;
 }
 
 .pagination button {
-    background: #2a2a2a;
     border: none;
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 8px;
+    background-color: transparent;
     cursor: pointer;
 }
 
@@ -19,6 +17,29 @@
     cursor: default;
 }
 
-.pagination .active {
+.pagination-box{
+    background-color: #313131;
+    border-radius: 30px;
+    min-height: 50px;
+    min-width: 100px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Текущая страница */
+.pagination-current {
     background: #555;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 10px;
+    min-width: 50px;
+    min-height: 50px;
+    font-weight: 500;
+    border-radius: 50%;
 }

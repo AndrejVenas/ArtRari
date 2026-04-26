@@ -32,10 +32,10 @@ const filtersConfig = [
     },
 ];
 
-const AuctionsPage = () => {
+const AuctionPage = () => {
     return (
         <ItemsGrid
-            title="Аукціони"
+            title="Аукціон “Назва аукціону”"
             items={auctionsMock}
             filters={filtersConfig}
             renderCard={(item, index) => (
@@ -45,4 +45,4 @@ const AuctionsPage = () => {
     );
 };
 
-export default AuctionsPage;
+export default AuctionPage;

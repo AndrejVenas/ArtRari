@@ -1,5 +1,6 @@
 import React from "react";
 import "./Filter.css";
+import CustomSelect from "../CustomSelect/CustomSelect";
 
 const Filters = ({ filters, values, onChange }) => {
     return (
@@ -7,21 +8,12 @@ const Filters = ({ filters, values, onChange }) => {
             {filters.map((filter) => {
                 if (filter.type === "select") {
                     return (
-                        <select
+                        <CustomSelect
                             key={filter.name}
-                            value={values[filter.name] || ""}
-                            onChange={(e) =>
-                                onChange(filter.name, e.target.value)
-                            }
-                        >
-                            <option value="">{filter.label}</option>
-
-                            {filter.options.map((opt) => (
-                                <option key={opt} value={opt}>
-                                    {opt}
-                                </option>
-                            ))}
-                        </select>
+                            filter={filter}
+                            value={values[filter.name]}
+                            onChange={onChange}
+                        />
                     );
                 }
 

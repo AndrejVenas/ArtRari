@@ -6,6 +6,7 @@ import Registration from "./Pages/Registration/Registration";
 import WorkDownload from "./Pages/WorkDownload/WorkDownload";
 import Main from "./Pages/Main/Main";
 import AboutUs from "./Pages/AboutUs/About";
+import AuctionsTest from "./Pages/auctionTest/AuctionTest";
 
 export const route = [
     {
@@ -39,5 +40,9 @@ export const route = [
     {
         path: "/aboutUs",
         Element: AboutUs
-    }
+    },
+    {
+        path: "/auctionsTest",
+        Element: AuctionsTest
+    },
 ]
