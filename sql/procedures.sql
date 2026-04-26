@@ -1,6 +1,5 @@
 --Перевірка лотів по таймеру, якщо вони закінчилися - знайти переможця або поставити статус не продано
-CREATE OR REPLACE FUNCTION sp_process_finished_lots() RETURNS VOID AS 
-$$
+CREATE OR REPLACE FUNCTION sp_process_finished_lots () RETURNS VOID AS $$
 DECLARE
     v_lot RECORD;
     v_highest_bid RECORD;
@@ -29,11 +28,10 @@ BEGIN
         END;
     END LOOP;
 END;
-$$ LANGUAGE PLPGSQL;  
+$$ LANGUAGE PLPGSQL;
 
 --Прибирання неопланеченних після 3 днів вигранних лотів
-CREATE OR REPLACE FUNCTION fn_revoke_unpaid_purchase() RETURNS VOID AS
-$$
+CREATE OR REPLACE FUNCTION fn_revoke_unpaid_purchase () RETURNS VOID AS $$
 DECLARE
 v_record RECORD;
 BEGIN
@@ -55,12 +53,11 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 --Створення аукціону через конвертацію виставки у нього
-CREATE OR REPLACE PROCEDURE sp_convert_exhibition_to_auction(
-    p_exhibition_id INTEGER, 
-    p_auction_step NUMERIC, 
+CREATE OR REPLACE PROCEDURE sp_convert_exhibition_to_auction (
+    p_exhibition_id INTEGER,
+    p_auction_step NUMERIC,
     p_duration_days INTEGER
-)
-AS $$
+) AS $$
 DECLARE
     v_auction_id INTEGER;
     v_work RECORD;
@@ -85,4 +82,6 @@ EXCEPTION
         ROLLBACK;
         RAISE EXCEPTION 'Помилка при створенні аукціону: %', SQLERRM;
 END;
-$$; LANGUAGE plpgsql
+$$;
+
+LANGUAGE plpgsql

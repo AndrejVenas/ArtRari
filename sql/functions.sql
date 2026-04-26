@@ -1,5 +1,4 @@
 -- Functions
-
 CREATE OR REPLACE FUNCTION fn_validate_bid () RETURNS TRIGGER AS $$
 DECLARE
     v_auction_status auction_status;
@@ -32,12 +31,11 @@ CREATE TRIGGER trg_before_insert_bid BEFORE INSERT ON bid FOR EACH ROW
 EXECUTE FUNCTION fn_validate_bid ();
 
 --Анти-снайпер(продовження часу лоту якщо ставка зробелна за 10 хвилин до кінця)
-CREATE OR REPLACE FUNCTION fn_extend_auction_timer() RETURNS TRIGGER AS 
-$$
+CREATE OR REPLACE FUNCTION fn_extend_auction_timer () RETURNS TRIGGER AS $$
 BEGIN
     IF (SELECT end_date FROM lot WHERE id = NEW.lot_id) - CURRENT_TIMESTAMP < INTERVAL '10 minutes' THEN
     UPDATE lot
-    SET end_date = end_date + INTERVAL '10 minutes'
+    SET end_date = end_date + INTERVAL '10 minutes'P
     WHERE id = NEW.lot_id;
     END IF;
     RETURN NEW;
@@ -45,39 +43,11 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 CREATE TRIGGER trg_anti_snipper
-AFTER INSERT ON bid
-FOR EACH ROW
-EXECUTE FUNCTION fn_extend_auction_timer();
-
---Перевірка лотів по таймеру, якщо вони закінчилися - знайти переможця або поставити статус не продано
-CREATE OR REPLACE FUNCTION fn_process_finished_lots() RETURNS VOID AS 
-$$
-DECLARE
-    v_lot RECORD;
-    v_highest_bid RECORD;
-BEGIN
-    FOR v_lot IN 
-        SELECT id, work_id FROM lot WHERE status = 'avaible' AND end_date <= CURRENT_TIMESTAMP
-    LOOP
-        SELECT id, user_id, amount INTO v_highest_bid
-        FROM bid
-        WHERE lot_id = v_lot.id ORDER BY amount DESC LIMIT 1;
-
-        IF FOUND THEN
-            UPDATE bid SET is_win = TRUE WHERE id = v_highest_bid.id;
-            UPDATE lot SET status = 'sold' WHERE id = v_lot.id;
-            INSERT INTO purchase_history (user_id, lot_id, final_price, status) VALUES
-            (v_highest_bid.user_id, v_lot.id, v_highest_bid.amount, 'pending_payment');
-        ELSE
-            UPDATE lot SET status = 'not_sold' WHERE id = v_lot.id;
-        END IF;
-     END LOOP;
-END;
-$$ LANGUAGE PLPGSQL;  
+AFTER INSERT ON bid FOR EACH ROW
+EXECUTE FUNCTION fn_extend_auction_timer ();
 
 --Скасування лоту адміністратором
-CREATE OR REPLACE FUNCTION fn_cancel_lot(p_lot_id INTEGER) RETURNS VOID AS
-$$
+CREATE OR REPLACE FUNCTION fn_cancel_lot (p_lot_id INTEGER) RETURNS VOID AS $$
 BEGIN
     UPDATE lot SET status = 'cancelled' WHERE id = p_lot_id;
     UPDATE work
@@ -87,8 +57,7 @@ END;
 $$ LANGUAGE PLPGSQL;
 
 --Скасування ставки адміністратором
-CREATE OR REPLACE FUNCTION fn_cancel_bid(p_bid_id INTEGER) RETURNS VOID AS
-$$
+CREATE OR REPLACE FUNCTION fn_cancel_bid (p_bid_id INTEGER) RETURNS VOID AS $$
 DECLARE
 v_lot_id INTEGER;
 v_new_price NUMERIC(12, 2);
@@ -119,30 +88,13 @@ BEGIN
 END;
 $$ LANGUAGE PLPGSQL;
 
---Прибирання неопланеченних після 3 днів вигранних лотів
-CREATE OR REPLACE FUNCTION fn_revoke_unpaid_purchase() RETURNS VOID AS
-$$
-DECLARE
-v_record RECORD;
-BEGIN
-    FOR v_record IN
-        SELECT id, lot_id FROM purchase_history WHERE status = 'pending_payment' AND win_date + INTERVAL '3 days' <= CURRENT_TIMESTAMP
-    LOOP
-        UPDATE purchase_history SET status = 'cancelled' WHERE id = v_record.id;
-        UPDATE lot SET status = 'cancelled' WHERE id = v_record.lot_id;
-        UPDATE work w SET status = 'available' FROM lot l WHERE l.work_id = w.id AND l.id = v_record.lot_id;
-    END LOOP;
-END;
-$$ LANGUAGE PLPGSQL;
-
 --Бан юзера
-CREATE OR REPLACE FUNCTION fn_ban_user(p_user_id INTEGER) RETURNS VOID AS
-$$
+CREATE OR REPLACE FUNCTION fn_ban_user (p_user_id INTEGER) RETURNS VOID AS $$
 DECLARE
 v_record RECORD;
 BEGIN
     UPDATE users SET is_banned = TRUE WHERE id = p_user_id;
-    REMOVE FROM bid b USING lot l WHERE b.user_id = p_user_id AND l.id = b.lot_id AND l.status = 'available' AND l.end_date > CURRENT_TIMESTAMP;
+    DELETE FROM bid b USING lot l WHERE b.user_id = p_user_id AND l.id = b.lot_id AND l.status = 'available' AND l.end_date > CURRENT_TIMESTAMP;
 
     SELECT id, lot_id INTO v_record FROM purchase_history WHERE user_id = p_user_id;
     UPDATE purchase_history SET status = 'cancelled' WHERE id = v_record.id AND status = 'pending_payment';
@@ -150,4 +102,3 @@ BEGIN
     UPDATE work w SET status = 'available' FROM lot l WHERE l.work_id = w.id AND l.id = v_record.lot_id;
 END;
 $$ LANGUAGE PLPGSQL;
-
