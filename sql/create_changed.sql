@@ -6,7 +6,7 @@ CREATE TYPE auction_status AS ENUM('scheduled', 'active', 'finished');
 
 CREATE TYPE work_status AS ENUM('available', 'in_auction', 'sold');
 
-CREATE TYPE lot_status AS ENUM('available', 'sold', 'cancelled');
+CREATE TYPE lot_status AS ENUM('available', 'sold', 'not_sold', 'cancelled');
 
 CREATE TYPE purchase_status AS ENUM(
   'pending_payment',
