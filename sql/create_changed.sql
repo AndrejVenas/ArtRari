@@ -1,5 +1,5 @@
--- Active: 1777196301053@@127.0.0.1@5432@artrari@public
--- Active: 1777196301053@@127.0.0.1@5432@postgres@public
+--DROP SCHEMA public CASCADE;
+--CREATE SCHEMA public;
 CREATE EXTENSION IF NOT EXISTS pg_cron;
 
 CREATE DATABASE artrari;

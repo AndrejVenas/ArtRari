@@ -35,7 +35,7 @@ CREATE OR REPLACE FUNCTION fn_extend_auction_timer () RETURNS TRIGGER AS $$
 BEGIN
     IF (SELECT end_date FROM lot WHERE id = NEW.lot_id) - CURRENT_TIMESTAMP < INTERVAL '10 minutes' THEN
     UPDATE lot
-    SET end_date = end_date + INTERVAL '10 minutes'P
+    SET end_date = end_date + INTERVAL '10 minutes'
     WHERE id = NEW.lot_id;
     END IF;
     RETURN NEW;
@@ -50,9 +50,10 @@ EXECUTE FUNCTION fn_extend_auction_timer ();
 CREATE OR REPLACE FUNCTION fn_cancel_lot (p_lot_id INTEGER) RETURNS VOID AS $$
 BEGIN
     UPDATE lot SET status = 'cancelled' WHERE id = p_lot_id;
-    UPDATE work
-    SET status = 'avaible'
-    WHERE id = lot.work_id;
+    UPDATE work w
+    SET status = 'available'
+    FROM lot l
+    WHERE w.id = l.work_id AND l.id = p_lot_id;
 END;
 $$ LANGUAGE PLPGSQL;
 
@@ -76,7 +77,7 @@ BEGIN
         SET current_price = v_new_price
         WHERE id = v_lot_id;
     ELSE
-        SELECT w.current_price INTO v_new_price
+        SELECT w.start_price INTO v_new_price
         FROM lot l
         JOIN work w ON l.work_id = w.id
         WHERE l.id = v_lot_id;
@@ -93,12 +94,31 @@ CREATE OR REPLACE FUNCTION fn_ban_user (p_user_id INTEGER) RETURNS VOID AS $$
 DECLARE
 v_record RECORD;
 BEGIN
-    UPDATE users SET is_banned = TRUE WHERE id = p_user_id;
-    DELETE FROM bid b USING lot l WHERE b.user_id = p_user_id AND l.id = b.lot_id AND l.status = 'available' AND l.end_date > CURRENT_TIMESTAMP;
+    UPDATE users 
+    SET is_banned = TRUE 
+    WHERE id = p_user_id;
+    
+    DELETE FROM bid b 
+    USING lot l 
+    WHERE b.user_id = p_user_id AND l.id = b.lot_id AND l.status = 'available' AND l.end_date > CURRENT_TIMESTAMP;
 
-    SELECT id, lot_id INTO v_record FROM purchase_history WHERE user_id = p_user_id;
-    UPDATE purchase_history SET status = 'cancelled' WHERE id = v_record.id AND status = 'pending_payment';
-    UPDATE lot SET status = 'cancelled' WHERE id = v_record.lot_id;
-    UPDATE work w SET status = 'available' FROM lot l WHERE l.work_id = w.id AND l.id = v_record.lot_id;
+    FOR v_record IN
+        SELECT id, lot_id 
+        FROM purchase_history 
+        WHERE status = 'pending_payment' AND user_id = p_user_id
+    LOOP
+        UPDATE purchase_history 
+        SET status = 'cancelled' 
+        WHERE id = v_record.id;
+
+        UPDATE lot 
+        SET status = 'cancelled' 
+        WHERE id = v_record.lot_id;
+
+        UPDATE work w 
+        SET status = 'available' 
+        FROM lot l 
+        WHERE l.work_id = w.id AND l.id = v_record.lot_id;
+    END LOOP;
 END;
 $$ LANGUAGE PLPGSQL;

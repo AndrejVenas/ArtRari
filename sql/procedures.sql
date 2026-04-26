@@ -1,11 +1,11 @@
 --Перевірка лотів по таймеру, якщо вони закінчилися - знайти переможця або поставити статус не продано
-CREATE OR REPLACE FUNCTION sp_process_finished_lots () RETURNS VOID AS $$
+CREATE OR REPLACE PROCEDURE sp_process_finished_lots () AS $$
 DECLARE
     v_lot RECORD;
     v_highest_bid RECORD;
 BEGIN
     FOR v_lot IN 
-        SELECT id, work_id FROM lot WHERE status = 'avaible' AND end_date <= CURRENT_TIMESTAMP
+        SELECT id, work_id FROM lot WHERE status = 'available' AND end_date <= CURRENT_TIMESTAMP
     LOOP
         BEGIN
             SELECT id, user_id, amount INTO v_highest_bid
@@ -20,18 +20,20 @@ BEGIN
             ELSE
                 UPDATE lot SET status = 'not_sold' WHERE id = v_lot.id;
             END IF;
-            COMMIT;
-        EXCEPTION
-            WHEN OTHERS THEN
-                ROLLBACK;
-                RAISE NOTICE 'Помилка закриття лота %: %', v_lot.id, SQLERRM;
+            EXCEPTION
+                WHEN OTHERS THEN
+                    ROLLBACK;
+                    RAISE NOTICE 'Помилка закриття лота %: %', v_lot.id, SQLERRM;
         END;
+        COMMIT;
     END LOOP;
 END;
 $$ LANGUAGE PLPGSQL;
 
+SELECT cron.schedule('Close Finished Lots', '* * * * *', 'CALL sp_process_finished_lots();');
+
 --Прибирання неопланеченних після 3 днів вигранних лотів
-CREATE OR REPLACE FUNCTION fn_revoke_unpaid_purchase () RETURNS VOID AS $$
+CREATE OR REPLACE PROCEDURE sp_revoke_unpaid_purchases () AS $$
 DECLARE
 v_record RECORD;
 BEGIN
@@ -42,15 +44,17 @@ BEGIN
             UPDATE purchase_history SET status = 'cancelled' WHERE id = v_record.id;
             UPDATE lot SET status = 'cancelled' WHERE id = v_record.lot_id;
             UPDATE work w SET status = 'available' FROM lot l WHERE l.work_id = w.id AND l.id = v_record.lot_id;
-            COMMIT;
         EXCEPTION
             WHEN OTHERS THEN
                 ROLLBACK;
                 RAISE NOTICE 'Помилка скасування лота %: %', v_record.lot_id, SQLERRM;
         END;
+        COMMIT;
     END LOOP;
 END;
 $$ LANGUAGE PLPGSQL;
+
+SELECT cron.schedule('Revoke Unpaid Purchases', '0 3 * * *', 'CALL sp_revoke_unpaid_purchase();');
 
 --Створення аукціону через конвертацію виставки у нього
 CREATE OR REPLACE PROCEDURE sp_convert_exhibition_to_auction (
@@ -76,12 +80,10 @@ BEGIN
         
         UPDATE work SET status = 'in_auction' WHERE id = v_work.id;
     END LOOP;
-    COMMIT;
 EXCEPTION
     WHEN OTHERS THEN
         ROLLBACK;
         RAISE EXCEPTION 'Помилка при створенні аукціону: %', SQLERRM;
+    COMMIT;
 END;
-$$;
-
-LANGUAGE plpgsql
+$$ LANGUAGE plpgsql;
