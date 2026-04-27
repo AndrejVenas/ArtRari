@@ -1,3 +1,4 @@
+--Select for update
 -- Functions
 CREATE OR REPLACE FUNCTION fn_validate_bid () RETURNS TRIGGER AS $$
 DECLARE
@@ -122,3 +123,30 @@ BEGIN
     END LOOP;
 END;
 $$ LANGUAGE PLPGSQL;
+
+--Створення аукціону через конвертацію виставки у нього
+CREATE OR REPLACE FUNCTION fn_convert_exhibition_to_auction (
+    p_exhibition_id INTEGER,
+    p_auction_step NUMERIC,
+    p_duration_days INTEGER
+) RETURNS VOID AS $$
+DECLARE
+    v_auction_id INTEGER;
+    v_work RECORD;
+BEGIN
+    INSERT INTO auction (exhibition_id, start_date, auction_step, status, end_date)
+    VALUES (p_exhibition_id, CURRENT_TIMESTAMP, p_auction_step, 'active', CURRENT_TIMESTAMP + (p_duration_days || ' days')::INTERVAL)
+    RETURNING id INTO v_auction_id;
+
+    UPDATE exhibition SET status = 'converted_in_auction' WHERE id = p_exhibition_id;
+
+    FOR v_work IN 
+        SELECT id, start_price FROM work WHERE exhibition_id = p_exhibition_id AND status = 'available'
+    LOOP
+        INSERT INTO lot (work_id, auction_id, current_price, end_date, status)
+        VALUES (v_work.id, v_auction_id, v_work.start_price, CURRENT_TIMESTAMP + (p_duration_days || ' days')::INTERVAL, 'available');
+        
+        UPDATE work SET status = 'in_auction' WHERE id = v_work.id;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
