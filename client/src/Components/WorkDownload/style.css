@@ -1,0 +1,26 @@
+.workDownloadComponent {
+    margin: 150px 0px 75px 0px;
+}
+
+.formInputs {
+    display: flex;
+    gap: 50px;
+    margin-top: 25px;
+}
+
+.formInputs__inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.formInputs__inputs-block {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+}
+
+.input-group {
+    width: 100%;
+}

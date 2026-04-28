@@ -1,8 +1,11 @@
 import React from 'react'
+import WorkDownloadComponent from '../../Components/WorkDownload/WorkDownloadComponent'
 
 const WorkDownload = () => {
   return (
-    <div>WorkDownload</div>
+    <>
+      <WorkDownloadComponent />
+    </>
   )
 }
 

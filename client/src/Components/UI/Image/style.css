@@ -1,0 +1,29 @@
+.imageDownload {
+    flex: 1 0 50%;
+    background-color: #313131;
+    border-radius: 10px;
+}
+
+.imageDownload__input {
+    display: none;
+}
+
+.imageDownload__block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 168px 0px;
+}
+.imageDownload__block-image {
+    width: 176px;
+    height: 176px;
+    cursor: pointer;
+}
+
+.text {
+    margin-top: 20px;
+}
+.text__bold {
+    font-weight: bold;
+}
