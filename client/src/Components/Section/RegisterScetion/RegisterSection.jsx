@@ -4,6 +4,9 @@ import Title from "../../UI/title/Title";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import CodeInput from "../../UI/CodeInput/CodeInput";
+import { signup } from "../../../Actions/authAction";
+import { useDispatch } from "react-redux";
+import {useNavigate} from 'react-router-dom'
 
 const stepAssets = {
     1: "/images/register-step1.png",
@@ -13,15 +16,17 @@ const stepAssets = {
 
 const Register = () => {
     const [step, setStep] = useState(1);
-
+    const dispatch = useDispatch();
     const [form, setForm] = useState({
-        name: "",
-        surname: "",
+        firstName: "",
+        lastName: "",
         email: "",
+        phone: "",
         password: "",
-        code: "",
+        //code: "",
     });
 
+    const navigate = useNavigate()
     const handleChange = (e) => {
         setForm({
             ...form,
@@ -32,7 +37,7 @@ const Register = () => {
     const setCode = (val) => {
         setForm((prev) => ({
             ...prev,
-            code: val,
+            //code: val,
         }));
     };
 
@@ -54,6 +59,13 @@ const Register = () => {
         }
     };
 
+    const clickRegistration = () => {
+        if(step == 3) {
+            if(dispatch(signup(form))) {
+                navigate("/login")
+            }
+        }
+    }
     return (
         <section className="register">
             <div className="container register-container">
@@ -75,16 +87,16 @@ const Register = () => {
 
                                 <Input
                                     label="Ім'я"
-                                    name="name"
-                                    value={form.name}
+                                    name="firstName"
+                                    value={form.firstName}
                                     onChange={handleChange}
                                     placeholder="Іван"
                                 />
 
                                 <Input
                                     label="Прізвище"
-                                    name="surname"
-                                    value={form.surname}
+                                    name="lastName"
+                                    value={form.lastName}
                                     onChange={handleChange}
                                     placeholder="Іванов"
                                 />
@@ -117,6 +129,15 @@ const Register = () => {
                                 />
 
                                 <Input
+                                    label="Номер телефону"
+                                    name="phone"
+                                    type="phone"
+                                    value={form.phone}
+                                    onChange={handleChange}
+                                    placeholder="+380671234678"
+                                />
+
+                                <Input
                                     label="Пароль"
                                     name="password"
                                     type="password"
@@ -146,7 +167,7 @@ const Register = () => {
 
                                 <CodeInput
                                     length={6}
-                                    value={form.code}
+                                    value={0}
                                     onChange={setCode}
                                 />
 
@@ -168,7 +189,7 @@ const Register = () => {
                                 </Button>
                             )}
 
-                            <Button type="submit">
+                            <Button type="submit" onClick={clickRegistration}>
                                 {step === 3 ? "Зареєструватись" : "Далі"}
                             </Button>
 

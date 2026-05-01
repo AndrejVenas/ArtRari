@@ -1,19 +1,21 @@
+import { ABOUT_US, AUCTIONS, EXHIBITIONS, MAIN } from "../constants"
+
 export const arrayMenu = [
     {
         title: 'Головна',
-        link: ''
+        link: MAIN
     },
     {
         title: 'Про нас',
-        link: 'aboutUs'
+        link: ABOUT_US
     },
     {
         title: 'Аукціони',
-        link: 'auctions'
+        link: AUCTIONS
     },
     {
         title: 'Виставки',
-        link: 'exhibitions'
+        link: EXHIBITIONS
     },
 ]
 

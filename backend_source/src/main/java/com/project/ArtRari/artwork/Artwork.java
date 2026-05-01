@@ -2,9 +2,10 @@ package com.project.ArtRari.artwork;
 
 import com.project.ArtRari.exhibition.Exhibition;
 import com.project.ArtRari.artwork.tag.Tag;
+import com.project.ArtRari.lot.Lot;
 import com.project.ArtRari.user.User;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -13,9 +14,10 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "work")
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 public class Artwork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,6 +55,9 @@ public class Artwork {
 
     @Column(name = "start_price")
     private BigDecimal startPrice;
+
+    @OneToMany(mappedBy = "artwork", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Lot> lots;
 
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)

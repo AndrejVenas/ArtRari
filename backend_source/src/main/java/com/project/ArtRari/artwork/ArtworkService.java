@@ -1,10 +1,15 @@
 package com.project.ArtRari.artwork;
 
 import com.project.ArtRari.artwork.dto.ArtworkCreateRequest;
+import com.project.ArtRari.artwork.dto.ArtworkPreviewResponse;
 import com.project.ArtRari.artwork.dto.ArtworkResponse;
 import com.project.ArtRari.artwork.dto.ArtworkUpdateRequest;
 import com.project.ArtRari.artwork.tag.Tag;
 import com.project.ArtRari.artwork.tag.TagRepository;
+import com.project.ArtRari.bid.BidRepository;
+import com.project.ArtRari.exception.ArtrariException;
+import com.project.ArtRari.lot.LotRepository;
+import com.project.ArtRari.lot.LotStatus;
 import com.project.ArtRari.security.UserDetailsImpl;
 import com.project.ArtRari.user.User;
 import com.project.ArtRari.user.UserRepository;
@@ -25,12 +30,18 @@ public class ArtworkService {
     private final ArtworkMapper artworkMapper;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
+    private final LotRepository lotRepository;
 
     public ArtworkResponse getById(Long id) {
         Artwork artwork = artworkRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
         return artworkMapper.toArtworkResponse(artwork);
+    }
+
+    public List<ArtworkPreviewResponse> getAvailableArtworks() {
+        List<Artwork> artworks = artworkRepository.findByStatus(WorkStatus.available);
+        return artworks.stream().map(a -> artworkMapper.toArtworkPreviewResponse(a)).collect(Collectors.toList());
     }
 
     @Transactional
@@ -60,6 +71,9 @@ public class ArtworkService {
         if (!udi.getId().equals(artwork.getUser().getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         }
+        if (lotRepository.existsByArtworkIdAndStatusNot(artwork.getId(), LotStatus.unsold)) {
+            throw new ArtrariException(HttpStatus.CONFLICT, "Ви не можете редагувати роботу, якщо вона на аукціоні");
+        }
         artwork.setTitle(artworkUpdateRequest.newTitle());
         artwork.setAuthor(artworkUpdateRequest.newAuthor());
         artwork.setDescription(artworkUpdateRequest.newDescription());
@@ -80,6 +94,9 @@ public class ArtworkService {
         UserDetailsImpl udi = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (!udi.getId().equals(artwork.getUser().getId())) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        }
+        if (lotRepository.existsByArtworkIdAndStatusNot(artwork.getId(), LotStatus.unsold)) {
+            throw new ArtrariException(HttpStatus.CONFLICT, "Ви не можете видалити роботу, якщо вона на аукціоні");
         }
         artworkRepository.delete(artwork);
     }
