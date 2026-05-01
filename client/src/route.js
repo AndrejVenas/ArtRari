@@ -7,42 +7,70 @@ import WorkDownload from "./Pages/WorkDownload/WorkDownload";
 import Main from "./Pages/Main/Main";
 import AboutUs from "./Pages/AboutUs/About";
 import AuctionsTest from "./Pages/auctionTest/AuctionTest";
+import { ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD } from "./constants";
 
-export const route = [
+export const authRoute = [
     {
-        path: "/exhibitions",
+        path: EXHIBITIONS,
         Element: Exhibitions
     },
     {
-        path: "/auctions",
+        path: AUCTIONS,
         Element: Auctions
     },
     {
-        path: "/login",
+        path: LOGIN,
         Element: Login
     },
     {
-        path: "/registration",
+        path: REGISTRATION,
         Element: Registration
     },
     {
-        path: "/createExhibition",
+        path: CREATE_EXHIBITION,
         Element: CreateExhibition
     },
     {
-        path: "/WorkDownload",
+        path: WORK_UPLOAD,
         Element: WorkDownload
     },
     {
-        path: "/",
+        path: MAIN,
         Element: Main
     },
     {
-        path: "/aboutUs",
+        path: ABOUT_US,
         Element: AboutUs
     },
     {
-        path: "/auctionsTest",
+        path: AUCTION_TEST,
         Element: AuctionsTest
+    },
+]
+
+export const publicRoute = [
+    {
+        path: MAIN,
+        Element: Main
+    },
+    {
+        path: ABOUT_US,
+        Element: AboutUs
+    },
+    {
+        path: EXHIBITIONS,
+        Element: Exhibitions
+    },
+    {
+        path: AUCTIONS,
+        Element: Auctions
+    },
+    {
+        path: LOGIN,
+        Element: Login
+    },
+    {
+        path: REGISTRATION,
+        Element: Registration
     },
 ]

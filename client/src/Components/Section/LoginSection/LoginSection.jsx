@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./LoginSection.css";
 import Title from "../../UI/title/Title";
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
-
+import { useSelector, useDispatch } from "react-redux";
+import { signin } from "../../../Actions/authAction";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
     const [form, setForm] = useState({
         email: "",
@@ -15,6 +17,9 @@ const Login = () => {
         password: false,
     });
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const {isAuth} = useSelector(state => state.Auth)
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -51,6 +56,15 @@ const Login = () => {
         }
     };
 
+    const login = () => {
+        dispatch(signin(form))
+    }
+
+    useEffect(() => {
+        if(isAuth) {
+            navigate("/exhibitions")
+        }
+    }, [isAuth])
     return (
         <section className="login">
             <div className="container login-container">
@@ -87,7 +101,7 @@ const Login = () => {
                             </a>
                         </p>
 
-                        <Button type="submit">
+                        <Button type="submit" onClick={login}>
                             Увійти
                         </Button>
                     </form>
