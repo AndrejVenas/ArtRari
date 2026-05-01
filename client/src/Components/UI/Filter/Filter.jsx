@@ -1,11 +1,13 @@
 import React from "react";
 import "./Filter.css";
 import CustomSelect from "../CustomSelect/CustomSelect";
+import DateRangeFilter from "../DataRangeFilter/DateRangeFilter";
 
 const Filters = ({ filters, values, onChange }) => {
     return (
         <div className="filters">
             {filters.map((filter) => {
+                // SELECT
                 if (filter.type === "select") {
                     return (
                         <CustomSelect
@@ -17,6 +19,19 @@ const Filters = ({ filters, values, onChange }) => {
                     );
                 }
 
+                // DATE RANGE (новое)
+                if (filter.type === "dateRange") {
+                    return (
+                        <DateRangeFilter
+                            key={filter.name}
+                            filter={filter}
+                            value={values[filter.name]}
+                            onChange={onChange}
+                        />
+                    );
+                }
+
+                // BUTTON
                 if (filter.type === "button") {
                     return (
                         <button

@@ -1,0 +1,36 @@
+.date-range-filter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.data-range-box{
+    background: #2a2a2a;
+    border-radius: 20px;
+    padding: 8px 12px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.date-range-filter input {
+    background: transparent;
+    border: none;
+    color: #fff;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.date-range-filter label {
+    margin-right: 5px;
+}
+
+.date-range-filter input::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+.separator {
+    color: #aaa;
+}

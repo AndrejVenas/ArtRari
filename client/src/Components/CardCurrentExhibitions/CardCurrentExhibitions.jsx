@@ -2,7 +2,7 @@ import "./CardCurrentExhibitions.css";
 
 function CardCurrentExhibitions({ title, theme, image, date, imageDescription, link }) {
     return (
-        <div className="exhibition-card">
+        <div className="exhibition-card-current">
             <a href={link}>
                 <div className="exhibition-image">
                     <img src={image} alt={imageDescription}/>

@@ -1,8 +1,9 @@
 import React from 'react'
+import ExhibitionsPage from "../../Components/Section/ExhibitionsSection/ExhibitionsPage";
 
 const Exhibitions = () => {
   return (
-    <div>Exhibitions</div>
+    <ExhibitionsPage/>
   )
 }
 

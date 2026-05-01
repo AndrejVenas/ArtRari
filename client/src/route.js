@@ -7,6 +7,7 @@ import WorkDownload from "./Pages/WorkDownload/WorkDownload";
 import Main from "./Pages/Main/Main";
 import AboutUs from "./Pages/AboutUs/About";
 import AuctionsTest from "./Pages/auctionTest/AuctionTest";
+import lot from "./Pages/Lot/Lot";
 
 export const route = [
     {
@@ -44,5 +45,9 @@ export const route = [
     {
         path: "/auctionsTest",
         Element: AuctionsTest
+    },
+    {
+        path: "/lot",
+        Element: lot
     },
 ]

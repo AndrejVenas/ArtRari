@@ -1,4 +1,4 @@
-.exhibition-card {
+.exhibition-card-current {
     background: #313131;
     border-radius: 30px;
     overflow: hidden;
@@ -9,7 +9,7 @@
     position: relative;
 }
 
-.exhibition-card:hover .overlay{
+.exhibition-card-current:hover .overlay{
     opacity: 1;
 }
 
@@ -45,7 +45,7 @@ p {
     margin-bottom: 5px;
 }
 
-.exhibition-card h4 {
+.exhibition-card-current h4 {
     margin: 0 30px 30px;
     font-weight: 700;
 }
