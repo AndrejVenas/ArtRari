@@ -7,7 +7,8 @@ import WorkDownload from "./Pages/WorkDownload/WorkDownload";
 import Main from "./Pages/Main/Main";
 import AboutUs from "./Pages/AboutUs/About";
 import AuctionsTest from "./Pages/auctionTest/AuctionTest";
-import { ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD } from "./constants";
+import lot from "./Pages/Lot/Lot";
+import { ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT } from "./constants";
 
 export const authRoute = [
     {
@@ -47,7 +48,7 @@ export const authRoute = [
         Element: AuctionsTest
     },
     {
-        path: "/lot",
+        path: LOT,
         Element: lot
     },
 ]
