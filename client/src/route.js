@@ -44,11 +44,11 @@ export const authRoute = [
         Element: AboutUs
     },
     {
-        path: AUCTION_TEST,
+        path: AUCTIONS + '/:title' + '/:id',
         Element: AuctionsTest
     },
     {
-        path: LOT,
+        path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot',
         Element: lot
     },
 ]

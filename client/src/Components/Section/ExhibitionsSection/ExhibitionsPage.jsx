@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ItemsGrid from "../../ItemsGrid/ItemsGrid";
 import ExhibitionCard from "../../ExhibitionCard/ExhibitionCard";
+import { useDispatch, useSelector } from "react-redux";
+import { exhibitionAction } from "../../../Actions/exhibitionAction";
 
 const exhibitionsMock = Array.from({ length: 12 }, () => ({
     title: "Світло і тінь",
@@ -24,10 +26,15 @@ const filtersConfig = [
 ];
 
 const ExhibitionsPage = () => {
+    const dispatch = useDispatch()
+    useEffect(() => {
+        dispatch(exhibitionAction())
+    }, [])
+    const {exhibitionPreviews} = useSelector(state => state.Exhibitions)
     return (
         <ItemsGrid
             title="Виставки"
-            items={exhibitionsMock}
+            items={exhibitionPreviews}
             filters={filtersConfig}
             renderCard={(item, index) => (
                 <ExhibitionCard key={index} item={item} />

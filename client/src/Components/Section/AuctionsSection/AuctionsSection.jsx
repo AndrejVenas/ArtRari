@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ItemsGrid from "../../ItemsGrid/ItemsGrid";
 import AuctionCard from "../../AuctionCard/AuctionCard";
+import { useDispatch, useSelector } from "react-redux";
+import { auctionAction } from "../../../Actions/auctionAction";
+import { AUCTIONS } from "../../../constants";
+import { useNavigate } from "react-router-dom";
 
 
 const auctionsMock = Array(12).fill({
@@ -33,13 +37,19 @@ const filtersConfig = [
 ];
 
 const AuctionsPage = () => {
+    const dispatch = useDispatch()
+    const {auctionPreviews} = useSelector(state => state.Auction)
+    useEffect(() => {
+        dispatch(auctionAction())
+    }, [])
+    const navigate = useNavigate()
     return (
         <ItemsGrid
             title="Аукціони"
-            items={auctionsMock}
+            items={auctionPreviews}
             filters={filtersConfig}
             renderCard={(item, index) => (
-                <AuctionCard key={index} item={item} />
+                <AuctionCard key={index} item={item} onClick={() => navigate(AUCTIONS + "/" + item.title + "/" + item.id)}/>
             )}
         />
     );

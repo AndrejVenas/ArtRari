@@ -9,9 +9,6 @@ const Menu = () => {
   const location = useLocation()
   const firstMenu = arrayMenu.slice(0, 2);
   const secondMenu = arrayMenu.slice(2, 4)
-  useEffect(() => {
-    console.log(location.pathname)
-  }, [location])
   return (
     <div className='menu__container'>
       <nav className="menu__navigation">

@@ -27,13 +27,13 @@ const CustomSelect = ({ filter, value, onChange }) => {
                 <span>{value || filter.label}</span>
 
                 <span className={`arrow ${open ? "open" : ""}`}>
-                    <img src="images/icons/angle-down.svg" alt="arrow down on select button"/>
+                    <img src={require("../../../Images/angle-down-45.svg").default} alt="arrow down on select button"/>
                 </span>
             </div>
 
             {open && (
                 <div className="select-dropdown">
-                    {filter.options.map((opt) => (
+                    {filter.options?.map((opt) => (
                         <div
                             key={opt}
                             className={`select-item ${

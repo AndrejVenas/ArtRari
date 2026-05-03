@@ -1,8 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./LotSection.css";
 import Title from "../../UI/title/Title";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const AuctionPage = () => {
+    const [lot, setLot] = useState({})
+    const [bids, setBids] = useState([])
+    const {title, id, idOfLot} = useParams()
+
+    const getLot = async (id) => {
+        const response = await axios.get(`http://localhost:8080/lots/${id}`)
+        setLot(response.data)
+    }
+
+    const getBid = async (id) => {
+        const response = await axios.get(`http://localhost:8080/lots/${id}/bids`)
+        setBids(response.data)
+    }
+    
+    useEffect(() => {
+        getLot(idOfLot)
+        getBid(idOfLot)
+    }, [idOfLot])
+    const navigate = useNavigate()
+    const calculateDate = (endDate) => {
+        const now = Date.now()
+        const end = new Date(endDate)
+
+        const day = Math.floor((end - now) / (1000 * 60 * 60 * 24))
+        const hour = Math.floor((end - now) % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
+        return `${day} днів ${hour} години`
+    }
     return (
         <section className="auction-page">
             <div className="container">
@@ -11,8 +40,8 @@ const AuctionPage = () => {
                     {/* Левая колонка */}
                     <div className="auction-image">
                         <img
-                            src="/images/lot.jpg"
-                            alt="Тиша, що пам’ятає світло"
+                            src={lot.artwork?.photoUrl}
+                            alt={lot.artwork?.title}
                         />
                     </div>
 
@@ -24,23 +53,23 @@ const AuctionPage = () => {
                                 <tbody>
                                 <tr>
                                     <td>Залишилось часу:</td>
-                                    <td>1 день 8 годин</td>
+                                    <td>{calculateDate(lot.endDate)}</td>
                                 </tr>
                                 <tr>
                                     <td>Стартова ціна:</td>
-                                    <td>$500</td>
+                                    <td>${lot.currentPrice}</td>
                                 </tr>
                                 <tr>
                                     <td>Поточна ставка:</td>
-                                    <td>$545</td>
+                                    <td>${bids[0]?.amount}</td>
                                 </tr>
                                 <tr>
                                     <td>Автор ставки:</td>
-                                    <td>Іван П.</td>
+                                    <td>{bids[0]?.user}</td>
                                 </tr>
                                 <tr>
                                     <td>Назва роботи:</td>
-                                    <td>Тиша, що пам’ятає світло</td>
+                                    <td>{lot.artwork?.title}</td>
                                 </tr>
                                 <tr>
                                     <td>Комісія:</td>
@@ -74,15 +103,11 @@ const AuctionPage = () => {
                     </div>
 
                     <div className="auction-description">
-                        <Title title={"Тиша, що пам’ятає світло"}/>
+                        <Title title={lot.artwork?.title}/>
 
                         <div className="desc-grid">
                             <p>
-                                Цей витвір мистецтва — тонка розмова між світлом
-                                і спогадами, зафіксована у шарі часу. Полотно
-                                ніби дихає спокоєм: м’які переходи кольорів
-                                створюють відчуття ранкового туману, в якому
-                                губляться силуети минулого.
+                                {lot.artwork?.description}
                             </p>
 
                             <p>
@@ -95,8 +120,9 @@ const AuctionPage = () => {
                         </div>
 
                         <div className="tags">
-                            <span>Тип: Живопис</span>
-                            <span>Країна: Італія</span>
+                            {lot.artwork?.tags.map((item) => {
+                                return <span>{item}</span>
+                            })}
                         </div>
                     </div>
 

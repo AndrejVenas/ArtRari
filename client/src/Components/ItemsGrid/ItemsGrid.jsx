@@ -34,7 +34,7 @@ const ItemsGrid = ({
                 />
 
                 <div className="items-grid">
-                    {items.map((item, index) =>
+                    {items?.map((item, index) =>
                         renderCard(item, index)
                     )}
                 </div>
