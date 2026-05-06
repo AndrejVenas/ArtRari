@@ -1,6 +1,8 @@
 .input-group {
+    width: 100%;
 }
 
+/* label */
 .input-label {
     font-size: 20px;
     font-weight: 300;
@@ -10,29 +12,48 @@
     margin-bottom: 5px;
 }
 
-form input.input-field {
+/* input base */
+.input-field {
     display: block;
     padding: 15px 25px;
     border-radius: 25px;
-    border: 1px solid transparent; /* важно */
+
+    /* 🔥 фиксируем border всегда (ВАЖНО) */
+    border: 1px solid #313131;
+
     outline: none;
     background-color: #313131;
     color: #fff;
+
     width: 100%;
     min-height: 50px;
+
     font-size: 20px;
-    transition: border 0.2s ease;
+
+    /* плавность */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
 }
 
+/* placeholder */
 .input-field::placeholder {
     font-size: 20px;
+    color: #888;
 }
 
-/* фокус */
+/* focus */
 .input-field:focus {
-    border: 1px solid #666;
+    border-color: #666;
+    box-shadow: 0 0 0 3px rgba(214, 179, 122, 0.15);
 }
 
-form input.input-field.input-error {
-    border: 1px solid #ff3b3b;
+/* error */
+.input-field.input-error {
+    border-color: #ff3b3b;
+}
+
+/* readonly (визуально) */
+.input-field[readonly] {
+    opacity: 0.85;
+    cursor: default;
 }

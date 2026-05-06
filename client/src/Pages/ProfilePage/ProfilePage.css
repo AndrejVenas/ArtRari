@@ -1,0 +1,61 @@
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+/* левая часть */
+.profile-left input {
+    background: #1b1b1b;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    color: #fff;
+    width: 100%;
+}
+
+.profile-field {
+    margin-bottom: 20px;
+}
+
+.field-row {
+    display: flex;
+    gap: 10px;
+}
+
+.field-row button {
+    background: #2a2a2a;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    color: #fff;
+    cursor: pointer;
+}
+
+/* правая часть */
+.stats-box {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.stats-box table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-box tr:nth-child(odd) {
+    background: #313131;
+}
+
+.stats-box tr:nth-child(even) {
+    background: #1b1b1b;
+}
+
+.stats-box td {
+    padding: 14px 18px;
+}
+
+.stats-box td:last-child {
+    text-align: right;
+    font-weight: bold;
+}

@@ -10,6 +10,7 @@ const Input = ({
                    onChange,
                    placeholder,
                    error = false,
+                   ...rest
                }) => {
     return (
         <div className="input-group">
@@ -27,6 +28,7 @@ const Input = ({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
+                {...rest}
             />
         </div>
     );

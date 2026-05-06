@@ -8,7 +8,12 @@ import Main from "./Pages/Main/Main";
 import AboutUs from "./Pages/AboutUs/About";
 import AuctionsTest from "./Pages/auctionTest/AuctionTest";
 import lot from "./Pages/Lot/Lot";
-import { ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT } from "./constants";
+import profilePage from "./Pages/ProfilePage/ProfilePage";
+
+import {
+    ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
+    PROFILE
+} from "./constants";
 
 export const authRoute = [
     {
@@ -50,6 +55,10 @@ export const authRoute = [
     {
         path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot',
         Element: lot
+    },
+    {
+        path: PROFILE,
+        Element: profilePage
     },
 ]
 
