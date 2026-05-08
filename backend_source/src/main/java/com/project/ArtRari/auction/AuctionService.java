@@ -1,22 +1,24 @@
 package com.project.ArtRari.auction;
 
 import com.project.ArtRari.artwork.Artwork;
+import com.project.ArtRari.artwork.tag.TagRepository;
 import com.project.ArtRari.auction.dto.*;
+import com.project.ArtRari.common.PageResponse;
 import com.project.ArtRari.exception.ArtrariException;
 import com.project.ArtRari.exhibition.Exhibition;
 import com.project.ArtRari.exhibition.ExhibitionRepository;
-import com.project.ArtRari.exhibition.ExhibitionService;
 import com.project.ArtRari.exhibition.ExhibitionStatus;
+import com.project.ArtRari.exhibition.dto.ExhibitionPreviewResponse;
 import com.project.ArtRari.lot.Lot;
-import com.project.ArtRari.lot.LotMapper;
-import com.project.ArtRari.lot.LotRepository;
 import com.project.ArtRari.lot.LotStatus;
-import com.project.ArtRari.lot.dto.LotPreviewResponse;
-import com.project.ArtRari.lot.dto.LotResponse;
 import com.project.ArtRari.security.UserDetailsImpl;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -25,54 +27,46 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AuctionService {
     private final AuctionRepository auctionRepository;
-    private final LotMapper lotMapper;
+    private final AuctionMapper auctionMapper;
     private final ExhibitionRepository exhibitionRepository;
-    private final LotRepository lotRepository;
+    private final TagRepository tagRepository;
 
-    private List<AuctionPreviewResponse> mapAuctionsIntoAuctionPreviewResponse(List<Auction> auctions) {
-        return auctions.stream()
-                .map(a -> new AuctionPreviewResponse(
-                        a.getId(),
-                        a.getExhibition().getTitle(),
-                        a.getExhibition().getTheme(),
-                        a.getExhibition().getThumbnailUrl(),
-                        a.getStartDate(),
-                        a.getEndDate()))
-                .toList();
-    }
-
-    private AuctionResponse mapAuctionIntoAuctionResponse(Auction auction) {
-        List<Lot> lots = auction.getLots();
-        List<LotPreviewResponse> safeLots = lots.stream().map(l -> lotMapper.toLotPreviewResponse(l)).toList();
-        return new AuctionResponse(
-                auction.getId(),
-                safeLots,
-                auction.getStartDate(),
-                auction.getEndDate(),
-                auction.getStatus().name()
-        );
-    }
+    @Value("${app.pagination.default-size}")
+    private int pageSize;
 
     public List<AuctionPreviewResponse> getLatestAuctionsPreview() {
         List<Auction> auctions = auctionRepository.findByEndDateAfterOrderByStartDateDesc(Instant.now());
-        return mapAuctionsIntoAuctionPreviewResponse(auctions);
+        return auctions.stream().map(
+                auctionMapper::mapAuctionIntoAuctionPreviewResponse
+        ).collect(Collectors.toList());
     }
 
-    public AuctionsPageResponse getAuctions() {
-        List<Auction> auctions = auctionRepository.findByStatusOrStatus(AuctionStatus.scheduled, AuctionStatus.active);
-        return new AuctionsPageResponse(mapAuctionsIntoAuctionPreviewResponse(auctions));
+    public AuctionsPageResponse getAuctions(int page, List<String> selectedTags) {
+        Page<Auction> auctions;
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("startDate").descending());
+        boolean tagsIsEmpty = selectedTags == null || selectedTags.isEmpty();
+        if (tagsIsEmpty) {
+            auctions = auctionRepository.findByStatusOrStatus(AuctionStatus.scheduled, AuctionStatus.active, pageable);
+        } else {
+            auctions = auctionRepository.findByTags(selectedTags, pageable);
+        }
+        Page<AuctionPreviewResponse> apr = auctions.map(auctionMapper::mapAuctionIntoAuctionPreviewResponse);
+        PageResponse<AuctionPreviewResponse> aprs = new PageResponse<>(apr);
+        List<String> tags = tagRepository.findAll().stream().map(tag -> tag.getName()).toList();
+        return new AuctionsPageResponse(tags, aprs);
     }
 
     public AuctionResponse getById(Long id) {
         Auction auction = auctionRepository.findById(id).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
-        return mapAuctionIntoAuctionResponse(auction);
+        return auctionMapper.mapAuctionIntoAuctionResponse(auction);
     }
 
     @Transactional
@@ -108,7 +102,7 @@ public class AuctionService {
         auction.setLots(lots);
         auctionRepository.save(auction);
 
-        return mapAuctionIntoAuctionResponse(auction);
+        return auctionMapper.mapAuctionIntoAuctionResponse(auction);
     }
 
     @Transactional
@@ -129,7 +123,7 @@ public class AuctionService {
         auction.setEndDate(request.endDate());
         auction.setStep(request.step());
         auctionRepository.save(auction);
-        return mapAuctionIntoAuctionResponse(auction);
+        return auctionMapper.mapAuctionIntoAuctionResponse(auction);
     }
 
     @Transactional
@@ -146,6 +140,7 @@ public class AuctionService {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Ви не можете видаляти аукціон, який проходить або завершений");
         }
+        exhibition.setStatus(ExhibitionStatus.running);
         auctionRepository.delete(auction);
     }
 
@@ -165,6 +160,14 @@ public class AuctionService {
         for (Auction auction : auctions) {
             auction.setStatus(AuctionStatus.finished);
         }
+    }
+
+    public PageResponse<AuctionPreviewResponse> getMyAuctions(int page) {
+        UserDetailsImpl udi = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Pageable pageable = PageRequest.of(page, pageSize, Sort.by("startDate").descending());
+        Page<Auction> auctions = auctionRepository.findByExhibitionCuratorId(udi.getId(), pageable);
+        Page<AuctionPreviewResponse> eprs = auctions.map(auctionMapper::mapAuctionIntoAuctionPreviewResponse);
+        return new PageResponse<>(eprs);
     }
 
 }

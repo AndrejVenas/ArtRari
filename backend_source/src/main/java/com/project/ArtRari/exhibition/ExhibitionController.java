@@ -1,10 +1,9 @@
 package com.project.ArtRari.exhibition;
 
-import com.project.ArtRari.exhibition.dto.ExhibitionCreateRequest;
-import com.project.ArtRari.exhibition.dto.ExhibitionResponse;
-import com.project.ArtRari.exhibition.dto.ExhibitionUpdateRequest;
-import com.project.ArtRari.exhibition.dto.ExhibitionsPageResponse;
+import com.project.ArtRari.common.PageResponse;
+import com.project.ArtRari.exhibition.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +17,10 @@ public class ExhibitionController {
 
     @GetMapping
     public ExhibitionsPageResponse getAll(
-            @RequestParam(required = false) List<String> tags,
-            @RequestParam(required = false) String search
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(required = false) List<String> tags
     ) {
-        return exhibitionService.getExhibitions(tags, search);
+        return exhibitionService.getExhibitions(page, tags);
     }
 
     @GetMapping("/{id}")
@@ -43,8 +42,15 @@ public class ExhibitionController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('curator')")
-    public void deleteExhibition(@PathVariable Long id) {
+    public ResponseEntity<?> deleteExhibition(@PathVariable Long id) {
         exhibitionService.deleteExhibition(id);
+        return ResponseEntity.ok("Виставку успішно видалено");
+    }
+
+    @GetMapping("/my")
+    @PreAuthorize("hasRole('curator')")
+    public PageResponse<ExhibitionPreviewResponse> getMyExhibitions(@RequestParam(defaultValue = "0") int page) {
+        return exhibitionService.getMyExhibitions(page);
     }
 
 }
