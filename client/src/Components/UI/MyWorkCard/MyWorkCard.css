@@ -1,0 +1,48 @@
+.my-work-card {
+    background: #2b2b2b;
+    border-radius: 20px;
+    overflow: hidden;
+    max-width: 320px;
+    width: 100%;
+    min-height: 380px;
+}
+
+.my-work-card__image {
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.my-work-card__content {
+    padding: 12px;
+}
+
+.my-work-card__title {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+.my-work-card__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.my-work-card__button {
+    flex: 1;
+    height: 50px;
+    border: none;
+    border-radius: 999px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.image-icon{
+    width: 30px;
+    height: 30px;
+    margin: 0 auto;
+}

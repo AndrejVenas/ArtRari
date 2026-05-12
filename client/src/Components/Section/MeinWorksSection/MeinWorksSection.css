@@ -1,0 +1,14 @@
+.mein-works {
+    width: 100%;
+    padding: 40px 0;
+}
+
+.mein-works__grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.mein-works__grid > * {
+    width: calc(25% - 18px);
+}

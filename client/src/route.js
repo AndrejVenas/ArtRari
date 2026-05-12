@@ -9,10 +9,11 @@ import AboutUs from "./Pages/AboutUs/About";
 import AuctionsTest from "./Pages/auctionTest/AuctionTest";
 import lot from "./Pages/Lot/Lot";
 import profilePage from "./Pages/ProfilePage/ProfilePage";
+import MeinWork from "./Pages/MeinWorks/MeinWorks";
 
 import {
     ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
-    PROFILE
+    PROFILE, MEIN_WORK
 } from "./constants";
 
 export const authRoute = [
@@ -47,6 +48,10 @@ export const authRoute = [
     {
         path: ABOUT_US,
         Element: AboutUs
+    },
+    {
+        path: MEIN_WORK,
+        Element: MeinWork
     },
     {
         path: AUCTIONS + '/:title' + '/:id',
