@@ -1,0 +1,13 @@
+.payment-successful{
+    display: flex;
+    gap: 100px;
+    align-items: center;
+}
+
+.payment-successful-text:last-child {
+    padding-top: 20px;
+}
+
+.payment-successful-img{
+    max-width: 250px;
+}

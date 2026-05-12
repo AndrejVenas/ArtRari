@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import './MeinWorksSection.css'
+
 import MyWorkCard from "../../UI/MyWorkCard/MyWorkCard";
 import Title from "../../UI/title/Title";
 import Pagination from "../../UI/Pagination/Pagination";
+import ConfirmDeleteModal from "../../UI/ConfirmDeleteModal/ConfirmDeleteModal";
 
 const worksMock = Array.from({ length: 8 }, (_, index) => ({
     id: index + 1,
@@ -14,12 +16,24 @@ const MeinWorksSection = () => {
 
     const [page, setPage] = useState(1);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [selectedId, setSelectedId] = useState(null);
+
     const handleEdit = (item) => {
         console.log("edit", item);
     };
 
-    const handleDelete = (id) => {
-        console.log("delete", id);
+    const handleDeleteClick = (id) => {
+        setSelectedId(id);
+        setIsModalOpen(true);
+    };
+
+    const confirmDelete = () => {
+        console.log("delete", selectedId);
+
+        setIsModalOpen(false);
+        setSelectedId(null);
     };
 
     return (
@@ -34,18 +48,27 @@ const MeinWorksSection = () => {
                             key={item.id}
                             item={item}
                             onEdit={handleEdit}
-                            onDelete={handleDelete}
+                            onDelete={handleDeleteClick}
                         />
                     ))}
                 </div>
 
-                <Pagination
-                    currentPage={page}
-                    onChange={setPage}
-                    totalPages={2}
-                />
+                <div className="mein-works__pagination">
+                    <Pagination
+                        currentPage={page}
+                        onChange={setPage}
+                        totalPages={2}
+                    />
+                </div>
 
             </div>
+
+            <ConfirmDeleteModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={confirmDelete}
+            />
+
         </section>
     );
 };

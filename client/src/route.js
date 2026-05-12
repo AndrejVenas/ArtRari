@@ -13,8 +13,9 @@ import MeinWork from "./Pages/MeinWorks/MeinWorks";
 
 import {
     ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
-    PROFILE, MEIN_WORK
+    PROFILE, MEIN_WORK, PAYMENT_SUCCESSFUL
 } from "./constants";
+import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
 
 export const authRoute = [
     {
@@ -64,6 +65,10 @@ export const authRoute = [
     {
         path: PROFILE,
         Element: profilePage
+    },
+    {
+        path: PAYMENT_SUCCESSFUL,
+        Element: PaymentSuccessful
     },
 ]
 

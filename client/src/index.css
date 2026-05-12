@@ -106,6 +106,13 @@ body{
   color: #1DF1FE;
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+
 input:focus, textarea:focus {
   outline: none;
 }
