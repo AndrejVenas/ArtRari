@@ -1,7 +1,12 @@
 .profile-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     gap: 50px;
+    justify-content: space-between;
+}
+
+.profile-grid > div {
+    max-width: 570px;
+    width: 100%;
 }
 
 /* левая часть */
@@ -58,4 +63,47 @@
 .stats-box td:last-child {
     text-align: right;
     font-weight: bold;
+}
+
+@media (max-width: 1200px) {
+    .button-link.ProfileNavigation-link, div.ProfileNavigation-col{
+        max-width: 500px;
+    }
+    .profile-field{
+        max-width: 500px;
+    }
+    .stats-box{
+        max-width: 500px;
+    }
+    .profile-grid > div {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .profile-grid{
+        gap: 10px;
+    }
+    .ProfileNavigation{
+        flex-direction: column;
+    }
+    .button-link.ProfileNavigation-link, div.ProfileNavigation-col{
+        max-width: 570px;
+    }
+}
+
+@media (max-width: 840px) {
+    .profile-grid, .ProfileNavigation{
+        align-items: center;
+        flex-direction: column;
+    }
+    .profile-field{
+        max-width: 570px;
+    }
+    .stats-box{
+        max-width: 570px;
+    }
+    .profile-grid > div {
+        max-width: 570px;
+    }
 }

@@ -62,7 +62,7 @@ const Login = () => {
 
     useEffect(() => {
         if(isAuth) {
-            navigate("/exhibitions")
+            // navigate("/exhibitions")
         }
     }, [isAuth])
     return (

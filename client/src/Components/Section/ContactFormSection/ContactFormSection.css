@@ -17,3 +17,9 @@
 .contact-form * {
     margin-bottom: 25px;
 }
+
+@media (max-width: 1024px) {
+    .contact {
+        background-image: none !important;
+    }
+}

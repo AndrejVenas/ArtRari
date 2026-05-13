@@ -3,3 +3,53 @@
     flex-wrap: wrap;
     justify-content: space-between;
 }
+
+@media (max-width: 1200px){
+    div.action-card{
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 1024px){
+    .profile-actions-flex{
+        gap: 30px;
+    }
+    div.action-card{
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 940px){
+    div.action-card{
+        max-width: 425px;
+    }
+}
+
+@media (max-width: 900px){
+    div.action-card{
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 850px){
+    .profile-actions-flex{
+        gap: 20px;
+    }
+    div.action-card{
+        max-width: 375px;
+    }
+}
+@media (max-width: 792px){
+    div.action-card{
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 768px){
+    .profile-actions-flex{
+        flex-direction: column;
+    }
+    div.action-card{
+        max-width: 570px;
+    }
+}

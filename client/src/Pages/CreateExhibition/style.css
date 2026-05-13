@@ -120,3 +120,31 @@ td img {
 }
 
 /**/
+@media (max-width: 1440px) {
+    .createExhibition__container{
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 880px) {
+    .createExhibition__container{
+        padding: 0 10px;
+    }
+
+    .createExhibition__form{
+        flex-direction: column;
+    }
+
+    .form__block {
+        margin-bottom: 25px;
+    }
+    .table__tr-td, .table__th{
+        padding: 7px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table__tr-td, .table__th{
+        font-size: 16px;
+    }
+}
