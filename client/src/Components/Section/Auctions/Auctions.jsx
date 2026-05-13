@@ -1,11 +1,11 @@
 import "./Auctions.css";
 import Title from "../../UI/title/Title";
 import Link from "../../UI/link/Link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {Navigation} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { useRef } from "react";
+import {useRef} from "react";
 
 function Auctions() {
     const slides = [
@@ -38,7 +38,7 @@ function Auctions() {
                             пропозиції.
                         </p>
 
-                        <Link text={"Перейти до усіх аукціонів"} href={"#"} className={"auctions-link"} />
+                        <Link text={"Перейти до усіх аукціонів"} href={"#"} className={"auctions-link"}/>
                     </div>
                     <div className="auctions-slider">
 
@@ -54,35 +54,38 @@ function Auctions() {
                             {slides.map((slide, index) => (
                                 <SwiperSlide key={index}>
                                     <div className="auctions-slid-card">
-                                        <div className="slid-card-inner">
+                                        <div className="div">
+                                            <div className="slid-card-inner">
 
-                                            <div className="slid-card-content">
-                                                <Title title={slide.title}/>
-                                                <p className="slid-card-text">
-                                                    {slide.text}
-                                                </p>
+                                                <div className="slid-card-content">
+                                                    <Title title={slide.title}/>
+                                                    <p className="slid-card-text">
+                                                        {slide.text}
+                                                    </p>
+                                                </div>
+
+                                                <div className="slid-card-image">
+                                                    <img src={slide.img} alt={slide.title}/>
+                                                </div>
+
                                             </div>
 
-                                            <div className="slid-card-image">
-                                                <img src={slide.img} alt={slide.title}/>
-                                            </div>
-
+                                            <Link text={`Перейти до "${slide.title}"`}/>
                                         </div>
 
-                                        <Link text={`Перейти до "${slide.title}"`} />
                                     </div>
                                 </SwiperSlide>
 
                             ))}
-                            <div className="slider-controls">
-                                <button className="custom-prev">
-                                    <img src="/Images/arrow-prev.svg" alt="arrow prev" />
-                                </button>
-                                <button className="custom-next">
-                                    <img src="/Images/arrow-next.svg" alt="arrow next"/>
-                                </button>
-                            </div>
                         </Swiper>
+                        <div className="slider-controls">
+                            <button className="custom-prev">
+                                <img src="/Images/arrow-prev.svg" alt="arrow prev"/>
+                            </button>
+                            <button className="custom-next">
+                                <img src="/Images/arrow-next.svg" alt="arrow next"/>
+                            </button>
+                        </div>
 
                     </div>
                 </div>

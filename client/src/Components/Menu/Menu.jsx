@@ -12,7 +12,7 @@ const Menu = () => {
   return (
     <div className='menu__container'>
       <nav className="menu__navigation">
-        <ul className="menu__list">
+        <ul className="menu__list menu__list--1">
           {firstMenu.map((item) => {
             return <li className={item.link == location.pathname ? "menu__item activeMenu" : "menu__item"}>
               <Link to={item.link} className="menu__link">{item.title}</Link>
@@ -22,7 +22,7 @@ const Menu = () => {
           <li className="menu__item">
             <img src={logo} alt="logo" />
           </li>
-        <ul className="menu__list">
+        <ul className="menu__list menu__list--2">
           {secondMenu.map((item) => {
             return <li className={item.link == location.pathname ? "menu__item activeMenu" : "menu__item"}>
               <Link to={item.link} className="menu__link">{item.title}</Link>

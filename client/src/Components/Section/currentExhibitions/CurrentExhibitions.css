@@ -24,3 +24,17 @@
     flex-wrap: wrap;
     margin-bottom: 50px;
 }
+
+@media (max-width: 1450px) {
+    .exhibitions-box{
+        justify-content: space-between;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 940px) {
+    .exhibitions-box{
+        flex-direction: column;
+        align-items: center;
+    }
+}

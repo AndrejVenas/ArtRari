@@ -22,3 +22,19 @@
     color: #1DF1FE;
     background-color: #313131;
 }
+
+@media (max-width: 1000px) {
+    .menu__list {
+        gap: 20px;
+        padding: 10px 25px;
+    }
+
+    .menu__item img{
+        max-width: 50px;
+    }
+
+    .items__profile{
+        width: 38px;
+        height: 38px;
+    }
+}

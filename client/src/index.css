@@ -116,3 +116,9 @@ body{
 input:focus, textarea:focus {
   outline: none;
 }
+
+@media (max-width: 1000px) {
+  body {
+    font-size: 18px;
+  }
+}

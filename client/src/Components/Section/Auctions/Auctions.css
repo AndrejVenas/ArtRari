@@ -1,5 +1,5 @@
 .auctions {
-    padding: 120px 165px;
+    padding: 120px 0;
     background: #0f0f0f;
     color: white;
 }
@@ -79,4 +79,131 @@
 .custom-next.swiper-button-disabled {
     opacity: 0.3;
     pointer-events: none;
+}
+
+@media (max-width: 1600px) {
+    .auctions-inner{
+        /*max-width: 1330px;*/
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1440px) {
+    .slid-card-image{
+        max-width: 250px;
+    }
+
+    .auctions-slider {
+        max-width: 650px;
+    }
+
+}
+
+@media (max-width: 1280px) {
+    .slid-card-image{
+        max-width: 200px;
+    }
+    .auctions-slider {
+        max-width: 600px;
+    }
+    .auctions-inner{
+        justify-content: center;
+        /*gap: 0;*/
+        margin-left: 15px;
+    }
+    .auctions-slider {
+        margin-right: 15px;
+    }
+}
+
+@media (max-width: 1124px) {
+    .auctions-slider {
+        max-width: 550px;
+    }
+
+    .auctions-slider .section-title{
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+
+    .auctions-inner{
+        gap: 20px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .auctions-inner{
+        gap: 50px;
+        flex-direction: column;
+    }
+/*    */
+    .slid-card-image{
+        max-width: 300px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .auctions-slider {
+        max-width: 100%;
+    }
+    .auctions-inner{
+        justify-content: center;
+        /*gap: 0;*/
+        margin-left: 0px;
+    }
+    .auctions-slider {
+        margin-right: 15px;
+    }
+    .slid-card-inner{
+        justify-content: start;
+    }
+
+    .slider-controls {
+        height: 44px;
+        bottom: 0;
+    }
+
+    .auctions-description{
+        margin-bottom: 35px;
+        max-width: 570px;
+    }
+}
+
+@media (max-width: 800px) {
+    .slid-card-image{
+        max-width: 250px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .slider-controls {
+        gap: 0;
+    }
+}
+
+@media (max-width: 550px) {
+    .slid-card-image{
+        max-width: 250px;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .slider-controls {
+        margin-top: 25px;
+        gap: 10px;
+        position: relative;
+    }
+    .slid-card-inner{
+        flex-direction: column;
+        text-align: center;
+    }
+    .slid-card-text{
+        margin: 0 auto 20px;
+    }
+    .swiper .button-link{
+        margin: 0 auto;
+    }
+
+    .slider-controls {
+        max-width: 100%;
+        justify-content: center;
+        gap: 100px;
+    }
 }

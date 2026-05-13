@@ -34,9 +34,8 @@
 }
 
 .exhibition-image {
-    height: 250px;
+    /*height: 250px;*/
     overflow: hidden;
-    background: linear-gradient(135deg, #4f46e5, #9333ea);
     margin-bottom: 30px;
 }
 
@@ -60,4 +59,44 @@ p {
     padding: 0 30px 30px;
     display: flex;
     justify-content: space-between;
+}
+
+@media (max-width: 1450px) {
+    .exhibition-card-current {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1341px) {
+    .exhibition-card-current {
+        max-width: 550px;
+    }
+}
+
+@media (max-width: 1170px) {
+    .exhibition-card-current {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 1061px) {
+    .exhibition-card-current {
+        max-width: 450px;
+    }
+}
+
+@media (max-width: 940px) {
+    .exhibition-card-current {
+        max-width: 650px;
+    }
+}
+
+@media (max-width: 480px) {
+    .exhibition-card-content {
+        font-size: 18px;
+        padding: 0 15px 10px;
+    }
+    .exhibition-card-current h4{
+        margin: 0 15px 15px;
+    }
 }
