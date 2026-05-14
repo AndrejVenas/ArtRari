@@ -7,6 +7,8 @@ import CodeInput from "../../UI/CodeInput/CodeInput";
 import { signup } from "../../../Actions/authAction";
 import { useDispatch } from "react-redux";
 import {useNavigate} from 'react-router-dom'
+import Message from "../../UI/Message/Message";
+import { useActiveContext } from "../../AppRouter";
 
 const stepAssets = {
     1: "/images/register-step1.png",
@@ -25,7 +27,7 @@ const Register = () => {
         password: "",
         //code: "",
     });
-
+    const {active, setActive, message, setMessage} = useActiveContext()
     const navigate = useNavigate()
     const handleChange = (e) => {
         setForm({
@@ -52,18 +54,25 @@ const Register = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (step === 3) {
+        if (step === 2) {
             console.log("REGISTER DATA:", form);
         } else {
             nextStep();
         }
     };
 
-    const clickRegistration = () => {
-        if(step == 3) {
-            if(dispatch(signup(form))) {
+    const clickRegistration = async () => {
+        if(step == 2) {
+            const {message, result} = await dispatch(signup(form))
+            if(result == 200) {
                 navigate("/login")
+                setMessage(message)
+                setActive(true)
+            } else {
+                setMessage(message)
+                setActive(true)
             }
+            console.log(message, result)
         }
     }
     return (
@@ -81,7 +90,7 @@ const Register = () => {
                                 <Title title="Ласкаво просимо до нашого клубу!" />
 
                                 <p className="register-step">
-                                    Крок {step} з 3
+                                    Крок {step} з 2
                                 </p>
 
 
@@ -116,7 +125,7 @@ const Register = () => {
                                 <Title title="Залишилось ще трохи" />
 
                                 <p className="register-step">
-                                    Крок {step} з 3
+                                    Крок {step} з 2
                                 </p>
 
                                 <Input
@@ -190,7 +199,7 @@ const Register = () => {
                             )}
 
                             <Button type="submit" onClick={clickRegistration}>
-                                {step === 3 ? "Зареєструватись" : "Далі"}
+                                {step === 2 ? "Зареєструватись" : "Далі"}
                             </Button>
 
                         </div>

@@ -9,6 +9,10 @@
     margin-top: 25px;
 }
 
+.form > * {
+    flex: 1;
+    height: 100%;   
+}
 .form__block {
     display: flex;
     flex-direction: column;
@@ -50,7 +54,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 316px;
+    height: 280px;
 }
 
 .dropZone__plus {
@@ -119,4 +123,23 @@ td img {
     cursor: pointer;
 }
 
-/**/
+.form__block-plus {
+    font-size: 30px;
+    font-weight: 400;
+    cursor: pointer;
+}
+.form__block-checkBox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #313131;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.form__block-tagsBlock {
+    background-color: #1B1B1B;
+    padding: 8px;
+    border-radius: 20px;
+    margin: 4px;
+}

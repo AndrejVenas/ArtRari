@@ -40,7 +40,7 @@ const CustomSelect = ({ filter, value, onChange }) => {
                                 value === opt ? "active" : ""
                             }`}
                             onClick={() => {
-                                onChange(filter.name, opt);
+                                onChange(filter.options.indexOf(opt));
                                 setOpen(false);
                             }}
                         >

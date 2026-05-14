@@ -3,15 +3,22 @@ import "./LotSection.css";
 import Title from "../../UI/title/Title";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import AuctionBid from "../AuctionBid/AuctionBid";
 
 const AuctionPage = () => {
     const [lot, setLot] = useState({})
     const [bids, setBids] = useState([])
-    const {title, id, idOfLot} = useParams()
+    const [work, setWork] = useState({})
+    const {title, id, idOfLot, idOfWork} = useParams()
 
     const getLot = async (id) => {
         const response = await axios.get(`http://localhost:8080/lots/${id}`)
         setLot(response.data)
+    }
+
+    const getWork = async (id) => {
+        const response = await axios.get(`http://localhost:8080/artworks/${id}`)
+        setWork(response.data)
     }
 
     const getBid = async (id) => {
@@ -20,9 +27,13 @@ const AuctionPage = () => {
     }
     
     useEffect(() => {
-        getLot(idOfLot)
-        getBid(idOfLot)
-    }, [idOfLot])
+        if(idOfLot) {
+            getLot(idOfLot)
+            getBid(idOfLot)
+        } else {
+            getWork(idOfWork)
+        }
+    }, [idOfLot, idOfWork])
     const navigate = useNavigate()
     const calculateDate = (endDate) => {
         const now = Date.now()
@@ -40,8 +51,8 @@ const AuctionPage = () => {
                     {/* Левая колонка */}
                     <div className="auction-image">
                         <img
-                            src={lot.artwork?.photoUrl}
-                            alt={lot.artwork?.title}
+                            src={idOfLot ? lot.artwork?.photoUrl : work.photoUrl}
+                            alt={idOfLot ? lot.artwork?.title : work.title}
                         />
                     </div>
 
@@ -51,10 +62,17 @@ const AuctionPage = () => {
                         <div className="auction-info">
                             <table>
                                 <tbody>
-                                <tr>
+                                {idOfLot ? <tr>
                                     <td>Залишилось часу:</td>
                                     <td>{calculateDate(lot.endDate)}</td>
+                                </tr> :
+                                <tr>
+                                    <td>Автор:</td>
+                                    <td>{work.author}</td>
                                 </tr>
+                                }
+                                {idOfLot ? 
+                                <>
                                 <tr>
                                     <td>Стартова ціна:</td>
                                     <td>${lot.currentPrice}</td>
@@ -75,47 +93,51 @@ const AuctionPage = () => {
                                     <td>Комісія:</td>
                                     <td>10%</td>
                                 </tr>
+                                </>
+                                :
+                                <>
+                                <tr>
+                                    <td>Назва роботи:</td>
+                                    <td>{work.title}</td>
+                                </tr>
+                                <tr>
+                                    <td>Дата створення:</td>
+                                    <td>{work.creationDate}</td>
+                                </tr>
+                                <tr>
+                                    <td>Техніка:</td>
+                                    <td>{work.technique}</td>
+                                </tr>
+                                </>
+                                }
                                 </tbody>
                             </table>
                         </div>
+                        {idOfLot ? <AuctionBid /> : <div className="auction-description">
+                        <Title title={idOfLot ? lot.artwork?.title: work.title}/>
 
-                        {/* Блок ставки */}
-                        <div className="auction-bid">
-                            <label className="checkbox">
-                                <input type="checkbox" />
-                                Я прочитав правила використання та згоден з
-                                обробкою персональних даних
-                            </label>
-
-                            <a href="#" className="text-link auction-link">
-                                Правила використання
-                            </a>
-
-                            <div className="bid-controls">
-                                <input type="text" defaultValue="100$" />
-                                <button>Зробити ставку</button>
-                            </div>
-
-                            <p className="note">
-                                ціна з урахуванням комісії 110$
+                        <div className="desc-grid">
+                            <p>
+                                {idOfLot ? lot.artwork?.description : work.title}
                             </p>
                         </div>
+
+                        <div className="tags">
+                            {idOfLot ? lot.artwork?.tags.map((item) => {
+                                return <span>{item}</span>
+                            }) : work?.tags?.map((item) => {
+                                return <span>{item}</span>
+                            })}
+                        </div>
+                    </div>}
                     </div>
 
-                    <div className="auction-description">
+                    {idOfLot && <div className="auction-description">
                         <Title title={lot.artwork?.title}/>
 
                         <div className="desc-grid">
                             <p>
                                 {lot.artwork?.description}
-                            </p>
-
-                            <p>
-                                Робота запрошує глядача зупинитися, прислухатися
-                                до власних думок і знайти особистий сенс у
-                                напівпрозорих образах. Вона стане не лише
-                                естетичним акцентом простору, а й джерелом
-                                внутрішнього діалогу.
                             </p>
                         </div>
 
@@ -125,7 +147,7 @@ const AuctionPage = () => {
                             })}
                         </div>
                     </div>
-
+                    }
                 </div>
             </div>
         </section>

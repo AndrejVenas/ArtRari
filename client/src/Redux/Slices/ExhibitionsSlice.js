@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 export const ExhibitionSlice = createSlice({
     name: 'exhibitions',
     initialState: {
-        tags: [],
-        exhibitionPreviews: [],
+        tagsForFilter: [],
+        page: [],
         isLoading: false
     },
     reducers: {
@@ -13,8 +13,8 @@ export const ExhibitionSlice = createSlice({
         },
         fetchSuccess: (state, action) => {
             state.isLoading = false
-            state.tags = action.payload.tags
-            state.exhibitionPreviews = action.payload.exhibitionPreviews
+            state.tagsForFilter = action.payload.tagsForFilter
+            state.page = action.payload.page
         },
         fetchError: (state) => {
             state.isError = 'Ошибка'

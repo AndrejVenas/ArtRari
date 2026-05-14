@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import './style.css'
 import Input from '../../Components/UI/Input/Input'
 import Textarea from '../../Components/UI/Textarea/Textarea'
 import Button from '../../Components/UI/Button/Button'
 import Popup from '../../Components/Popup/Popup'
+import Image from '../../Components/UI/Image/Image'
+import CustomSelect from '../../Components/UI/CustomSelect/CustomSelect'
+import {useSelector} from 'react-redux'
+import axios from 'axios'
+import CheckBox from '../../Components/UI/CheckBox/CheckBox'
+import CheckBoxComponent from '../../Components/CheckBoxComponent/CheckBoxComponent'
 
 const CreateExhibition = () => {
     const [close, setClose] = useState('');
-    const [workOpen, setWorkOpen] = useState(false);
     const [works, setWorks] = useState([])
-
+    const [artWorks, setArtWorks] = useState([])
+    const [image, setImage] = useState({})
+    const [workOpen, setWorkOpen] = useState(false)
+    const {token} = useSelector(state => state.Auth)
     const deleteWork = (work) => {
         setWorkOpen(false);
         setWorks(prevWork => prevWork.filter((item) => item.id != work.id))
@@ -17,6 +25,69 @@ const CreateExhibition = () => {
     useEffect(() => {
         console.log(workOpen, works);
     }, [workOpen, works])
+    const [form, setForm] = useState({
+        artworksIds: [],
+        title: "",
+        theme: "",
+        description: "",
+        backgroundUrl: "bck.com",
+        thumbnailUrl: ""
+    })
+
+    const getArtWorks = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/artworks', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setArtWorks(response.data)
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        if(workOpen) {
+            getArtWorks()
+        }
+    }, [workOpen])
+
+    const getImage = async (image) => {
+        try {
+        const formData = new FormData()
+        formData.append('file', image)
+        const response = await axios.post('http://localhost:8080/artworks/image', formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        return response.data.imageUrl
+        } catch(error) {
+            console.log(error)
+        }
+    }
+    const createExhibitionAction = async () => {
+        try {
+            setForm(prev => ({...prev, artworkIds: works.map((item) => item.id)}))
+            const result = await getImage(image)
+            setForm(prev => ({...prev, thumbnailUrl: result}))
+
+            const data = {
+                ...form,
+                artworkIds: works.map((item) => item.id),
+                thumbnailUrl: result
+            }
+            const response = await axios.post('http://localhost:8080/exhibitions', data, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            console.log(response.data)
+        } catch(error) {
+            console.log(error)
+        }
+    }
   return (
     <div className="createExhibition">
         <div className="createExhibition__container">
@@ -24,16 +95,16 @@ const CreateExhibition = () => {
             <form className="createExhibition__form form">
             <div className="form__mainBlock">
                 <div className="form__block">
-                    <Input label='Назва виставки' type='text' placeholder='Грані реальності'/>
+                    <Input label='Назва виставки' type='text' placeholder='Грані реальності' onChange={(event) => setForm(prev => ({...prev, title: event.target.value}))}/>
                 </div>
                 <div className="form__block">
-                    <Textarea label='Опис виставки' type='text' placeholder='Грані реальності'/>
+                    <Textarea label='Опис виставки' type='text' placeholder='Грані реальності' onChange={(event) => setForm(prev => ({...prev, description: event.target.value}))}/>
                 </div>
                 <div className="form__block">
-                    <label htmlFor="" className="form__block-label">Оберіть категорію</label>
-                    <select className="form__block-input">
-                        <option value="Категорія" disabled>Категорія</option>
-                    </select>
+                    <Input label='Тема виставки' type='text' placeholder='Nature & Rebirth' onChange={(event) => setForm(prev => ({...prev, theme: event.target.value}))}/>
+                </div>
+                <div className="form__block">
+                    <Button onClick={createExhibitionAction}>Зберегти</Button>
                 </div>
                 </div>
                 <div className="form__mainBlock">
@@ -69,18 +140,19 @@ const CreateExhibition = () => {
                         <label className="form__block-dropZone dropZone">
                             <div className="dropZone__input" />
                             <div className="dropZone__block">
-                                <div className="dropZone__plus" onClick={() => setClose('open')}>+</div>
+                                <div className="dropZone__plus" onClick={() => {
+                                    setClose('open')
+                                    setWorkOpen(true);
+                                }}>+</div>
                                 <span className="dropZone__subTitle">Додайте хоча б одну роботу</span>
                             </div>
                         </label>
                         }
-                    </div>
-                    <div className="form__block">
-                        <Button>Зберегти</Button>
+                        <Image style={{'padding': '60px 0px'}} height={{'height': '118px'}} onChange={(event) => setImage(event.target.files[0])}/>
                     </div>
                 </div>
             </form>
-            <Popup close={close} setClose={setClose} workOpen={workOpen} setWorkOpen={setWorkOpen} setWorks={setWorks} />
+            <Popup close={close} setClose={setClose} workOpen={workOpen} setWorkOpen={setWorkOpen} setWorks={setWorks} artWorks={artWorks}/>
         </div>
     </div>
   )

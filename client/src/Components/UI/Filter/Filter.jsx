@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Filter.css";
 import CustomSelect from "../CustomSelect/CustomSelect";
 import DateRangeFilter from "../DataRangeFilter/DateRangeFilter";
+import Search from "../Search/Search";
+import CheckBoxComponent from "../../CheckBoxComponent/CheckBoxComponent";
 
 const Filters = ({ filters, values, onChange }) => {
+    useEffect(() => {
+        console.log(values)
+    })
     return (
         <div className="filters">
             {filters.map((filter) => {
@@ -42,6 +47,11 @@ const Filters = ({ filters, values, onChange }) => {
                             {filter.label}
                         </button>
                     );
+                } else if(filter.type === "search") {
+                    return <Search onChange={onChange}/>
+                }
+                if(filter.type === "checkbox") {
+                    return <CheckBoxComponent onChange={onChange}/>
                 }
 
                 return null;

@@ -2,6 +2,7 @@ import React from "react";
 import "./ProfileNavigation.css";
 import Link from "../../UI/link/Link";
 import Title from "../../UI/title/Title";
+import { ABOUT_US, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, MAIN, WORK_UPLOAD } from "../../../constants";
 
 const ProfileNavigation = () => {
     return (
@@ -9,17 +10,16 @@ const ProfileNavigation = () => {
             <Title title={"Навігація"}/>
             <div className="ProfileNavigation">
                 <div className="ProfileNavigation-col">
-                    <Link href={"#"} text={"Перейти до створення аукціону"} className={"ProfileNavigation-link"}/>
-                    <Link href={"#"} text={"Перейти до створення виставки"} className={"ProfileNavigation-link"}/>
+                    <Link href={CREATE_EXHIBITION} text={"Перейти до створення виставки"} className={"ProfileNavigation-link"}/>
                     <Link href={"#"} text={"Перейти до перегляду та редагування своїх робот"}
                           className={"ProfileNavigation-link"}/>
-                    <Link href={"#"} text={"Завантажити роботу"} className={"ProfileNavigation-link"}/>
+                    <Link href={WORK_UPLOAD} text={"Завантажити роботу"} className={"ProfileNavigation-link"}/>
                 </div>
                 <div className="ProfileNavigation-col">
-                    <Link href={"#"} text={"Головна"} className={"ProfileNavigation-link"}/>
-                    <Link href={"#"} text={"Про нас"} className={"ProfileNavigation-link"}/>
-                    <Link href={"#"} text={"Аукціони"} className={"ProfileNavigation-link"}/>
-                    <Link href={"#"} text={"Виставки"} className={"ProfileNavigation-link"}/>
+                    <Link href={MAIN} text={"Головна"} className={"ProfileNavigation-link"}/>
+                    <Link href={ABOUT_US} text={"Про нас"} className={"ProfileNavigation-link"}/>
+                    <Link href={AUCTIONS} text={"Аукціони"} className={"ProfileNavigation-link"}/>
+                    <Link href={EXHIBITIONS} text={"Виставки"} className={"ProfileNavigation-link"}/>
                 </div>
             </div>
         </div>

@@ -11,3 +11,4 @@ export const LOT = "/lot"
 export const PROFILE = "/profile"
 export const MEIN_WORK = "/meinWork"
 export const PAYMENT_SUCCESSFUL = "/paymentSuccessful"
+export const EXHIBITIONWORK = '/exhibitions/:title/:id'

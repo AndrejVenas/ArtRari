@@ -20,7 +20,7 @@ export const AuthSlice = createSlice({
         role: localStorage.getItem(ROLE_KEY) ?? '',
         phone: localStorage.getItem(PHONE_KEY) ?? '',
         isError: '',
-        isAuth: true //Boolean(localStorage.getItem(TOKEN_KEY))
+        isAuth: Boolean(localStorage.getItem(TOKEN_KEY))
         
     },
     reducers: {

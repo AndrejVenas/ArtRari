@@ -13,9 +13,11 @@ import MeinWork from "./Pages/MeinWorks/MeinWorks";
 
 import {
     ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
-    PROFILE, MEIN_WORK, PAYMENT_SUCCESSFUL
+    PROFILE, MEIN_WORK, PAYMENT_SUCCESSFUL,
+    EXHIBITIONWORK
 } from "./constants";
 import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
+import ExhibitionWork from "./Pages/ExhibitionWork.jsx/ExhibitionWork";
 
 export const authRoute = [
     {
@@ -59,7 +61,7 @@ export const authRoute = [
         Element: AuctionsTest
     },
     {
-        path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot',
+        path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot?',
         Element: lot
     },
     {
@@ -70,6 +72,14 @@ export const authRoute = [
         path: PAYMENT_SUCCESSFUL,
         Element: PaymentSuccessful
     },
+    {
+        path: EXHIBITIONWORK,
+        Element: ExhibitionWork
+    },
+    {
+        path: EXHIBITIONS + '/:title' + '/:id' + '/work' + '/:idOfWork?',
+        Element: lot
+    }
 ]
 
 export const publicRoute = [

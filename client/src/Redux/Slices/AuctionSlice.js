@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit"
 export const AuctionSlice = createSlice({
     name: 'auction',
     initialState: {
-        auctionPreviews: [],
+        tags: [],
+        page: [],
         isLoading: false
     },
     reducers: {
@@ -12,7 +13,8 @@ export const AuctionSlice = createSlice({
         },
         fetchSuccess: (state, action) => {
             state.isLoading = false
-            state.auctionPreviews = action.payload.auctionPreviews
+            state.tags = action.payload.tags
+            state.page = action.payload.page
         },
         fetchError: (state) => {
             state.isError = 'Ошибка'

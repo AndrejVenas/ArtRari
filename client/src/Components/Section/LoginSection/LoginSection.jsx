@@ -6,6 +6,7 @@ import Button from "../../UI/Button/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { signin } from "../../../Actions/authAction";
 import { useNavigate } from "react-router-dom";
+import { useActiveContext } from "../../AppRouter";
 const Login = () => {
     const [form, setForm] = useState({
         email: "",
@@ -20,6 +21,7 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const {isAuth} = useSelector(state => state.Auth)
+    const {active, setActive, message, setMessage} = useActiveContext()
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -56,15 +58,17 @@ const Login = () => {
         }
     };
 
-    const login = () => {
-        dispatch(signin(form))
-    }
-
-    useEffect(() => {
-        if(isAuth) {
+    const login = async () => {
+        const {result, message} = await dispatch(signin(form))
+        if(result == 200) {
+            setMessage(message)
             navigate("/exhibitions")
+            setActive(true)
+        } else {
+            setMessage(message)
+            setActive(true)
         }
-    }, [isAuth])
+    }
     return (
         <section className="login">
             <div className="container login-container">

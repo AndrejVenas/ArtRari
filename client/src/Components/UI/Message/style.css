@@ -1,0 +1,43 @@
+.Message__content {
+    width: 497px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #313131;
+    border-radius: 10px;
+    position: fixed;
+    top: 100px;
+    right: 10px;
+    transform: translateX(150%);
+    transition: 2s;
+}
+
+.show {
+    transform: translateX(0%);
+}
+.hide {
+    transform: sideOutRight 2s forwards;
+}
+.Message__image {
+    height: 40px;
+    width: 40px;
+}
+
+@keyframes sideOutLeft {
+    0% {
+        transform: translateX(150%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes sideOutRight {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(150%);
+    }
+}

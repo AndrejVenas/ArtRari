@@ -7,7 +7,7 @@ const AuctionCard = ({ item, onClick}) => {
         const start = Date.now()
         const end = new Date(endDate)
         console.log(start, end)
-        return Math.round((end - start) / (1000 * 60 * 60 * 24))
+        return Math.floor((end - start) / (1000 * 60 * 60 * 24))
     }
     const navigate = useNavigate()
     return (
@@ -18,9 +18,10 @@ const AuctionCard = ({ item, onClick}) => {
                 <h3>{item.title}</h3>
                 <p>{item.theme}</p>
                 <div className="tags">
-                    <span>{item.tags?.length > 0 ? item.tags[0] : item.category}</span>
-                    <span>{item.tags?.length > 0 ? item.tags[1] : item.country}</span>
                     <span>{calculateDate(item.startDate, item.endDate)} днів</span>
+                    {item?.tags?.map((item) => {
+                        return <span>{item}</span>
+                    })}
                 </div>
             </div>
         </div>

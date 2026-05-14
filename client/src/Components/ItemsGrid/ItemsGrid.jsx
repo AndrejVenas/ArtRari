@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ItemsGrid.css";
 import Title from "../UI/title/Title";
 import Filters from "../UI/Filter/Filter";
@@ -9,17 +9,23 @@ const ItemsGrid = ({
                        items,
                        filters,
                        renderCard,
+                       setResult,
+                       result
                    }) => {
     const [filtersState, setFiltersState] = useState({});
     const [page, setPage] = useState(1);
-
+    
     const handleFilterChange = (name, value) => {
-        setFiltersState((prev) => ({
+        setResult((prev) => ({
             ...prev,
             [name]: value,
         }));
         setPage(1);
     };
+
+    useEffect(() => {
+        console.log(filtersState)
+    }, [])
 
     return (
         <section className="items-section">
@@ -29,7 +35,7 @@ const ItemsGrid = ({
 
                 <Filters
                     filters={filters}
-                    values={filtersState}
+                    values={result}
                     onChange={handleFilterChange}
                 />
 

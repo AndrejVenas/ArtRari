@@ -5,15 +5,16 @@ import Title from "../../Components/UI/title/Title";
 import ProfileNavigation from "../../Components/Section/ProfileNavigation/ProfileNavigation";
 import ProfileAction from "../../Components/Section/ProfileAction/ProfileAction";
 import ProfileField from "../../Components/UI/ProfileField/ProfileField";
+import { useSelector } from "react-redux";
 
 const USE_API = false;
 
 const ProfilePage = () => {
-
+    const {firstName, lastName, email} = useSelector(state => state.Auth)
     const [user, setUser] = useState({
-        firstName: "",
-        lastName: "",
-        email: ""
+        firstName: firstName?.length > 0 ? firstName : "",
+        lastName: lastName?.length > 0 ? lastName : "",
+        email: email?.length > 0 ? email : ""
     });
 
     const [stats, setStats] = useState({
@@ -44,7 +45,7 @@ const ProfilePage = () => {
             getStats();
         } else {
             // 🔥 работаем без сервера
-            setUser(mockUser);
+            //setUser(mockUser);
             setStats(mockStats);
         }
     }, []);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ItemsGrid from "../../ItemsGrid/ItemsGrid";
 import AuctionCard from "../../AuctionCard/AuctionCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,16 +17,9 @@ const auctionsMock = Array(12).fill({
 
 const filtersConfig = [
     {
-        name: "type",
-        label: "Тип",
-        type: "select",
-        options: ["Живопис", "Скульптура"],
-    },
-    {
-        name: "country",
-        label: "Країна",
-        type: "select",
-        options: ["Італія", "Франція"],
+        name: "checkbox",
+        label: "Теги",
+        type: "checkbox",
     },
     {
         name: "time",
@@ -38,16 +31,24 @@ const filtersConfig = [
 
 const AuctionsPage = () => {
     const dispatch = useDispatch()
-    const {auctionPreviews} = useSelector(state => state.Auction)
+    const {page, tags} = useSelector(state => state.Auction)
+    const [result, setResult] = useState({})
     useEffect(() => {
-        dispatch(auctionAction())
-    }, [])
+        if(Object.keys(result).length == 0) {
+            dispatch(auctionAction(0, ""))
+        } else {
+            dispatch(auctionAction(0, result['checkbox'].map(item => item.name).join(",")))
+        }
+    }, [dispatch, result])
     const navigate = useNavigate()
+
     return (
         <ItemsGrid
             title="Аукціони"
-            items={auctionPreviews}
+            items={page.items}
             filters={filtersConfig}
+            setResult={setResult}
+            result={result}
             renderCard={(item, index) => (
                 <AuctionCard key={index} item={item} onClick={() => navigate(AUCTIONS + "/" + item.title + "/" + item.id)}/>
             )}

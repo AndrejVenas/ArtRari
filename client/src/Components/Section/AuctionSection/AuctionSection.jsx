@@ -15,16 +15,9 @@ const auctionsMock = Array(12).fill({
 
 const filtersConfig = [
     {
-        name: "tags",
+        name: "checkbox",
         label: "Теги",
-        type: "select",
-        options: [],
-    },
-    {
-        name: "country",
-        label: "Країна",
-        type: "select",
-        options: ["Італія", "Франція"],
+        type: "checkbox"
     },
     {
         name: "time",
@@ -37,24 +30,29 @@ const filtersConfig = [
 const AuctionPage = () => {
     const [auction, setAuction] = useState({})
     const {title, id} = useParams()
+    const [result, setResult] = useState({})
 
-    const getAuction = async (id) => {
-        const response = await axios.get(`http://localhost:8080/auctions/${id}`)
+    const getAuction = async (id, page, tags) => {
+        const response = await axios.get(`http://localhost:8080/auctions/${id}?page=${page}&tags=${tags}`)
         response.data.lotPreviews.map(item => item['startDate'] = response.data.startDate)
-        filtersConfig[0]['options'] = response.data.lotPreviews[0]?.tags
         setAuction(response.data)
     }
 
     useEffect(() => {
-        getAuction(id)
-        console.log(filtersConfig)
-    }, [id])
+        if(Object.keys(result).length == 0) {
+            getAuction(id, 0, "")
+        } else {
+            getAuction(id, 0, result['checkbox'].map(item => item.name).join(","))
+        }
+    }, [id, result])
     const navigate = useNavigate()
     return (
         <ItemsGrid
             title={`Аукціон ${title}`}
             items={auction?.lotPreviews}
             filters={filtersConfig}
+            setResult={setResult}
+            result={result}
             renderCard={(item, index) => (
                 <AuctionCard key={index} item={item} onClick={() => navigate(AUCTIONS + '/' + title + '/' + id + '/lot' + '/' + item.id)}/>
             )}

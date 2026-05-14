@@ -1,4 +1,4 @@
-.popup {
+.checkBox {
     width: 100%;
     height: 100%;
     background-color: #00000050;
@@ -6,14 +6,11 @@
     z-index: 1;
     top: 0;
     left: 0;
-    display: none;
 }
-.popup__container {
+.checkBox__container {
     position: absolute;
-    max-width: 1112px;
-    max-height: 600px;
+    max-width: 718px;
     width: 100%;
-    height: 100%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -23,37 +20,38 @@
     border: 1px solid #ffffff;
 }
 
-.popup__top {
+.checkBox__top {
     display: flex;
     justify-content: space-between;
+    padding: 40px;
     position: sticky;
     top: 0px;
     background-color: #1B1B1B;
 }
 
-.popup__top-title {
-    font-size: 36px;
+.checkBox__top-title {
+    font-size: 30px;
     font-weight: bold;
-    padding: 25px;
 }
 
-.popup__top-close {
+.checkBox__top-close {
     width: 18px;
     height: 18px;
     align-self: flex-end;
     cursor: pointer;
 }
-.popup__cards {
-    margin-top: 40px;
-}
-
-.popup__card {
+.checkBox__cards {
     display: flex;
+    flex-wrap: wrap;
     gap: 25px;
-    padding: 25px;
+    padding: 30px 40px 60px;
 }
 
-.popup__image {
+.checkBox__card {
+    flex: 1 0 40%;
+}
+
+.checkBox__image {
     width: 150px;
 }
 
@@ -63,13 +61,13 @@
     margin-top: 10px;
 }
 
-.popup__description {
+.checkBox__description {
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: stretch;
 }
-.popup__description-title {
+.checkBox__description-title {
     font-size: 20px;
     font-weight: bold;
 }
