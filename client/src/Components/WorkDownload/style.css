@@ -24,3 +24,40 @@
 .input-group {
     width: 100%;
 }
+
+@media (max-width: 1440px) {
+    .workDownloadComponent__container{
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .imageDownload{
+        max-width: 100%;
+    }
+
+    .workDownloadComponent__form{
+        gap: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .workDownloadComponent__form {
+        flex-direction: column;
+    }
+    .imageDownload__block{
+        padding: 100px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .imageDownload__block{
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 550px) {
+    .formInputs__inputs-block{
+        flex-direction: column;
+    }
+}

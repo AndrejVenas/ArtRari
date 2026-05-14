@@ -33,3 +33,31 @@
 .autorization-img{
     max-width: 700px;
 }
+
+@media (max-width: 1200px) {
+    .autorization-img {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .autorization-img {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 900px) {
+    .autorization-img {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 800px) {
+    .login-container{
+        justify-content: center;
+    }
+
+    .login-right {
+        display: none;
+    }
+}

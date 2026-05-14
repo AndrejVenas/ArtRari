@@ -60,3 +60,35 @@
 .faq-icon.open {
     transform: rotate(180deg);
 }
+
+@media (max-width: 1024px) {
+    .faq-container {
+        gap: 50px;
+    }
+    .faq-right img{
+        padding-top: 100px;
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 800px) {
+    .faq-container {
+        gap: 20px;
+    }
+    .faq-right img{
+        padding-top: 100px;
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq-container {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+    .faq-right img{
+        padding-top: 0;
+        max-width: 100%;
+    }
+}

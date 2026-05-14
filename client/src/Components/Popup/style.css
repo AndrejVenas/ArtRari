@@ -100,3 +100,137 @@
 .open {
     display: block;
 }
+
+
+@media (max-width: 1200px) {
+    .popup__container{
+        max-width: 1000px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .popup__top{
+        padding: 25px;
+    }
+    .popup__top-title {
+        font-size: 28px;
+    }
+    .popup__container{
+        max-width: 740px;
+    }
+    .popup__cards{
+        margin-top: 0;
+    }
+    .popup__card{
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .popup__container{
+        max-width: 600px;
+    }
+
+    .popup__description-information{
+        gap: 20px;
+    }
+
+    .information__button{
+        max-width: 100px;
+    }
+    .popup__description-information .btn{
+        padding: 7px 15px;
+    }
+}
+
+
+@media (max-width: 650px) {
+    .popup__container{
+        max-width: 550px;
+    }
+
+    .popup__top-title{
+        font-size: 24px;
+    }
+
+    .popup__description-information{
+        gap: 15px;
+    }
+
+    .popup__card{
+        gap: 15px;
+    }
+
+    .popup__image{
+        max-width: 100px;
+    }
+
+    .information__button{
+        max-width: 100px;
+    }
+    .popup__description-information .btn{
+        padding: 5px 15px;
+    }
+}
+
+@media (max-width: 650px) {
+    .popup__container{
+        max-width: 550px;
+    }
+
+    .popup__description-information{
+        gap: 10px;
+    }
+
+    .popup__top-title{
+        font-size: 22px;
+    }
+
+    .popup__description-title {
+        font-size: 18px;
+    }
+
+    .popup__card{
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .popup__image{
+        max-width: 75px;
+    }
+
+    .information__button{
+        max-width: 80px;
+    }
+    .popup__description-information .btn{
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 550px) {
+    .popup__container{
+        max-width: 350px;
+    }
+
+    .popup__description-information{
+        gap: 5px;
+    }
+
+    .popup__top-title{
+        font-size: 20px;
+    }
+
+    .popup__description-title {
+        font-size: 16px;
+    }
+
+    .popup__card{
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .popup__description-information{
+        flex-direction: column;
+    }
+}
