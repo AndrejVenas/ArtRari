@@ -123,7 +123,6 @@ td img {
     cursor: pointer;
 }
 
-<<<<<<< HEAD
 .form__block-plus {
     font-size: 30px;
     font-weight: 400;
@@ -143,7 +142,7 @@ td img {
     padding: 8px;
     border-radius: 20px;
     margin: 4px;
-=======
+}
 /**/
 @media (max-width: 1440px) {
     .createExhibition__container{
@@ -172,5 +171,4 @@ td img {
     .table__tr-td, .table__th{
         font-size: 16px;
     }
->>>>>>> b0d189066856ab552dbea74389cd5ba1c9e224d9
 }

@@ -58,7 +58,6 @@ const Login = () => {
         }
     };
 
-<<<<<<< HEAD
     const login = async () => {
         const {result, message} = await dispatch(signin(form))
         if(result == 200) {
@@ -68,17 +67,17 @@ const Login = () => {
         } else {
             setMessage(message)
             setActive(true)
-=======
-    const login = () => {
-        dispatch(signin(form))
+        }
     }
+    /*const login = () => {
+        dispatch(signin(form))
+    }*/
 
     useEffect(() => {
         if(isAuth) {
             // navigate("/exhibitions")
->>>>>>> b0d189066856ab552dbea74389cd5ba1c9e224d9
         }
-    }
+    }, [])
     return (
         <section className="login">
             <div className="container login-container">
@@ -134,5 +133,4 @@ const Login = () => {
         </section>
     );
 };
-
 export default Login;
