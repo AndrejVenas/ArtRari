@@ -10,25 +10,27 @@ import { useSelector } from "react-redux";
 const USE_API = false;
 
 const ProfilePage = () => {
-    const {firstName, lastName, email} = useSelector(state => state.Auth)
+    const {role, token} = useSelector(state => state.Auth)
     const [user, setUser] = useState({
-        firstName: firstName?.length > 0 ? firstName : "",
-        lastName: lastName?.length > 0 ? lastName : "",
-        email: email?.length > 0 ? email : ""
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: ""
     });
 
     const [stats, setStats] = useState({
         bids: 0,
         wins: 0,
-        works: 0,
-        exhibitions: 0,
-        auctions: 0
+        artworks: 0,
+        auctions: 0,
+        exhibitions: 0
     });
 
     const mockUser = {
         firstName: "Іван",
         lastName: "Петренко",
-        email: "example@gmail.com"
+        email: "example@gmail.com",
+        phone: "+380681239832"
     };
 
     const mockStats = {
@@ -40,20 +42,18 @@ const ProfilePage = () => {
     };
 
     useEffect(() => {
-        if (USE_API) {
-            getProfile();
-            getStats();
-        } else {
-            // 🔥 работаем без сервера
-            //setUser(mockUser);
-            setStats(mockStats);
-        }
+        getProfile();
+        getStats();
     }, []);
 
     // 🔸 заготовки под backend
     const getProfile = async () => {
         try {
-            const res = await axios.get("/api/profile");
+            const res = await axios.get("http://localhost:8080/profile", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             setUser(res.data);
         } catch (e) {
             console.error("Profile API error:", e);
@@ -62,7 +62,11 @@ const ProfilePage = () => {
 
     const getStats = async () => {
         try {
-            const res = await axios.get("/api/profile/stats");
+            const res = await axios.get("http://localhost:8080/stats", {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
             setStats(res.data);
         } catch (e) {
             console.error("Stats API error:", e);
@@ -105,6 +109,14 @@ const ProfilePage = () => {
                                 setUser(prev => ({ ...prev, [name]: value }));
                             }}
                         />
+                        <ProfileField
+                            label="Номер телефону"
+                            name="phone"
+                            value={user.phone}
+                            onSave={(name, value) => {
+                                setUser(prev => ({...prev, [name]: value}))
+                            }}
+                        />
 
                     </div>
 
@@ -115,6 +127,8 @@ const ProfilePage = () => {
                         <div className="stats-box">
                             <table>
                                 <tbody>
+                                {role == 'user' ?
+                                <>
                                 <tr>
                                     <td>Кількість ставок:</td>
                                     <td>{stats.bids}</td>
@@ -125,16 +139,21 @@ const ProfilePage = () => {
                                 </tr>
                                 <tr>
                                     <td>Кількість робіт:</td>
-                                    <td>{stats.works}</td>
+                                    <td>{stats.artworks}</td>
                                 </tr>
+                                </>
+                                :
+                                <>
                                 <tr>
-                                    <td>Виставки:</td>
+                                    <td>Кількість виставок:</td>
                                     <td>{stats.exhibitions}</td>
                                 </tr>
                                 <tr>
-                                    <td>Аукціони:</td>
+                                    <td>Кількість аукціонів:</td>
                                     <td>{stats.auctions}</td>
                                 </tr>
+                                </>
+                                }
                                 </tbody>
                             </table>
                         </div>

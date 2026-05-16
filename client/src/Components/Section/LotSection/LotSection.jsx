@@ -113,7 +113,7 @@ const AuctionPage = () => {
                                 </tbody>
                             </table>
                         </div>
-                        {idOfLot ? <AuctionBid /> : <div className="auction-description">
+                        {idOfLot ? <AuctionBid id={idOfLot}/> : <div className="auction-description">
                         <Title title={idOfLot ? lot.artwork?.title: work.title}/>
 
                         <div className="desc-grid">
