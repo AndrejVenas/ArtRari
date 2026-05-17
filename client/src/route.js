@@ -10,13 +10,19 @@ import AuctionsTest from "./Pages/auctionTest/AuctionTest";
 import lot from "./Pages/Lot/Lot";
 import profilePage from "./Pages/ProfilePage/ProfilePage";
 import MeinWork from "./Pages/MeinWorks/MeinWorks";
+import EditWork from "./Pages/WorkEdit/WorkEdit";
+import LotPayment from "./Pages/LotPayment/LotPayment";
+import HistoryBuy from "./Pages/HistoryBuy/HistoryBuy";
 
 import {
     ABOUT_US, AUCTION_TEST, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
     PROFILE, MY_WORK, PAYMENT_SUCCESSFUL,
     EXHIBITIONWORK,
     MY_EXHIBITIONS,
-    MY_AUCTIONS
+    MY_AUCTIONS,
+    EDIT_WORK,
+    LOT_PAYMENT,
+    HISTORY_BUY
 } from "./constants";
 import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
 import ExhibitionWork from "./Pages/ExhibitionWork.jsx/ExhibitionWork";
@@ -85,6 +91,18 @@ export const authRoute = [
     {
         path: MY_EXHIBITIONS,
         Element: MeinWork
+    },
+    {
+        path: EDIT_WORK,
+        Element: EditWork
+    },
+    {
+        path: LOT_PAYMENT,
+        Element: LotPayment
+    },
+    {
+        path: HISTORY_BUY,
+        Element: HistoryBuy
     },
     {
         path: MY_AUCTIONS,

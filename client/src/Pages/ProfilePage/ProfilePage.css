@@ -65,6 +65,24 @@
     font-weight: bold;
 }
 
+/*btn*/
+.logout-btn {
+    margin-top: 25px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 30px;
+    background: #e74c3c;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.logout-btn:hover {
+    opacity: 0.85;
+}
+
 @media (max-width: 1200px) {
     .button-link.ProfileNavigation-link, div.ProfileNavigation-col{
         max-width: 500px;

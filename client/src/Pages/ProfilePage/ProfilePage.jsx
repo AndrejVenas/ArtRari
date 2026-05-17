@@ -46,7 +46,6 @@ const ProfilePage = () => {
         getStats();
     }, []);
 
-    // 🔸 заготовки под backend
     const getProfile = async () => {
         try {
             const res = await axios.get("http://localhost:8080/profile", {
@@ -120,43 +119,46 @@ const ProfilePage = () => {
 
                     </div>
 
-                    {/* Правая колонка */}
                     <div>
-                        <Title title={"Статистика"}/>
+                        <Title title={"Статистика"} />
 
                         <div className="stats-box">
                             <table>
                                 <tbody>
-                                {role == 'user' ?
-                                <>
-                                <tr>
-                                    <td>Кількість ставок:</td>
-                                    <td>{stats.bids}</td>
-                                </tr>
-                                <tr>
-                                    <td>Кількість перемог:</td>
-                                    <td>{stats.wins}</td>
-                                </tr>
-                                <tr>
-                                    <td>Кількість робіт:</td>
-                                    <td>{stats.artworks}</td>
-                                </tr>
-                                </>
-                                :
-                                <>
-                                <tr>
-                                    <td>Кількість виставок:</td>
-                                    <td>{stats.exhibitions}</td>
-                                </tr>
-                                <tr>
-                                    <td>Кількість аукціонів:</td>
-                                    <td>{stats.auctions}</td>
-                                </tr>
-                                </>
-                                }
+                                {role == 'user' ? (
+                                    <>
+                                        <tr>
+                                            <td>Кількість ставок:</td>
+                                            <td>{stats.bids}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Кількість перемог:</td>
+                                            <td>{stats.wins}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Кількість робіт:</td>
+                                            <td>{stats.artworks}</td>
+                                        </tr>
+                                    </>
+                                ) : (
+                                    <>
+                                        <tr>
+                                            <td>Кількість виставок:</td>
+                                            <td>{stats.exhibitions}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Кількість аукціонів:</td>
+                                            <td>{stats.auctions}</td>
+                                        </tr>
+                                    </>
+                                )}
                                 </tbody>
                             </table>
                         </div>
+
+                        <button className="logout-btn">
+                            Вийти з акаунту
+                        </button>
                     </div>
 
                 </div>

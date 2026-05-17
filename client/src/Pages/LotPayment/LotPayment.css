@@ -1,0 +1,152 @@
+.auction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+/* картинка */
+.auction-image {
+    background: #313131;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auction-image img {
+    max-width: 350px;
+    width: 100%;
+}
+
+/* правая часть */
+.auction-side {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* инфо */
+.auction-info {
+    background: #2a2a2a;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid #444;
+}
+
+.row:last-child {
+    border-bottom: none;
+}
+
+/* ставка */
+.auction-bid {
+    background: #2a2a2a;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.auction-bid label{
+    display: block;
+    margin-bottom: 25px;
+}
+
+.bid-controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.note{
+    font-style: italic;
+}
+
+a.auction-link{
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.bid-controls input {
+    background: #000;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 14px;
+    color: #fff;
+}
+
+.bid-controls button {
+    background: #d6b37a;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* нижний блок */
+.auction-description {
+    grid-column: span 2;
+    background: #2a2a2a;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.desc-grid {
+    display: grid;
+    grid-template-columns: 4fr 5fr;
+    gap: 50px;
+    margin: 20px 0;
+}
+
+.tags {
+    display: flex;
+    gap: 10px;
+}
+
+.tags span {
+    background: #1b1b1b;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+
+/*table*/
+.auction-info {
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.auction-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* строки */
+.auction-info tr:nth-child(odd) {
+    background: #313131;
+}
+
+.auction-info tr:nth-child(even) {
+    background: #1B1B1B;
+}
+
+/* ячейки */
+.auction-info td {
+    padding: 14px 18px;
+    color: #fff;
+}
+
+/* левая колонка */
+.auction-info td:first-child {
+    color: #ccc;
+}
+
+/* правая колонка */
+.auction-info td:last-child {
+    text-align: right;
+    font-weight: 600;
+}

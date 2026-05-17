@@ -1,0 +1,69 @@
+.workDownloadComponent {
+    margin: 150px 0px 75px 0px;
+}
+
+.formInputs {
+    display: flex;
+    gap: 50px;
+    margin-top: 25px;
+}
+
+.formInputs__inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.formInputs__inputs-block {
+    display: flex;
+    width: 100%;
+    gap: 30px;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.workDownloadComponent__content textarea{
+    font-size: 20px;
+    font-weight: 300;
+    min-height: 220px;
+}
+
+@media (max-width: 1440px) {
+    .workDownloadComponent__container{
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 1280px) {
+    .imageDownload{
+        max-width: 100%;
+    }
+
+    .workDownloadComponent__form{
+        gap: 30px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .workDownloadComponent__form {
+        flex-direction: column;
+    }
+    .imageDownload__block{
+        padding: 100px 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .imageDownload__block{
+        padding: 50px 0;
+    }
+}
+
+@media (max-width: 550px) {
+    .formInputs__inputs-block{
+        flex-direction: column;
+    }
+}

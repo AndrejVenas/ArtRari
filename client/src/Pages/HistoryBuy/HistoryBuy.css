@@ -1,0 +1,72 @@
+.history-page {
+    padding: 40px 0;
+}
+
+.history-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.history-card {
+    display: flex;
+    gap: 25px;
+    padding: 25px;
+    background: #1B1B1B;
+    border-radius: 10px;
+    border: 1px solid #ffffff30;
+}
+
+.history-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.history-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.history-info {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+}
+
+.history-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.empty {
+    color: #aaa;
+    font-size: 18px;
+}
+
+.view-btn {
+    margin-top: 15px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 25px;
+    background: #e0c084;
+    color: #1b1b1b;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s;
+    align-self: flex-start;
+}
+
+.view-btn:hover {
+    opacity: 0.85;
+}
