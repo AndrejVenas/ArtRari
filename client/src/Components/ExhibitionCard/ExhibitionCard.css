@@ -35,3 +35,17 @@
     margin: 4px 0;
     color: #ccc;
 }
+
+@media(max-width: 1025px) {
+    .exhibition-card {
+        border: 8px solid #fff;
+        padding: 15px;
+    }
+}
+
+@media(max-width: 769px) {
+    .exhibition-card {
+        border: 6px solid #fff;
+        padding: 10px;
+    }
+}

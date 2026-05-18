@@ -9,6 +9,26 @@
     gap: 20px;
 }
 
-.mein-works__grid > * {
-    width: calc(25% - 18px);
+/*.mein-works__grid > * {*/
+/*    width: calc(25% - 18px);*/
+/*}*/
+
+@media (max-width: 1440px) {
+    .mein-works__grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px 0;
+    }
+
+    .mein-works .container {
+        max-width: 1340px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 540px) {
+    .mein-works__grid{
+        justify-content: center;
+    }
 }

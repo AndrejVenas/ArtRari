@@ -47,3 +47,111 @@
     height: 30px;
     margin: 0 auto;
 }
+
+@media (max-width: 1350px) {
+    .my-work-card {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 1270px) {
+    .my-work-card {
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .my-work-card {
+        max-width: 360px;
+    }
+}
+
+@media (max-width: 1140px) {
+    .my-work-card {
+        max-width: 350px;
+    }
+}
+
+@media (max-width: 1100px) {
+    .my-work-card {
+        max-width: 330px;
+    }
+}
+
+@media (max-width: 1040px) {
+    .my-work-card {
+        max-width: 310px;
+    }
+}
+
+@media (max-width: 990px) {
+    .my-work-card {
+        max-width: 295px;
+    }
+}
+
+@media (max-width: 940px) {
+    .my-work-card {
+        max-width: 285px;
+    }
+}
+
+@media (max-width: 900px) {
+    .my-work-card {
+        max-width: 270px;
+    }
+}
+
+@media (max-width: 855px) {
+    .my-work-card {
+        max-width: 260px;
+    }
+}
+
+@media (max-width: 821px) {
+    .my-work-card {
+        max-width: 240px;
+    }
+}
+
+@media (max-width: 760px) {
+    .my-work-card {
+        max-width: 340px;
+    }
+}
+
+@media (max-width: 720px) {
+    .my-work-card {
+        max-width: 320px;
+    }
+}
+
+@media (max-width: 770px) {
+    .my-work-card {
+        max-width: 300px;
+    }
+}
+
+@media (max-width: 630px) {
+    .my-work-card {
+        max-width: 280px;
+    }
+}
+
+@media (max-width: 591px) {
+    .my-work-card {
+        max-width: 260px;
+    }
+}
+
+@media (max-width: 560px) {
+    .my-work-card {
+        max-width: 250px;
+    }
+}
+
+@media (max-width: 530px) {
+    .my-work-card {
+        max-width: 400px;
+    }
+}

@@ -11,3 +11,9 @@
 .payment-successful-img{
     max-width: 250px;
 }
+
+@media (max-width: 760px) {
+    .payment-successful{
+        flex-direction: column;
+    }
+}

@@ -44,15 +44,15 @@ const ExhibitionsPage = () => {
     }, [result])
     const {tagsForFilter, page} = useSelector(state => state.Exhibitions)
     const newFiltersConfig = useMemo(() => {
-            return filtersConfig.map((item) => {
-                if(item.name == "type") {
-                    return {
-                        ...item,
-                        options: tagsForFilter
-                    }
+        return filtersConfig.map((item) => {
+            if(item.name == "type") {
+                return {
+                    ...item,
+                    options: tagsForFilter
                 }
-                return item
-            })
+            }
+            return item
+        })
     }, [tagsForFilter])
     return (
         <ItemsGrid

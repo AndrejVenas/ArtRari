@@ -8,6 +8,7 @@ const ExhibitionCard = ({ item, onClick }) => {
         <div className="exhibition-card" onClick={onClick}>
             <div className="image-wrapper">
                 <img src={item.thumbnailUrl} alt={item.title} />
+                {/*<img src={item.image} alt={item.title} />*/}
             </div>
 
             <div className="exhibition-content">
