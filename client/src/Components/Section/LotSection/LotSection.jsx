@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./LotSection.css";
 import Title from "../../UI/title/Title";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import AuctionBid from "../AuctionBid/AuctionBid";
 
@@ -10,6 +10,7 @@ const AuctionPage = () => {
     const [bids, setBids] = useState([])
     const [work, setWork] = useState({})
     const {title, id, idOfLot, idOfWork} = useParams()
+    const location = useLocation()
 
     const getLot = async (id) => {
         const response = await axios.get(`http://localhost:8080/lots/${id}`)
@@ -113,7 +114,7 @@ const AuctionPage = () => {
                                 </tbody>
                             </table>
                         </div>
-                        {idOfLot ? <AuctionBid id={idOfLot}/> : <div className="auction-description">
+                        {idOfLot ? <AuctionBid id={idOfLot} navigateToPage={location.pathname}/> : <div className="auction-description">
                         <Title title={idOfLot ? lot.artwork?.title: work.title}/>
 
                         <div className="desc-grid">

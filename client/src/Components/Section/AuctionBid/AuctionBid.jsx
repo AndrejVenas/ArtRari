@@ -2,15 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import {useSelector} from 'react-redux'
 import Message from '../../UI/Message/Message'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import {AUCTIONS} from '../../../constants'
-const AuctionBid = ({id}) => {
+const AuctionBid = ({id, navigateToPage}) => {
     const [bid, setBid] = useState(100)
     const {token} = useSelector(state => state.Auth)
     const [checked, setChecked] = useState(false)
     const [checkedCheckBox, setCheckedCheckBox] = useState(false)
     const [message, setMessage] = useState('')
-    const navigate = useNavigate()
     const bidAuction = async (id) => {
         if(!checkedCheckBox) {
             setMessage('Прийміть правила використання.')
@@ -26,7 +25,8 @@ const AuctionBid = ({id}) => {
             setChecked(true)
             setMessage('Вітаємо. Ваша ставка була успішно прийнята.')
             setTimeout(() => {
-                navigate(AUCTIONS)
+                console.log(navigateToPage)
+                window.location.reload(navigateToPage)
             }, 3000)
         } catch(error) {
             console.log(error.response)
