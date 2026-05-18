@@ -11,8 +11,12 @@ import java.util.Optional;
 @Repository
 public interface BidRepository extends JpaRepository<Bid, Integer> {
     @EntityGraph(attributePaths = "user")
-    List<Bid> findByLotId(Long lotId);
+    List<Bid> findByLotIdOrderByCreatedAtDesc(Long lotId);
 
     @EntityGraph(attributePaths = {"user"})
     Optional<Bid> findTopByLotIdOrderByAmountDesc(Long lotId);
+
+    int countAllByUserId(Long userId);
+
+    int countAllByIsWinTrueAndUserId(Long userId);
 }
