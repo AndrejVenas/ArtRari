@@ -6,44 +6,86 @@ import axios from "axios";
 import AuctionBid from "../AuctionBid/AuctionBid";
 
 const AuctionPage = () => {
-    const [lot, setLot] = useState({})
-    const [bids, setBids] = useState([])
-    const [work, setWork] = useState({})
-    const {title, id, idOfLot, idOfWork} = useParams()
-    const location = useLocation()
+    const [lot, setLot] = useState({});
+    const [bids, setBids] = useState([]);
+    const [work, setWork] = useState({});
+    const [timeLeft, setTimeLeft] = useState("");
+
+    const { title, id, idOfLot, idOfWork } = useParams();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const getLot = async (id) => {
-        const response = await axios.get(`http://localhost:8080/lots/${id}`)
-        setLot(response.data)
-    }
+        const response = await axios.get(`http://localhost:8080/lots/${id}`);
+        setLot(response.data);
+    };
 
     const getWork = async (id) => {
-        const response = await axios.get(`http://localhost:8080/artworks/${id}`)
-        setWork(response.data)
-    }
+        const response = await axios.get(`http://localhost:8080/artworks/${id}`);
+        setWork(response.data);
+    };
 
     const getBid = async (id) => {
-        const response = await axios.get(`http://localhost:8080/lots/${id}/bids`)
-        setBids(response.data)
-    }
-    
-    useEffect(() => {
-        if(idOfLot) {
-            getLot(idOfLot)
-            getBid(idOfLot)
-        } else {
-            getWork(idOfWork)
-        }
-    }, [idOfLot, idOfWork])
-    const navigate = useNavigate()
-    const calculateDate = (endDate) => {
-        const now = Date.now()
-        const end = new Date(endDate)
+        const response = await axios.get(`http://localhost:8080/lots/${id}/bids`);
+        setBids(response.data);
+    };
 
-        const day = Math.floor((end - now) / (1000 * 60 * 60 * 24))
-        const hour = Math.floor((end - now) % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
-        return `${day} днів ${hour} години`
-    }
+    useEffect(() => {
+        if (idOfLot) {
+            getLot(idOfLot);
+            getBid(idOfLot);
+        } else {
+            getWork(idOfWork);
+        }
+    }, [idOfLot, idOfWork]);
+
+    // Таймер
+    useEffect(() => {
+        if (!lot?.endDate) return;
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const end = new Date(lot.endDate).getTime();
+
+            const diff = end - now;
+
+            if (diff <= 0) {
+                setTimeLeft("Аукціон завершено");
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+            const hours = Math.floor(
+                (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+            );
+
+            const minutes = Math.floor(
+                (diff % (1000 * 60 * 60)) / (1000 * 60)
+            );
+
+            const seconds = Math.floor(
+                (diff % (1000 * 60)) / 1000
+            );
+
+            if (days < 2) {
+                const totalHours = Math.floor(diff / (1000 * 60 * 60));
+
+                setTimeLeft(
+                    `${String(totalHours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+                );
+            } else {
+                setTimeLeft(`${days} днів ${hours} годин`);
+            }
+        };
+
+        updateTimer();
+
+        const interval = setInterval(updateTimer, 1000);
+
+        return () => clearInterval(interval);
+    }, [lot?.endDate]);
+
     return (
         <section className="auction-page">
             <div className="container">
@@ -63,92 +105,115 @@ const AuctionPage = () => {
                         <div className="auction-info">
                             <table>
                                 <tbody>
-                                {idOfLot ? <tr>
-                                    <td>Залишилось часу:</td>
-                                    <td>{calculateDate(lot.endDate)}</td>
-                                </tr> :
-                                <tr>
-                                    <td>Автор:</td>
-                                    <td>{work.author}</td>
-                                </tr>
-                                }
-                                {idOfLot ? 
-                                <>
-                                <tr>
-                                    <td>Стартова ціна:</td>
-                                    <td>${lot.currentPrice}</td>
-                                </tr>
-                                <tr>
-                                    <td>Поточна ставка:</td>
-                                    <td>${bids[0]?.amount}</td>
-                                </tr>
-                                <tr>
-                                    <td>Автор ставки:</td>
-                                    <td>{bids[0]?.user}</td>
-                                </tr>
-                                <tr>
-                                    <td>Назва роботи:</td>
-                                    <td>{lot.artwork?.title}</td>
-                                </tr>
-                                <tr>
-                                    <td>Комісія:</td>
-                                    <td>10%</td>
-                                </tr>
-                                </>
-                                :
-                                <>
-                                <tr>
-                                    <td>Назва роботи:</td>
-                                    <td>{work.title}</td>
-                                </tr>
-                                <tr>
-                                    <td>Дата створення:</td>
-                                    <td>{work.creationDate}</td>
-                                </tr>
-                                <tr>
-                                    <td>Техніка:</td>
-                                    <td>{work.technique}</td>
-                                </tr>
-                                </>
-                                }
+
+                                {idOfLot ? (
+                                    <tr>
+                                        <td>Залишилось часу:</td>
+                                        <td>{timeLeft}</td>
+                                    </tr>
+                                ) : (
+                                    <tr>
+                                        <td>Автор:</td>
+                                        <td>{work.author}</td>
+                                    </tr>
+                                )}
+
+                                {idOfLot ? (
+                                    <>
+                                        <tr>
+                                            <td>Стартова ціна:</td>
+                                            <td>${lot.currentPrice}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Поточна ставка:</td>
+                                            <td>${bids[0]?.amount}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Автор ставки:</td>
+                                            <td>{bids[0]?.user}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Назва роботи:</td>
+                                            <td>{lot.artwork?.title}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Комісія:</td>
+                                            <td>10%</td>
+                                        </tr>
+                                    </>
+                                ) : (
+                                    <>
+                                        <tr>
+                                            <td>Назва роботи:</td>
+                                            <td>{work.title}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Дата створення:</td>
+                                            <td>{work.creationDate}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>Техніка:</td>
+                                            <td>{work.technique}</td>
+                                        </tr>
+                                    </>
+                                )}
+
                                 </tbody>
                             </table>
                         </div>
-                        {idOfLot ? <AuctionBid id={idOfLot} navigateToPage={location.pathname}/> : <div className="auction-description">
-                        <Title title={idOfLot ? lot.artwork?.title: work.title}/>
 
-                        <div className="desc-grid">
-                            <p>
-                                {idOfLot ? lot.artwork?.description : work.title}
-                            </p>
-                        </div>
+                        {idOfLot ? (
+                            <AuctionBid
+                                id={idOfLot}
+                                navigateToPage={location.pathname}
+                            />
+                        ) : (
+                            <div className="auction-description">
+                                <Title title={idOfLot ? lot.artwork?.title : work.title} />
 
-                        <div className="tags">
-                            {idOfLot ? lot.artwork?.tags.map((item) => {
-                                return <span>{item}</span>
-                            }) : work?.tags?.map((item) => {
-                                return <span>{item}</span>
-                            })}
-                        </div>
-                    </div>}
+                                <div className="desc-grid">
+                                    <p>
+                                        {idOfLot
+                                            ? lot.artwork?.description
+                                            : work.description}
+                                    </p>
+                                </div>
+
+                                <div className="tags">
+                                    {idOfLot
+                                        ? lot.artwork?.tags?.map((item, index) => (
+                                            <span key={index}>{item}</span>
+                                        ))
+                                        : work?.tags?.map((item, index) => (
+                                            <span key={index}>{item}</span>
+                                        ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
 
-                    {idOfLot && <div className="auction-description">
-                        <Title title={lot.artwork?.title}/>
+                    {idOfLot && (
+                        <div className="auction-description">
+                            <Title title={lot.artwork?.title} />
 
-                        <div className="desc-grid">
-                            <p>
-                                {lot.artwork?.description}
-                            </p>
-                        </div>
+                            <div className="desc-grid">
+                                <p>{lot.artwork?.description}</p>
+                            </div>
 
-                        <div className="tags">
-                            {lot.artwork?.tags.map((item) => {
-                                return <span>{item}</span>
-                            })}
+                            <div className="tags">
+                                {lot.artwork?.tags?.map((item, index) => (
+                                    <span key={index}>{item}</span>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                    }
+                    )}
+
                 </div>
             </div>
         </section>
