@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./LotSection.css";
 import Title from "../../UI/title/Title";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import AuctionBid from "../AuctionBid/AuctionBid";
+import { subscribeToLotBids } from "../../../socketClient";
 
 const AuctionPage = () => {
     const [lot, setLot] = useState({});
@@ -11,42 +12,80 @@ const AuctionPage = () => {
     const [work, setWork] = useState({});
     const [timeLeft, setTimeLeft] = useState("");
 
-    const { title, id, idOfLot, idOfWork } = useParams();
+    const { idOfLot, idOfWork } = useParams();
     const location = useLocation();
-    const navigate = useNavigate();
 
     const getLot = async (id) => {
-        const response = await axios.get(`http://localhost:8080/lots/${id}`);
-        setLot(response.data);
+        const res = await axios.get(`http://localhost:8080/lots/${id}`);
+        setLot(res.data);
     };
 
     const getWork = async (id) => {
-        const response = await axios.get(`http://localhost:8080/artworks/${id}`);
-        setWork(response.data);
+        const res = await axios.get(`http://localhost:8080/artworks/${id}`);
+        setWork(res.data);
     };
 
-    const getBid = async (id) => {
-        const response = await axios.get(`http://localhost:8080/lots/${id}/bids`);
-        setBids(response.data);
+    const getBids = async (id) => {
+        const res = await axios.get(`http://localhost:8080/lots/${id}/bids`);
+        setBids(res.data || []);
     };
 
     useEffect(() => {
-        if (idOfLot) {
-            getLot(idOfLot);
-            getBid(idOfLot);
-        } else {
+        if (!idOfLot) {
             getWork(idOfWork);
+            return;
         }
+
+        getLot(idOfLot);
+        getBids(idOfLot);
     }, [idOfLot, idOfWork]);
 
-    // Таймер
+    useEffect(() => {
+        if (!idOfLot) return;
+
+        const disconnect = subscribeToLotBids(idOfLot, (newBid) => {
+            setBids((prev) => {
+                const normalizedNew = {
+                    ...newBid,
+                    amount: Number(newBid.amount),
+                };
+
+                const exists = prev.some(b =>
+                    b.amount === normalizedNew.amount &&
+                    b.user === normalizedNew.user
+                );
+
+                if (exists) return prev;
+
+                return [...prev, normalizedNew];
+            });
+        });
+
+        return () => disconnect();
+    }, [idOfLot]);
+
+    const currentPrice = useMemo(() => {
+        if (!bids.length) return Number(lot.currentPrice) || 0;
+
+        return Math.max(
+            ...bids.map(b => Number(b.amount) || 0)
+        );
+    }, [bids, lot.currentPrice]);
+
+    const topBid = useMemo(() => {
+        if (!bids.length) return null;
+
+        return [...bids].sort(
+            (a, b) => Number(b.amount) - Number(a.amount)
+        )[0];
+    }, [bids]);
+
     useEffect(() => {
         if (!lot?.endDate) return;
 
         const updateTimer = () => {
-            const now = new Date().getTime();
+            const now = Date.now();
             const end = new Date(lot.endDate).getTime();
-
             const diff = end - now;
 
             if (diff <= 0) {
@@ -55,24 +94,15 @@ const AuctionPage = () => {
             }
 
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-            const hours = Math.floor(
-                (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-            );
-
-            const minutes = Math.floor(
-                (diff % (1000 * 60 * 60)) / (1000 * 60)
-            );
-
-            const seconds = Math.floor(
-                (diff % (1000 * 60)) / 1000
-            );
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
 
             if (days < 2) {
-                const totalHours = Math.floor(diff / (1000 * 60 * 60));
-
                 setTimeLeft(
-                    `${String(totalHours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+                    `${String(hours).padStart(2, "0")}:` +
+                    `${String(minutes).padStart(2, "0")}:` +
+                    `${String(seconds).padStart(2, "0")}`
                 );
             } else {
                 setTimeLeft(`${days} днів ${hours} годин`);
@@ -80,7 +110,6 @@ const AuctionPage = () => {
         };
 
         updateTimer();
-
         const interval = setInterval(updateTimer, 1000);
 
         return () => clearInterval(interval);
@@ -91,7 +120,7 @@ const AuctionPage = () => {
             <div className="container">
                 <div className="auction-grid">
 
-                    {/* Левая колонка */}
+                    {/* IMAGE */}
                     <div className="auction-image">
                         <img
                             src={idOfLot ? lot.artwork?.photoUrl : work.photoUrl}
@@ -99,7 +128,7 @@ const AuctionPage = () => {
                         />
                     </div>
 
-                    {/* Правая колонка */}
+                    {/* INFO */}
                     <div className="auction-side">
 
                         <div className="auction-info">
@@ -122,17 +151,17 @@ const AuctionPage = () => {
                                     <>
                                         <tr>
                                             <td>Стартова ціна:</td>
-                                            <td>${lot.currentPrice}</td>
+                                            <td>${Number(lot.currentPrice) || 0}</td>
                                         </tr>
 
                                         <tr>
                                             <td>Поточна ставка:</td>
-                                            <td>${bids[0]?.amount}</td>
+                                            <td>${currentPrice}</td>
                                         </tr>
 
                                         <tr>
                                             <td>Автор ставки:</td>
-                                            <td>{bids[0]?.user}</td>
+                                            <td>{topBid?.user || "-"}</td>
                                         </tr>
 
                                         <tr>
@@ -168,6 +197,7 @@ const AuctionPage = () => {
                             </table>
                         </div>
 
+                        {/* BID FORM */}
                         {idOfLot ? (
                             <AuctionBid
                                 id={idOfLot}
@@ -175,29 +205,22 @@ const AuctionPage = () => {
                             />
                         ) : (
                             <div className="auction-description">
-                                <Title title={idOfLot ? lot.artwork?.title : work.title} />
+                                <Title title={work.title} />
 
                                 <div className="desc-grid">
-                                    <p>
-                                        {idOfLot
-                                            ? lot.artwork?.description
-                                            : work.description}
-                                    </p>
+                                    <p>{work.description}</p>
                                 </div>
 
                                 <div className="tags">
-                                    {idOfLot
-                                        ? lot.artwork?.tags?.map((item, index) => (
-                                            <span key={index}>{item}</span>
-                                        ))
-                                        : work?.tags?.map((item, index) => (
-                                            <span key={index}>{item}</span>
-                                        ))}
+                                    {work?.tags?.map((item, index) => (
+                                        <span key={index}>{item}</span>
+                                    ))}
                                 </div>
                             </div>
                         )}
                     </div>
 
+                    {/* DESCRIPTION */}
                     {idOfLot && (
                         <div className="auction-description">
                             <Title title={lot.artwork?.title} />

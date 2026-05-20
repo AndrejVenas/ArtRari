@@ -26,7 +26,7 @@ const AuctionBid = ({id, navigateToPage}) => {
             setMessage('Вітаємо. Ваша ставка була успішно прийнята.')
             setTimeout(() => {
                 console.log(navigateToPage)
-                window.location.reload(navigateToPage)
+                // window.location.reload(navigateToPage)
             }, 3000)
         } catch(error) {
             console.log(error.response)
