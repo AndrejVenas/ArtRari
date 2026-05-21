@@ -15,5 +15,5 @@ export const EXHIBITIONWORK = '/exhibitions/:title/:id'
 export const MY_AUCTIONS = "/myAuctions"
 export const MY_EXHIBITIONS = "/myExhibitions"
 export const EDIT_WORK = "/editWorks"
-export const LOT_PAYMENT = "/lotPayment"
+export const LOT_PAYMENT = "/lotPayment/:id"
 export const HISTORY_BUY = "/historyOfBuy"

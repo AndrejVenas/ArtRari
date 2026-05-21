@@ -5,8 +5,10 @@ import Title from "../../Components/UI/title/Title";
 import ProfileNavigation from "../../Components/Section/ProfileNavigation/ProfileNavigation";
 import ProfileAction from "../../Components/Section/ProfileAction/ProfileAction";
 import ProfileField from "../../Components/UI/ProfileField/ProfileField";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { AuthSlice } from '../../Redux/Slices/AuthSlice'
+import { LOGIN } from "../../constants";
 const USE_API = false;
 
 const ProfilePage = () => {
@@ -17,7 +19,8 @@ const ProfilePage = () => {
         email: "",
         phone: ""
     });
-
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [stats, setStats] = useState({
         bids: 0,
         wins: 0,
@@ -71,7 +74,10 @@ const ProfilePage = () => {
             console.error("Stats API error:", e);
         }
     };
-
+    const logout = () => {
+        dispatch(AuthSlice.actions.logout())
+        navigate(LOGIN)
+    }
     return (
         <section className="profile-page">
             <div className="container">
@@ -156,7 +162,7 @@ const ProfilePage = () => {
                             </table>
                         </div>
 
-                        <button className="logout-btn">
+                        <button className="logout-btn" onClick={logout}>
                             Вийти з акаунту
                         </button>
                     </div>

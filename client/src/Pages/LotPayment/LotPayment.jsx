@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./LotPayment.css";
 import axios from "axios";
 import LotPaymentForm from "../../Components/Section/LotPaymentForm/LotPaymentForm";
+import { useParams } from "react-router-dom";
 
 const LotPayment = () => {
     const [lot, setLot] = useState({});
     const [bids, setBids] = useState([]);
-
-    const lotId = 1;
+    const {id} = useParams()
 
     const getLot = async (id) => {
         try {
@@ -30,8 +30,8 @@ const LotPayment = () => {
     };
 
     useEffect(() => {
-        getLot(lotId);
-        getBid(lotId);
+        getLot(id);
+        getBid(id);
     }, []);
 
     return (
@@ -76,7 +76,7 @@ const LotPayment = () => {
                             </table>
                         </div>
 
-                        <LotPaymentForm id={lotId} />
+                        <LotPaymentForm id={id} />
                     </div>
 
                 </div>

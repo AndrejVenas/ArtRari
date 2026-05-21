@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Input from '../Input/Input'
 import Button from '../Button/Button'
-
+import './style.css'
 const PopupConfirmation = ({close, setClose, onDate}) => {
     const [data, setData] = useState({
         startDate: "",
@@ -28,12 +28,27 @@ const PopupConfirmation = ({close, setClose, onDate}) => {
                 </div>
                 <div className="popup__cards">
                     <form action="" className="popupConfirmation__form">
-                        <Input type="date" onChange={(event) => setData(prev => ({...prev, startDate: event.target.value}))}/>
-                        <Input type="time" onChange={(event) => setData(prev => ({...prev, startTime: event.target.value}))}/>
-                        <Input type="date" onChange={(event) => setData(prev => ({...prev, endDate: event.target.value}))}/>
-                        <Input type="time" onChange={(event) => setData(prev => ({...prev, endTime: event.target.value}))}/>
-                        <Input type="number" onChange={(event) => setData(prev => ({...prev, step: event.target.value}))}/>
-                        <Button onClick={getData} />
+                        <div className="form__block">
+                        <label className='label'>Дата початку</label>
+                            <Input type="date" onChange={(event) => setData(prev => ({...prev, startDate: event.target.value}))}/>
+                        </div>
+                        <div className="form__block">
+                            <label className='label'>Час початку</label>
+                            <Input type="time" onChange={(event) => setData(prev => ({...prev, startTime: event.target.value}))}/>
+                        </div>
+                        <div className="form__block">
+                            <label className='label'>Дата закінчення</label>
+                            <Input type="date" onChange={(event) => setData(prev => ({...prev, endDate: event.target.value}))}/>
+                        </div>
+                        <div className="form__block">
+                            <label className='label'>Час закінчення</label>
+                            <Input type="time" onChange={(event) => setData(prev => ({...prev, endTime: event.target.value}))}/>
+                        </div>
+                        <div className="form__block">
+                            <label className='label'>Шаг аукціону</label>
+                            <Input type="number" onChange={(event) => setData(prev => ({...prev, step: event.target.value}))}/>
+                        </div>
+                        <Button onClick={getData}>Зберегти</Button>
                     </form>
                 </div>
             </div>

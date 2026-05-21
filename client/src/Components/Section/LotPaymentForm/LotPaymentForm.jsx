@@ -3,12 +3,12 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Message from "../../UI/Message/Message";
 import { useNavigate } from "react-router-dom";
-import { AUCTIONS } from "../../../constants";
+import { PAYMENT_SUCCESSFUL } from "../../../constants";
 import Input from "../../UI/Input/Input";
 import "./LotPaymentForm.css";
 
 const AuctionBid = ({ id }) => {
-    const [cardNumber, setCardNumber] = useState("");
+    const [card, setCard] = useState("");
     const [cvv, setCvv] = useState("");
     const [pin, setPin] = useState("");
 
@@ -24,8 +24,7 @@ const AuctionBid = ({ id }) => {
         let value = e.target.value.replace(/\D/g, "");
         value = value.substring(0, 16);
         const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
-
-        setCardNumber(formattedValue);
+        setCard(formattedValue);
     };
 
     const handleCvvChange = (e) => {
@@ -51,13 +50,13 @@ const AuctionBid = ({ id }) => {
             return;
         }
 
-        if (!cardNumber || !cvv || !pin) {
+        if (!card || !cvv || !pin) {
             setMessage("Заповніть всі поля.");
             setChecked(true);
             return;
         }
 
-        if (cardNumber.length !== 16) {
+        if (card.length !== 19) {
             setMessage("Номер карти повинен містити 16 цифр.");
             setChecked(true);
             return;
@@ -77,8 +76,8 @@ const AuctionBid = ({ id }) => {
 
         try {
             await axios.post(
-                `http://localhost:8080/lots/${id}/bids`,
-                {},
+                `http://localhost:8080/pay/lots/${id}`,
+                {card, cvv, pin},
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -90,7 +89,7 @@ const AuctionBid = ({ id }) => {
             setMessage("Оплата пройшла успішно.");
 
             setTimeout(() => {
-                navigate(AUCTIONS);
+                navigate(PAYMENT_SUCCESSFUL);
             }, 3000);
         } catch (error) {
             console.log(error.response);
@@ -124,7 +123,7 @@ const AuctionBid = ({ id }) => {
                 <Input
                     label="Карта"
                     placeholder="**** **** **** ****"
-                    value={cardNumber}
+                    value={card}
                     onChange={handleCardChange}
                 />
 

@@ -5,6 +5,7 @@ import { useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import AuctionBid from "../AuctionBid/AuctionBid";
 import { subscribeToLotBids } from "../../../socketClient";
+import { useSelector } from "react-redux";
 
 const AuctionPage = () => {
     const [lot, setLot] = useState({});
@@ -14,6 +15,7 @@ const AuctionPage = () => {
 
     const { idOfLot, idOfWork } = useParams();
     const location = useLocation();
+    const {token} = useSelector(state => state.Auth)
 
     const getLot = async (id) => {
         const res = await axios.get(`http://localhost:8080/lots/${id}`);
@@ -26,7 +28,11 @@ const AuctionPage = () => {
     };
 
     const getBids = async (id) => {
-        const res = await axios.get(`http://localhost:8080/lots/${id}/bids`);
+        const res = await axios.get(`http://localhost:8080/lots/${id}/bids`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         setBids(res.data || []);
     };
 
@@ -151,7 +157,7 @@ const AuctionPage = () => {
                                     <>
                                         <tr>
                                             <td>Стартова ціна:</td>
-                                            <td>${Number(lot.currentPrice) || 0}</td>
+                                            <td>${Number(lot.startPrice) || 0}</td>
                                         </tr>
 
                                         <tr>
@@ -172,6 +178,9 @@ const AuctionPage = () => {
                                         <tr>
                                             <td>Комісія:</td>
                                             <td>10%</td>
+                                        </tr><tr>
+                                            <td>Крок:</td>
+                                            <td>{lot.step} $</td>
                                         </tr>
                                     </>
                                 ) : (

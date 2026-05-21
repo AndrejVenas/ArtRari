@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Title from "../../Components/UI/title/Title";
 import "./HistoryBuy.css";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const HistoryBuy = () => {
     const navigate = useNavigate();
-
+    const {state} = useLocation()
+    const [lot, setLot] = useState([])
+    const getLot = async () => {
+        try {
+            console.log(state.history)
+            const ids = state.history?.map((item) => item.id)
+            for(let id of ids) {
+                const response = await axios.get(`http://localhost:8080/lots/${id}`)
+                console.log(response.data)
+                setLot(prev => ([...prev, response.data]))
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    }
     const mockHistory = [
         {
             id: 1,
@@ -41,7 +56,9 @@ const HistoryBuy = () => {
             status: "Очікує підтвердження"
         }
     ];
-
+    useEffect(() => {
+        getLot()
+    }, [])
     return (
         <section className="history-page">
             <div className="container">
@@ -50,35 +67,35 @@ const HistoryBuy = () => {
 
                 <div className="history-list">
 
-                    {mockHistory.map((item) => (
+                    {lot.map((item) => (
                         <div className="history-card" key={item.id}>
                             <img
-                                src={item.thumbnailUrl}
-                                alt={item.title}
+                                src={item.artwork.photoUrl}
+                                alt={item.artwork.title}
                                 className="history-image"
                             />
                             {/* ТЕКСТ */}
                             <div className="history-left">
 
                                 <h3 className="history-title">
-                                    {item.title}
+                                    {item.artwork.title}
                                 </h3>
 
                                 <div className="history-info">
 
                                     <div className="history-block">
-                                        <p>Ціна: {item.price} $</p>
-                                        <p>Автор: {item.author}</p>
+                                        <p>Ціна: {item.currentPrice} $</p>
+                                        <p>Автор: {item.artwork.author}</p>
                                     </div>
 
                                     <div className="history-block">
-                                        <p>Категорія: {item.tags.join(", ")}</p>
-                                        <p>Техніка: {item.technique}</p>
+                                        <p>Категорія: {item.artwork.tags.join(", ")}</p>
+                                        <p>Техніка: {item.artwork.technique}</p>
                                     </div>
 
                                     <div className="history-block">
-                                        <p>Дата: {item.date}</p>
-                                        <p>Статус: {item.status}</p>
+                                        <p>Дата: {item.artwork.creationDate}</p>
+                                        <p>Статус: {item.artwork.status}</p>
                                     </div>
 
                                 </div>
@@ -86,16 +103,16 @@ const HistoryBuy = () => {
                             </div>
 
                             {/* КНОПКА СПРАВА */}
-                            <div className="history-action">
+                            {/*<div className="history-action">
 
                                 <button
                                     className="view-btn"
-                                    onClick={() => navigate(`/work/${item.id}`)}
+                                    onClick={() => navigate(`/lot/${item.id}`)}
                                 >
                                     Переглянути роботу
                                 </button>
 
-                            </div>
+                            </div>*/}
 
                         </div>
                     ))}

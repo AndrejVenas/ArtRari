@@ -1,27 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./ProfileAction.css";
 import Title from "../../UI/title/Title";
 import ProfileActionCard from "../../UI/ProfileActionCard/ProfileActionCard";
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { HISTORY_BUY } from '../../../constants';
 
 const ProfileAction = () => {
+    const {token} = useSelector(state => state.Auth)
+    const [lot, setLot] = useState([])
+    const [history, setHistory] = useState([])
+    const getLot = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/purchases/my', {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setLot(response.data.purchases.filter((item) => item.status == 'pending_payment'))
+            setHistory(response.data.purchases.filter((item) => item.status != 'pending_payment'))
+        } catch(error) {
+            console.log(error)
+        }
+    }
+    useEffect(() => {
+        getLot()
+    }, [])
+    const navigate = useNavigate()
     return (
         <div className="profile-actions">
             <Title title={"Дії"} />
 
             <div className="profile-actions-flex">
-                <ProfileActionCard
-                    title="Тиша, що пам’ятає світло"
-                    text="Цей витвір мистецтва — тонка розмова між світлом і спогадами, зафіксована у шарі часу. Полотно ніби дихає спокоєм: м’які переходи кольорів створюють відчуття ранкового туману, в якому губляться силуети минулого. Автор досліджує крихкість моменту — ту межу, де реальність поступається відчуттям."
+            {lot.map((item) => {
+                return <ProfileActionCard
+                    title={item.title}
+                    img={item.thumbnailUrl}
+                    finalPrice={item.finalPrice}
                     buttonText="Оплатити лот"
-                    onClick={() => console.log(1)}
+                    onClick={() => navigate(`/lotPayment/${item.id}`)}
                 />
-
+            })}
                 <ProfileActionCard
                     title="Історія замовлень"
                     text="Переглянути свою історію замовлень за весь час"
                     buttonText="Перейти до історії замовлень"
-                    onClick={() => console.log(1)}
+                    onClick={() => navigate(HISTORY_BUY, {state: {history}})}
                 />
+                
             </div>
         </div>
     )

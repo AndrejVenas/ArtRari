@@ -31,7 +31,7 @@ const AuctionBid = ({id, navigateToPage}) => {
         } catch(error) {
             console.log(error.response)
             setChecked(true)
-            setMessage('Ваша ставка на прийнята. Ставка не може бути меншою за максимальну.')
+            setMessage(error.response.data.message)
         }
     }
     }
