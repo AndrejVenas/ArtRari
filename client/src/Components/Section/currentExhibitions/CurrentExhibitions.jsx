@@ -2,7 +2,7 @@ import "./CurrentExhibitions.css";
 import Title from "../../UI/title/Title";
 import CardCurrentExhibitions from "../../CardCurrentExhibitions/CardCurrentExhibitions";
 import Link from "../../UI/link/Link";
-import axios from "axios";
+import api from "../../../api/axiosInstance";
 import { useEffect, useState } from "react";
 import { EXHIBITIONS } from "../../../constants";
 
@@ -60,7 +60,7 @@ function CurrentExhibitions() {
     ];*/
     const exhibitionsAction = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/exhibitions')
+            const response = await api.get('/exhibitions')
             setExhibitions(response.data.page.items)
         } catch(error) {
             console.log(error)

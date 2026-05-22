@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../../../api/axiosInstance";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Message from "../../UI/Message/Message";
@@ -75,8 +75,8 @@ const AuctionBid = ({ id }) => {
         }
 
         try {
-            await axios.post(
-                `http://localhost:8080/pay/lots/${id}`,
+            await api.post(
+                `/pay/lots/${id}`,
                 {card, cvv, pin},
                 {
                     headers: {

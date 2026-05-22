@@ -7,7 +7,7 @@ import Popup from '../../Components/Popup/Popup'
 import Image from '../../Components/UI/Image/Image'
 import CustomSelect from '../../Components/UI/CustomSelect/CustomSelect'
 import {useSelector} from 'react-redux'
-import axios from 'axios'
+import api from '../../api/axiosInstance'
 import CheckBox from '../../Components/UI/CheckBox/CheckBox'
 import CheckBoxComponent from '../../Components/CheckBoxComponent/CheckBoxComponent'
 import { useLocation } from 'react-router-dom'
@@ -55,7 +55,7 @@ const CreateExhibition = () => {
     }, [dataExhibition])
     const getArtWorks = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/artworks', {
+            const response = await api.get('/artworks', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -76,7 +76,7 @@ const CreateExhibition = () => {
         try {
         const formData = new FormData()
         formData.append('file', image)
-        const response = await axios.post('http://localhost:8080/artworks/image', formData, {
+        const response = await api.post('/artworks/image', formData, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -96,7 +96,7 @@ const CreateExhibition = () => {
                     ...form,
                     artworksIds: works.map((item) => item.id),
                 }
-                const response = await axios.put('http://localhost:8080/exhibitions', data, {
+                const response = await api.put('/exhibitions', data, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -111,7 +111,7 @@ const CreateExhibition = () => {
                     artworksIds: works.map((item) => item.id),
                     thumbnailUrl: result
                 }
-                const response = await axios.post('http://localhost:8080/exhibitions', data, {
+                const response = await api.post('/exhibitions', data, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../../../api/axiosInstance'
 import React, { useEffect, useState } from 'react'
 import './style.css'
 const CheckBox = ({setWorkOpen, setTagsArray, onChange}) => {
@@ -6,7 +6,7 @@ const CheckBox = ({setWorkOpen, setTagsArray, onChange}) => {
     const [close, setClose] = useState('')
     const getTags = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/tags')
+            const response = await api.get('/tags')
             setTags(response.data)
             console.log(response.data)
         } catch(error) {

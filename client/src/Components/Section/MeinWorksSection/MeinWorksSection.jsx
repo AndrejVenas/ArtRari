@@ -5,7 +5,7 @@ import MyWorkCard from "../../UI/MyWorkCard/MyWorkCard";
 import Title from "../../UI/title/Title";
 import Pagination from "../../UI/Pagination/Pagination";
 import ConfirmDeleteModal from "../../UI/ConfirmDeleteModal/ConfirmDeleteModal";
-import axios from 'axios'
+import api from '../../../api/axiosInstance'
 import {useSelector} from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CREATE_EXHIBITION } from '../../../constants';
@@ -34,16 +34,16 @@ const MeinWorksSection = () => {
     })
     const getAction = () => {
         if(location.pathname.toLowerCase().includes('exhibitions')) {
-            setAction('http://localhost:8080/exhibitions/my')
+            setAction('/exhibitions/my')
         } else if(location.pathname.toLowerCase().includes('auctions')) {
-            setAction('http://localhost:8080/auctions/my')
+            setAction('/auctions/my')
         } else {
-            setAction('http://localhost:8080/artworks/my')
+            setAction('/artworks/my')
         }
     }
     const myWorkGet = async () => {
         try {
-            const response = await axios.get(action, {
+            const response = await api.get(action, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -55,7 +55,7 @@ const MeinWorksSection = () => {
     }
     const handleEdit = async (item) => {
         try {
-            const response = await axios.get(`http://localhost:8080/exhibitions/${item.id}`, {
+            const response = await api.get(`/exhibitions/${item.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -76,7 +76,7 @@ const MeinWorksSection = () => {
         data['exhibitionId'] = id
         console.log(data)
         try {
-            const response = await axios.post('http://localhost:8080/auctions', data, {
+            const response = await api.post('/auctions', data, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

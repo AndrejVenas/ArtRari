@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./LotSection.css";
 import Title from "../../UI/title/Title";
 import { useLocation, useParams } from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/axiosInstance";
 import AuctionBid from "../AuctionBid/AuctionBid";
 import { subscribeToLotBids } from "../../../socketClient";
 import { useSelector } from "react-redux";
@@ -18,17 +18,17 @@ const AuctionPage = () => {
     const {token} = useSelector(state => state.Auth)
 
     const getLot = async (id) => {
-        const res = await axios.get(`http://localhost:8080/lots/${id}`);
+        const res = await api.get(`/lots/${id}`);
         setLot(res.data);
     };
 
     const getWork = async (id) => {
-        const res = await axios.get(`http://localhost:8080/artworks/${id}`);
+        const res = await api.get(`/artworks/${id}`);
         setWork(res.data);
     };
 
     const getBids = async (id) => {
-        const res = await axios.get(`http://localhost:8080/lots/${id}/bids`, {
+        const res = await api.get(`/lots/${id}/bids`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

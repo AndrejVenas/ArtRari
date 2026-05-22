@@ -1,10 +1,10 @@
 import { AuthSlice } from "../Redux/Slices/AuthSlice"
-import axios from 'axios'
+import api from '../api/axiosInstance'
 
 export const signup = (data) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('http://localhost:8080/auth/signup', data)
+            const response = await api.post('/auth/signup', data)
             return {
                 message: response.data,
                 result: response.status
@@ -22,7 +22,7 @@ export const signup = (data) => {
 export const signin = (data) => {
     return async (dispatch) => {
         try {
-            const response = await axios.post('http://localhost:8080/auth/signin', data)
+            const response = await api.post('/auth/signin', data)
             console.log(response)
             const {email, firstName, lastName, role, phone} = response.data
             dispatch(AuthSlice.actions.login({

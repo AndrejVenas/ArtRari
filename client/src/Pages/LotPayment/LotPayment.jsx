@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./LotPayment.css";
-import axios from "axios";
+import api from "../../api/axiosInstance";
 import LotPaymentForm from "../../Components/Section/LotPaymentForm/LotPaymentForm";
 import { useParams } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const LotPayment = () => {
 
     const getLot = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:8080/lots/${id}`);
+            const response = await api.get(`/lots/${id}`);
             console.log("LOT:", response.data);
             setLot(response.data);
         } catch (e) {
@@ -21,7 +21,7 @@ const LotPayment = () => {
 
     const getBid = async (id) => {
         try {
-            const response = await axios.get(`http://localhost:8080/lots/${id}/bids`);
+            const response = await api.get(`/lots/${id}/bids`);
             console.log("BIDS:", response.data);
             setBids(response.data);
         } catch (e) {

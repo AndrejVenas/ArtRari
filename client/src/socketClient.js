@@ -1,8 +1,9 @@
 import { Client } from '@stomp/stompjs';
+import { WS_BASE_URL } from './config/api';
 
 export const subscribeToLotBids = (lotId, onNewBidReceived) => {
     const client = new Client({
-        brokerURL: 'ws://localhost:8080/websocket',
+        brokerURL: `${WS_BASE_URL}/websocket`,
         reconnectDelay: 5000,
         debug: (str) => console.log('STOMP:', str),
     });

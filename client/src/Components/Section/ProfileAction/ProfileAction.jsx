@@ -3,7 +3,7 @@ import "./ProfileAction.css";
 import Title from "../../UI/title/Title";
 import ProfileActionCard from "../../UI/ProfileActionCard/ProfileActionCard";
 import { useSelector } from 'react-redux';
-import axios from 'axios';
+import api from '../../../api/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import { HISTORY_BUY } from '../../../constants';
 
@@ -13,7 +13,7 @@ const ProfileAction = () => {
     const [history, setHistory] = useState([])
     const getLot = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/purchases/my', {
+            const response = await api.get('/purchases/my', {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

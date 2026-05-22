@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../../../api/axiosInstance'
 import React, { useEffect, useState } from 'react'
 import {useSelector} from 'react-redux'
 import Message from '../../UI/Message/Message'
@@ -17,7 +17,7 @@ const AuctionBid = ({id, navigateToPage}) => {
         } else {
         try {
             console.log(bid * 1.00)
-            const response = await axios.post(`http://localhost:8080/lots/${id}/bids`, {amount: bid}, {
+            const response = await api.post(`/lots/${id}/bids`, {amount: bid}, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

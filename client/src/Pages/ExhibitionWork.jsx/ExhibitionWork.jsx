@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { AUCTIONS, EXHIBITIONS } from '../../constants';
-import axios from 'axios';
+import api from '../../api/axiosInstance';
 import ItemsGrid from '../../Components/ItemsGrid/ItemsGrid';
 import AuctionCard from '../../Components/AuctionCard/AuctionCard';
 import ExhibitionCard from '../../Components/ExhibitionCard/ExhibitionCard';
@@ -26,7 +26,7 @@ const ExhibitionWork = () => {
     const {title, id} = useParams()
 
     const getExhibition = async (id, page, tags) => {
-        const response = await axios.get(`http://localhost:8080/exhibitions/${id}?page=${page}&tags=${tags}`)
+        const response = await api.get(`/exhibitions/${id}?page=${page}&tags=${tags}`)
         //response.data.lotPreviews.map(item => item['startDate'] = response.data.startDate)
         //filtersConfig[0]['options'] = response.data.lotPreviews[0]?.tags
         setExhibition(response.data)

@@ -5,7 +5,7 @@ import Textarea from '../UI/Textarea/Textarea'
 import CustomSelect from '../UI/CustomSelect/CustomSelect'
 import './style.css'
 import Button from '../UI/Button/Button'
-import axios from 'axios'
+import api from '../../api/axiosInstance'
 import { useSelector } from 'react-redux'
 
 const WorkDownloadComponent = () => {
@@ -23,7 +23,7 @@ const WorkDownloadComponent = () => {
     })
     const getTags = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/tags')
+            const response = await api.get('/tags')
             setTags(response.data)
         } catch(error) {
             console.log(error)
@@ -61,7 +61,7 @@ const WorkDownloadComponent = () => {
         formData.append('file', image)
         try {
             console.log(image)
-            const response = await axios.post('http://localhost:8080/artworks/image', formData, {
+            const response = await api.post('/artworks/image', formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -88,7 +88,7 @@ const WorkDownloadComponent = () => {
             return
         } else {
         try {
-        const response = await axios.post('http://localhost:8080/artworks', data, {
+        const response = await api.post('/artworks', data, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
