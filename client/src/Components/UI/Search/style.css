@@ -19,3 +19,28 @@
 .form__search-button {
     cursor: pointer;
 }
+
+.filters .form__search-input{
+    background-color: #2A2A2A;
+    padding: 0 15px;
+    border-radius: 20px;
+}
+
+.filters .form__search{
+    gap: 12px;
+}
+
+.filters .form__search-input{
+    /*background-color: #2A2A2A;*/
+}
+
+@media (max-width: 769px) {
+    .filters .form__search-input{
+        height: 45px;
+    }
+    .filters .form__search-button{
+        height: 45px;
+        width: 45px;
+        border-radius: 50%;
+    }
+}

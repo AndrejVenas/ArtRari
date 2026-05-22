@@ -23,6 +23,7 @@
 .checkBox__top {
     display: flex;
     justify-content: space-between;
+    align-items: start;
     padding: 40px;
     position: sticky;
     top: 0px;
@@ -39,6 +40,7 @@
     height: 18px;
     align-self: flex-end;
     cursor: pointer;
+    display: block;
 }
 .checkBox__cards {
     display: flex;
@@ -97,4 +99,31 @@
 
 .open {
     display: block;
+}
+
+@media (max-width: 1440px) {
+    .checkBox__top {
+        padding: 20px;
+    }
+    .checkBox__top-title{
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 769px) {
+    .checkBox__top {
+        padding: 15px;
+    }
+    .checkBox__top-title{
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 500px) {
+    .checkBox__top-title{
+        font-size: 20px;
+    }
+    .checkBox__cards {
+        padding: 15px 20px 30px;
+    }
 }

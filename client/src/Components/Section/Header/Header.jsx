@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Menu from '../../Menu/Menu'
 import Profile from '../../Profile/Profile'
 import light from '../../../Images/light.svg'
@@ -6,6 +7,31 @@ import './style.css'
 
 const Header = () => {
     const [open, setOpen] = useState(false);
+    const location = useLocation();
+
+    // закрываем меню при смене маршрута
+    useEffect(() => {
+        setOpen(false);
+    }, [location.pathname]);
+
+    // блокировка скролла без прыжка
+    useEffect(() => {
+        if (open) {
+            const scrollBarWidth =
+                window.innerWidth - document.documentElement.clientWidth;
+
+            document.body.style.overflow = 'hidden';
+            document.body.style.paddingRight = `${scrollBarWidth}px`;
+        } else {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        }
+
+        return () => {
+            document.body.style.overflow = '';
+            document.body.style.paddingRight = '';
+        };
+    }, [open]);
 
     return (
         <header className="header">
@@ -14,7 +40,7 @@ const Header = () => {
             <div
                 className={`header-overlay ${open ? "active" : ""}`}
                 onClick={() => setOpen(false)}
-            ></div>
+            />
 
             <div className="header__container">
                 <div className="header__items items">

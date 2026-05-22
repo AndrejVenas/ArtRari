@@ -132,21 +132,33 @@ td img {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #313131;
+    background-color: #2A2A2A;
     padding: 20px;
     border-radius: 20px;
 }
 
 .form__block-tagsBlock {
-    background-color: #1B1B1B;
-    padding: 8px;
+    background-color: #2A2A2A;
+    padding: 20px 15px;
+    min-height: 65px;
+    min-width: fit-content;
+    text-align: center;
     border-radius: 20px;
-    margin: 4px;
 }
 /**/
 @media (max-width: 1440px) {
     .createExhibition__container{
         padding: 0 10px;
+    }
+}
+
+@media (max-width: 1025px){
+    .form__block-tagsBlock {
+        padding: 15px 15px;
+        min-height: 45px;
+    }
+    .form__block-checkBox {
+        height: 45px;
     }
 }
 

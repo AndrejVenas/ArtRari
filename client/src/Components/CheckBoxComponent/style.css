@@ -1,3 +1,49 @@
 .form__block-checkBox {
     gap: 20px;
 }
+
+.form__block-checkBox{
+    height: 65px;
+}
+
+.form__block-tags{
+    font-weight: 400;
+}
+
+.form__block-checkBox--wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    row-gap: 12px;
+}
+
+.form__block-tagsList {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 12px;
+}
+
+.form__block-tagsBlock {
+    padding: 4px 10px;
+    border-radius: 8px;
+    background: #ececec;
+    margin-right: 12px;
+}
+
+p.form__block-tags{
+    margin-bottom: 0;
+}
+
+.checkBox__container {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.checkBox__container::-webkit-scrollbar {
+    display: none;
+}
+
+@media (max-width: 1025px){
+
+}

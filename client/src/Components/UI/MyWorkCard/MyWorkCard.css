@@ -13,6 +13,10 @@
     display: block;
 }
 
+.my-work-card__theme {
+    margin-bottom: 15px;
+}
+
 .my-work-card__content {
     padding: 12px;
     text-align: center;
@@ -87,6 +91,7 @@
 @media (max-width: 990px) {
     .my-work-card {
         max-width: 295px;
+        min-height: 300px;
     }
 }
 

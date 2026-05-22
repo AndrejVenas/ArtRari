@@ -1,5 +1,5 @@
 import React from "react";
-import "./Textarea.css"; // используем тот же файл стилей
+import "./Textarea.css";
 
 const Textarea = ({
                       label,

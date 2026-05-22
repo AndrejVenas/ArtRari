@@ -1,5 +1,31 @@
 .popup__cards {
-    display: flex;
-    flex-direction: row;
+    padding: 0 20px;
+}
+
+.form__block {
+    max-width: 300px;
+}
+
+.popupConfirmation__form{
     gap: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.popup{
+    z-index: 1001;
+}
+
+.mein-works .label{
+    margin-bottom: 5px;
+}
+
+.popup__container {
+    overflow: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.popup__container::-webkit-scrollbar {
+    display: none;
 }

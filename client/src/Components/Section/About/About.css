@@ -1,5 +1,5 @@
 .about {
-    padding: 100px 0;
+    padding: 180px 0 100px;
     background-color: #000000;
     color: #fff;
     background-size: cover;
@@ -40,5 +40,9 @@
 @media (max-width: 700px) {
     .about{
         background-image: none !important;
+    }
+
+    .about {
+        padding: 125px 0 50px;
     }
 }

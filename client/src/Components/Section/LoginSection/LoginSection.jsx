@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signin } from "../../../Actions/authAction";
 import { useNavigate } from "react-router-dom";
 import { useActiveContext } from "../../AppRouter";
+
 const Login = () => {
     const [form, setForm] = useState({
         email: "",
@@ -30,7 +31,6 @@ const Login = () => {
             [name]: value,
         });
 
-        // убираем ошибку при вводе
         setErrors({
             ...errors,
             [name]: false,

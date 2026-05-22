@@ -1,3 +1,7 @@
+.profile-page{
+    padding-top: 175px;
+}
+
 .profile-grid {
     display: flex;
     gap: 50px;
@@ -108,6 +112,9 @@
     .button-link.ProfileNavigation-link, div.ProfileNavigation-col{
         max-width: 570px;
     }
+    .profile-page{
+        padding-top: 150px;
+    }
 }
 
 @media (max-width: 840px) {
@@ -123,5 +130,11 @@
     }
     .profile-grid > div {
         max-width: 570px;
+    }
+}
+
+@media (max-width: 769px) {
+    .profile-page{
+        padding-top: 125px;
     }
 }

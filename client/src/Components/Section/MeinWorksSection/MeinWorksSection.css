@@ -1,6 +1,6 @@
 .mein-works {
     width: 100%;
-    padding: 40px 0;
+    padding: 175px 0 40px;
 }
 
 .mein-works__grid {
@@ -17,13 +17,25 @@
     .mein-works__grid {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 20px 0;
+        /*justify-content: space-between;*/
+        gap: 20px 20px;
     }
 
     .mein-works .container {
         max-width: 1340px;
         padding: 0 10px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .mein-works {
+        padding-top: 150px;
+    }
+}
+
+@media (max-width: 769px) {
+    .mein-works {
+        padding-top: 125px;
     }
 }
 

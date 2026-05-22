@@ -23,3 +23,12 @@
         background-image: none !important;
     }
 }
+
+@media (max-width: 768px) {
+    .contact {
+        padding: 25px 0 50px;
+    }
+    textarea.input-textarea {
+        min-height: 250px;
+    }
+}

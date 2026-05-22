@@ -2,6 +2,7 @@
     display: flex;
     gap: 100px;
     align-items: center;
+    padding-top: 150px;
 }
 
 .payment-successful-text:last-child {
@@ -10,6 +11,12 @@
 
 .payment-successful-img{
     max-width: 250px;
+}
+
+@media (max-width: 769px) {
+    .payment-successful{
+        padding-top: 120px;
+    }
 }
 
 @media (max-width: 760px) {

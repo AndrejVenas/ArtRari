@@ -53,3 +53,12 @@
 .select-item.active {
     background: #444;
 }
+
+@media (max-width: 1025px) {
+    .select-header {
+        height: 45px;
+    }
+    .arrow img{
+        height: 30px;
+    }
+}
