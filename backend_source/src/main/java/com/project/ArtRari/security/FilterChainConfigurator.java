@@ -37,6 +37,7 @@ public class FilterChainConfigurator {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/websocket", "/websocket/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/home",
                                 "/auctions/**",
