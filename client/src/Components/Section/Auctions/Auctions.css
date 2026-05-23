@@ -82,6 +82,10 @@
     pointer-events: none;
 }
 
+.slid-card-image img{
+    border-radius: 20px;
+}
+
 @media (max-width: 1600px) {
     .auctions-inner{
         /*max-width: 1330px;*/
@@ -135,27 +139,68 @@
 @media (max-width: 1024px) {
     .auctions-inner{
         gap: 50px;
-        flex-direction: column;
+        /*flex-direction: column;*/
     }
 /*    */
-    .slid-card-image{
-        max-width: 300px;
-        width: 100%;
-        margin: 0 auto;
-    }
-    .auctions-slider {
-        max-width: 100%;
-    }
+/*    .slid-card-image{*/
+/*        max-width: 300px;*/
+/*        width: 100%;*/
+/*        margin: 0 auto;*/
+/*    }*/
+/*    .auctions-slider {*/
+/*        max-width: 100%;*/
+/*    }*/
     .auctions-inner{
         justify-content: center;
-        /*gap: 0;*/
         margin-left: 0px;
     }
     .auctions-slider {
         margin-right: 15px;
     }
     .slid-card-inner{
-        justify-content: start;
+        justify-content: space-between;
+        padding: 20px;
+        min-height: 200px;
+    }
+    .button-link .auctions-link{
+        justify-self: flex-end;
+    }
+
+
+    .slider-controls {
+        height: 44px;
+        bottom: 0;
+    }
+
+    .auctions-description{
+        margin-bottom: 35px;
+        max-width: 370px;
+    }
+}
+
+@media (max-width: 940px) {
+    .auctions-inner{
+        flex-direction: column;
+    }
+    /*    */
+    .slid-card-image{
+        max-width: 300px;
+        width: 100%;
+        margin: 0 0 0 auto;
+    }
+    .auctions-slider {
+        max-width: 100%;
+    }
+    .auctions-inner{
+        justify-content: center;
+        margin-left: 0px;
+    }
+    .auctions-slider {
+        margin-right: 15px;
+    }
+    .slid-card-inner{
+        justify-content: space-between;
+        padding: 20px;
     }
 
     .slider-controls {
@@ -165,7 +210,7 @@
 
     .auctions-description{
         margin-bottom: 35px;
-        max-width: 570px;
+        max-width: 370px;
     }
 }
 
@@ -173,7 +218,6 @@
     .slid-card-image{
         max-width: 250px;
         width: 100%;
-        margin: 0 auto;
     }
     .slider-controls {
         gap: 0;

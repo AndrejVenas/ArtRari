@@ -1,64 +1,64 @@
 import React, { useEffect, useState } from "react";
 import Title from "../../Components/UI/title/Title";
 import "./HistoryBuy.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import api from "../../api/axiosInstance";
+import Button from "../../Components/UI/Button/Button";
 
 const HistoryBuy = () => {
     const navigate = useNavigate();
-    const {state} = useLocation()
-    const [lot, setLot] = useState([])
+    const { token } = useSelector((state) => state.Auth);
+
+    const [lot, setLot] = useState([]);
+    const [loading, setLoading] = useState(true);
+
     const getLot = async () => {
         try {
-            console.log(state.history)
-            const ids = state.history?.map((item) => item.id)
-            for(let id of ids) {
-                const response = await api.get(`/lots/${id}`)
-                console.log(response.data)
-                setLot(prev => ([...prev, response.data]))
-            }
-        } catch(error) {
-            console.log(error)
+            const response = await api.get("/purchases/my", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const purchases = response.data.purchases;
+
+            const lotsData = await Promise.all(
+                purchases.map(async (item) => {
+                    const res = await api.get(`/lots/${item.id}`);
+
+                    return {
+                        ...res.data,
+                        purchaseStatus: item.status,
+                    };
+                })
+            );
+
+            setLot(lotsData);
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
         }
-    }
-    const mockHistory = [
-        {
-            id: 1,
-            thumbnailUrl: "images/exhibition.png",
-            title: "Impression Sunrise",
-            price: 1200,
-            author: "Claude Monet",
-            tags: ["Impressionism", "Oil"],
-            technique: "Oil on canvas",
-            date: "2025-01-10",
-            status: "Покупка успішна"
-        },
-        {
-            id: 2,
-            thumbnailUrl: "images/exhibition.png",
-            title: "Starry Night",
-            price: 3000,
-            author: "Vincent van Gogh",
-            tags: ["Post-Impressionism"],
-            technique: "Oil on canvas",
-            date: "2025-02-18",
-            status: "Покупка успішна"
-        },
-        {
-            id: 3,
-            thumbnailUrl: "images/exhibition.png",
-            title: "The Scream",
-            price: 1800,
-            author: "Edvard Munch",
-            tags: ["Expressionism"],
-            technique: "Oil, tempera",
-            date: "2025-03-05",
-            status: "Очікує підтвердження"
-        }
-    ];
+    };
+
     useEffect(() => {
-        getLot()
-    }, [])
+        if (token) {
+            getLot();
+        }
+    }, [token]);
+
+    if (loading) {
+        return (
+            <section className="history-page">
+                <div className="container">
+                    <Title title={"Історія покупок"} />
+                    <p>Завантаження...</p>
+                </div>
+            </section>
+        );
+    }
+
     return (
         <section className="history-page">
             <div className="container">
@@ -67,55 +67,74 @@ const HistoryBuy = () => {
 
                 <div className="history-list">
 
-                    {lot.map((item) => (
-                        <div className="history-card" key={item.id}>
-                            <img
-                                src={item.artwork.photoUrl}
-                                alt={item.artwork.title}
-                                className="history-image"
-                            />
-                            {/* ТЕКСТ */}
-                            <div className="history-left">
+                    {lot.length === 0 ? (
+                        <p>У вас поки немає покупок</p>
+                    ) : (
+                        lot.map((item) => (
+                            <div className="history-card" key={item.id}>
 
-                                <h3 className="history-title">
-                                    {item.artwork.title}
-                                </h3>
+                                <img
+                                    src={item.artwork.photoUrl}
+                                    alt={item.artwork.title}
+                                    className="history-image"
+                                />
 
-                                <div className="history-info">
+                                <div className="history-left">
 
-                                    <div className="history-block">
-                                        <p>Ціна: {item.currentPrice} $</p>
-                                        <p>Автор: {item.artwork.author}</p>
-                                    </div>
+                                    <h3 className="history-title">
+                                        {item.artwork.title}
+                                    </h3>
 
-                                    <div className="history-block">
-                                        <p>Категорія: {item.artwork.tags.join(", ")}</p>
-                                        <p>Техніка: {item.artwork.technique}</p>
-                                    </div>
+                                    <div className="history-left-inner">
 
-                                    <div className="history-block">
-                                        <p>Дата: {item.artwork.creationDate}</p>
-                                        <p>Статус: {item.artwork.status}</p>
+                                        <div className="history-info">
+
+                                            <div className="history-block">
+                                                <p>Ціна: {item.currentPrice} $</p>
+                                                <p>Автор: {item.artwork.author}</p>
+                                            </div>
+
+                                            <div className="history-block">
+                                                <p>
+                                                    Категорія:{" "}
+                                                    {item.artwork.tags?.join(", ")}
+                                                </p>
+                                                <p>
+                                                    Техніка:{" "}
+                                                    {item.artwork.technique}
+                                                </p>
+                                            </div>
+
+                                            <div className="history-block">
+                                                <p>
+                                                    Дата:{" "}
+                                                    {item.artwork.creationDate}
+                                                </p>
+                                                <p>
+                                                    Статус:{" "}
+                                                    {item.purchaseStatus}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                        <div className="button-block">
+                                            {item.purchaseStatus === "pending_payment" && (
+                                                <Button
+                                                    onClick={() =>
+                                                        navigate(`/lotPayment/${item.id}`)
+                                                    }
+                                                >
+                                                    Сплатити товар
+                                                </Button>
+                                            )}
+                                        </div>
                                     </div>
 
                                 </div>
 
                             </div>
-
-                            {/* КНОПКА СПРАВА */}
-                            {/*<div className="history-action">
-
-                                <button
-                                    className="view-btn"
-                                    onClick={() => navigate(`/lot/${item.id}`)}
-                                >
-                                    Переглянути роботу
-                                </button>
-
-                            </div>*/}
-
-                        </div>
-                    ))}
+                        ))
+                    )}
 
                 </div>
 

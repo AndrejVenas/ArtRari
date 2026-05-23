@@ -170,7 +170,7 @@ const ProfilePage = () => {
                 </div>
 
                 <ProfileNavigation/>
-                <ProfileAction/>
+                {/*<ProfileAction/>*/}
 
             </div>
         </section>
