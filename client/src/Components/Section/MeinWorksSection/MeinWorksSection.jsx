@@ -8,7 +8,7 @@ import ConfirmDeleteModal from "../../UI/ConfirmDeleteModal/ConfirmDeleteModal";
 import api from '../../../api/axiosInstance'
 import {useSelector} from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CREATE_EXHIBITION } from '../../../constants';
+import { CREATE_EXHIBITION, WORK_UPLOAD } from '../../../constants';
 const worksMock = Array.from({ length: 8 }, (_, index) => ({
     id: index + 1,
     title: "Тиша, що пам’ятає світло",
@@ -54,7 +54,20 @@ const MeinWorksSection = () => {
         }
     }
     const handleEdit = async (item) => {
+        if(action.includes('artworks')) {
         try {
+            const response = await api.get(`/artworks/${item.id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            navigate(WORK_UPLOAD, {state: {item: response.data}})
+            //console.log("edit", item);
+        } catch(error) {
+            console.log(error)
+        }
+        } else if(action.includes('exhibitions')) {
+            try {
             const response = await api.get(`/exhibitions/${item.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -64,6 +77,7 @@ const MeinWorksSection = () => {
             //console.log("edit", item);
         } catch(error) {
             console.log(error)
+        }
         }
     };
 

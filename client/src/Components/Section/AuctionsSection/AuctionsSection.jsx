@@ -39,7 +39,7 @@ const AuctionsPage = () => {
         } else {
             dispatch(auctionAction(0, result['checkbox'].map(item => item.name).join(",")))
         }
-    }, [dispatch, result])
+    }, [dispatch])
     const navigate = useNavigate()
 
     return (

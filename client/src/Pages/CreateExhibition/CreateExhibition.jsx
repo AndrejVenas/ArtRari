@@ -39,9 +39,11 @@ const CreateExhibition = () => {
     })
 
     useEffect(() => {
-        if(Object.keys(dataExhibition).length > 0) {
+        if(!dataExhibition) {
+            return
+        } else {
             setForm({
-                artworksIds: dataExhibition.artworks.map((item) => item.id),
+                artworksIds: dataExhibition.artworks?.map((item) => item.id),
                 title: dataExhibition.title,
                 theme: theme,
                 thumbnailUrl: dataExhibition.backgroundUrl,
@@ -144,7 +146,7 @@ const CreateExhibition = () => {
                     <div className="form__block">
                         <label htmlFor="" className="form__block-label">Додавання робіт</label>
                         
-                        {works.length > 0 ?
+                        {works?.length > 0 ?
                         <table className="form__block-table table">
                             <thead>
                                 <tr>
@@ -154,7 +156,7 @@ const CreateExhibition = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                            {works.map((item, index) => {
+                            {works?.map((item, index) => {
                                 return <tr className='table__tr'>
                                     <td className="table__tr-td">{item.title}</td>
                                     <td className="table__tr-td">{item.category}</td>

@@ -2,13 +2,23 @@ import React, {useEffect, useState} from 'react'
 import CheckBox from '../UI/CheckBox/CheckBox';
 import './style.css'
 
-const CheckBoxComponent = ({onChange}) => {
+const CheckBoxComponent = ({onChange, tagsServer = []}) => {
     const [workOpen, setWorkOpen] = useState(false);
     const [tags, setTags] = useState([])
 
     useEffect(() => {
-        onChange("checkbox", tags.map((item) => item))
+        onChange("checkbox", tags.map((item) => item.id))
+        console.log(tags)
     }, [tags])
+
+    useEffect(() => {
+        if(tagsServer.length == 0) {
+            return
+        }
+        //console.log(tagsServer)
+        setTags(tagsServer)
+        console.log(tags)
+    }, [tagsServer])
     return (
         <>
             {/*<div className="form__block-checkBox">*/}
@@ -33,9 +43,9 @@ const CheckBoxComponent = ({onChange}) => {
 
                 {/* Теги */}
                 <div className="form__block-tagsList">
-                    {tags.map(item => (
+                    {tags.map((item, index) => (
                         <div
-                            key={item.id || item.name}
+                            key={index}
                             className="form__block-tagsBlock"
                         >
                             {item.name}
@@ -59,6 +69,7 @@ const CheckBoxComponent = ({onChange}) => {
                     {workOpen && (
                         <CheckBox
                             setWorkOpen={setWorkOpen}
+                            tagsArray={tags}
                             setTagsArray={setTags}
                         />
                     )}

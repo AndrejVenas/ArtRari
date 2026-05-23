@@ -42,7 +42,7 @@ const Header = () => {
                 onClick={() => setOpen(false)}
             />
 
-            <div className="header__container">
+            <div className="header__containers">
                 <div className="header__items items">
 
                     {/* Бургер */}

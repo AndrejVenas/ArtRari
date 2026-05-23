@@ -1,7 +1,7 @@
 import api from '../../../api/axiosInstance'
 import React, { useEffect, useState } from 'react'
 import './style.css'
-const CheckBox = ({setWorkOpen, setTagsArray, onChange}) => {
+const CheckBox = ({setWorkOpen, tagsArray, setTagsArray, onChange}) => {
     const [tags, setTags] = useState([])
     const [close, setClose] = useState('')
     const getTags = async () => {
@@ -29,15 +29,22 @@ const CheckBox = ({setWorkOpen, setTagsArray, onChange}) => {
                     }/>
                 </div>
                 <div className="checkBox__cards">
-                    {tags.map((item) => {
+                    {/*tagsArray.length > 0 ? tagsArray.map(item => {
+                        const isChecked = tagsArray.includes(item.name)
                         return (
                         <div className='checkBox__card'>
-                            <input type="checkbox" className="checkBox__card-input" id={item.id} value={item.name} onChange={(event) => {
-                                if(event.target.checked) {
-                                    setTagsArray(prev => ([...prev, item]))
-                                } else {
-                                    setTagsArray(prev => (prev.filter(item => item.id != event.target.id)))
-                                }
+                            <input type="checkbox" className="checkBox__card-input" checked={isChecked} id={item.id} value={item.name} onChange={(event) => {
+                                setTagsArray(prev => prev.includes(item) ? prev.filter(tag => tag != item.name) : [...prev, item.name])
+                            }}/>
+                            <label htmlFor={item.id} className="checkBox__card-label">{item.name}</label>
+                        </div>
+                        )
+                    }) : */tags.map((item) => {
+                        const isChecked = tagsArray.includes({name: item.name})
+                        return (
+                        <div className='checkBox__card'>
+                            <input type="checkbox" className="checkBox__card-input" checked={isChecked} id={item.id} value={item.name} onChange={(event) => {
+                                setTagsArray(prev => prev.includes({name: item.name}) ? prev.filter(tag => tag.name != item.name) : [...prev, item])
                             }}/>
                             <label htmlFor={item.id} className="checkBox__card-label">{item.name}</label>
                         </div>

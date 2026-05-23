@@ -80,6 +80,10 @@
     margin-top: 10px;
 }
 
+.form__mainBlock .form__block {
+    max-width: 100%;
+}
+
 .form__block-button {
     background-color: #ECC68B;
     padding: 14px 0px;
