@@ -51,8 +51,7 @@ const AuctionsPage = () => {
                 setResult={setResult}
                 result={result}
                 renderCard={(item, index) => (
-                    <AuctionCard key={index} item={item}
-                                 onClick={() => navigate(AUCTIONS + "/" + item.title + "/" + item.id)}/>
+                    <AuctionCard key={index} item={item} onClick={() => navigate(AUCTIONS + "/" + item.title + "/" + item.id)}/>
                 )}
             />
         </div>

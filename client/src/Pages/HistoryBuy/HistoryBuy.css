@@ -1,9 +1,9 @@
 .history-page {
-    padding: 40px 0;
+    padding: 175px 0 40px;
 }
 
 .history-list {
-    margin-top: 30px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -49,11 +49,23 @@
     gap: 8px;
 }
 
+.history-left-inner{
+    display: flex;
+    gap: 20px;
+}
+
+.history-left-inner .btn {
+    min-width: 200px;
+}
+
 .empty {
     color: #aaa;
     font-size: 18px;
 }
 
+.history-info{
+    row-gap: 20px;
+}
 .view-btn {
     margin-top: 15px;
     padding: 10px 18px;
@@ -69,4 +81,35 @@
 
 .view-btn:hover {
     opacity: 0.85;
+}
+
+@media (max-width: 1024px) {
+    .history-page {
+        padding-top: 150px;
+    }
+}
+
+@media (max-width: 900px) {
+    .history-left-inner{
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+    .history-page {
+        padding-top: 100px;
+    }
+}
+
+@media (max-width: 500px) {
+    .history-card{
+        flex-direction: column;
+        text-align: center;
+    }
+    .history-info{
+        justify-content: center;
+    }
+    .history-image{
+        margin: 0 auto;
+    }
 }

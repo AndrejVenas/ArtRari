@@ -5,7 +5,7 @@ import instagramIcon from "../../../Images/socialIcons/instagram.svg";
 import xtwitterIcon from "../../../Images/socialIcons/x-twitter.svg";
 import angleDown45 from "../../../Images/angle-down-45.svg";
 
-function SocialLinks() {
+function SocialLinks({ isFooter = false }) {
     return (
         <div className="social-links">
 
@@ -20,8 +20,11 @@ function SocialLinks() {
             </div>
 
             <div className="social-link-target">
-                <a href="#footer">
-                    <img src={angleDown45} alt="link to footer" />
+                <a href={isFooter ? "#top" : "#footer"}>
+                    <img
+                        src={angleDown45}
+                        alt={isFooter ? "scroll to top" : "link to footer"}
+                    />
                 </a>
             </div>
 

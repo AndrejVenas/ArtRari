@@ -2,7 +2,10 @@ import React from "react";
 import "./ProfileNavigation.css";
 import Link from "../../UI/link/Link";
 import Title from "../../UI/title/Title";
-import { ABOUT_US, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, MAIN, MY_AUCTIONS, MY_EXHIBITIONS, MY_WORK, WORK_UPLOAD } from "../../../constants";
+import {
+    ABOUT_US, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS,
+    HISTORY_BUY, MAIN, MY_AUCTIONS, MY_EXHIBITIONS, MY_WORK, WORK_UPLOAD
+} from "../../../constants";
 import { useSelector } from "react-redux";
 
 const ProfileNavigation = () => {
@@ -23,6 +26,7 @@ const ProfileNavigation = () => {
                     <Link href={MY_WORK} text={"Перейти до перегляду та редагування своїх робот"}
                           className={"ProfileNavigation-link"}/>
                     <Link href={WORK_UPLOAD} text={"Завантажити роботу"} className={"ProfileNavigation-link"}/>
+                    <Link href={HISTORY_BUY} text={"Мої замовлення"} className={"ProfileNavigation-link"}/>
                     </>
                     }
                 </div>
