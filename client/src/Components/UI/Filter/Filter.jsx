@@ -51,7 +51,12 @@ const Filters = ({ filters, values, onChange }) => {
                     return <Search onChange={onChange}/>
                 }
                 if(filter.type === "checkbox") {
-                    return <CheckBoxComponent onChange={onChange}/>
+                    return (
+                        <CheckBoxComponent
+                            onChange={onChange}
+                            returnType={filter.returnType}
+                        />
+                    )
                 }
 
                 return null;

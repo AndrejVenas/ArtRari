@@ -29,28 +29,42 @@ const CheckBox = ({setWorkOpen, tagsArray, setTagsArray, onChange}) => {
                     }/>
                 </div>
                 <div className="checkBox__cards">
-                    {/*tagsArray.length > 0 ? tagsArray.map(item => {
-                        const isChecked = tagsArray.includes(item.name)
-                        return (
-                        <div className='checkBox__card'>
-                            <input type="checkbox" className="checkBox__card-input" checked={isChecked} id={item.id} value={item.name} onChange={(event) => {
-                                setTagsArray(prev => prev.includes(item) ? prev.filter(tag => tag != item.name) : [...prev, item.name])
-                            }}/>
-                            <label htmlFor={item.id} className="checkBox__card-label">{item.name}</label>
-                        </div>
+                    {tags.map((item) => {
+
+                        const isChecked = tagsArray.some(
+                            tag => tag.name === item.name
                         )
-                    }) : */tags.map((item) => {
-                        const isChecked = tagsArray.includes({name: item.name})
+
                         return (
-                        <div className='checkBox__card'>
-                            <input type="checkbox" className="checkBox__card-input" checked={isChecked} id={item.id} value={item.name} onChange={(event) => {
-                                setTagsArray(prev => prev.includes({name: item.name}) ? prev.filter(tag => tag.name != item.name) : [...prev, item])
-                            }}/>
-                            <label htmlFor={item.id} className="checkBox__card-label">{item.name}</label>
-                        </div>
+                            <div className='checkBox__card' key={item.id}>
+
+                                <input
+                                    type="checkbox"
+                                    className="checkBox__card-input"
+                                    checked={isChecked}
+                                    id={item.id}
+                                    value={item.name}
+                                    onChange={() => {
+
+                                        setTagsArray(prev =>
+                                            prev.some(tag => tag.name === item.name)
+                                                ? prev.filter(tag => tag.name !== item.name)
+                                                : [...prev, item]
+                                        )
+
+                                    }}
+                                />
+
+                                <label
+                                    htmlFor={item.id}
+                                    className="checkBox__card-label"
+                                >
+                                    {item.name}
+                                </label>
+
+                            </div>
                         )
-                        }
-                    )}
+                    })}
                 </div>
             </div>
         </div>

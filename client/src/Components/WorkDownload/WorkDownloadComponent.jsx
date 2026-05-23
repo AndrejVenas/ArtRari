@@ -163,10 +163,16 @@ const WorkDownloadComponent = () => {
                         <div className="formInputs__inputs-block">
                             <div className="input-group">
                                 <label className='input-label'>Теги роботи</label>
-                                <CheckBoxComponent onChange={(name, tags) => (setForm(prev => ({
-                                    ...prev,
-                                    //tags: tags
-                                })))} tagsServer={form.tags} dataUpdate={dataUpdate}/>
+                                <CheckBoxComponent
+                                    returnType="objects"
+                                    onChange={(name, tags) =>
+                                        setForm(prev => ({
+                                            ...prev,
+                                            tags: tags
+                                        }))
+                                    }
+                                    tagsServer={form.tags}
+                                />
                             </div>
                         </div>
                         <Button onClick={handleClick}>Завантажити</Button>
