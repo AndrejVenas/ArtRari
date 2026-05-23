@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./ProfilePage.css";
-import axios from "axios";
+import api from "../../api/axiosInstance";
 import Title from "../../Components/UI/title/Title";
 import ProfileNavigation from "../../Components/Section/ProfileNavigation/ProfileNavigation";
 import ProfileAction from "../../Components/Section/ProfileAction/ProfileAction";
@@ -51,7 +51,7 @@ const ProfilePage = () => {
 
     const getProfile = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/profile", {
+            const res = await api.get("/profile", {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -64,7 +64,7 @@ const ProfilePage = () => {
 
     const getStats = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/stats", {
+            const res = await api.get("/stats", {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }

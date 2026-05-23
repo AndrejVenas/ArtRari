@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import ItemsGrid from "../../ItemsGrid/ItemsGrid";
 import AuctionCard from "../../AuctionCard/AuctionCard";
 import {useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
+import api from "../../../api/axiosInstance";
 import {AUCTIONS} from '../../../constants'
 
 const auctionsMock = Array(12).fill({
@@ -33,7 +33,7 @@ const AuctionPage = () => {
     const [result, setResult] = useState({})
 
     const getAuction = async (id, page, tags) => {
-        const response = await axios.get(`http://localhost:8080/auctions/${id}?page=${page}&tags=${tags}`)
+        const response = await api.get(`/auctions/${id}?page=${page}&tags=${tags}`)
         response.data.lotPreviews.map(item => item['startDate'] = response.data.startDate)
         setAuction(response.data)
     }

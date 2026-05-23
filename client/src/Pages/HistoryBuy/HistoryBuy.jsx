@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Title from "../../Components/UI/title/Title";
 import "./HistoryBuy.css";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../api/axiosInstance";
 
 const HistoryBuy = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const HistoryBuy = () => {
             console.log(state.history)
             const ids = state.history?.map((item) => item.id)
             for(let id of ids) {
-                const response = await axios.get(`http://localhost:8080/lots/${id}`)
+                const response = await api.get(`/lots/${id}`)
                 console.log(response.data)
                 setLot(prev => ([...prev, response.data]))
             }
