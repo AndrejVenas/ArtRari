@@ -159,8 +159,8 @@ const WorkDownloadComponent = () => {
                             }/>
                             <Input value={form?.author} label='Автор' type='text' onChange={(event) => setForm(prev => ({...prev, author: event.target.value}))}/>
                         </div>
+                        <Input value={form?.startPrice} label='Стартова ціна' type='number' placeholder='300' onChange={(event) => setForm(prev => ({...prev, startPrice: event.target.value}))}/>
                         <div className="formInputs__inputs-block">
-                            <Input value={form?.startPrice} label='Стартова ціна' type='number' placeholder='300' onChange={(event) => setForm(prev => ({...prev, startPrice: event.target.value}))}/>
                             <div className="input-group">
                                 <label className='input-label'>Теги роботи</label>
                                 <CheckBoxComponent onChange={(name, tags) => (setForm(prev => ({
