@@ -205,7 +205,7 @@ a.auction-link{
 
 @media (max-width: 769px) {
     .auction-page{
-        padding-top: 125px;
+        /*padding-top: 125px;*/
     }
 }
 
