@@ -10,7 +10,7 @@ import "./LotPaymentForm.css";
 const AuctionBid = ({ id }) => {
     const [card, setCard] = useState("");
     const [cvv, setCvv] = useState("");
-    const [pin, setPin] = useState("");
+    const [expiry, setExpiry] = useState("");
 
     const { token } = useSelector((state) => state.Auth);
 
@@ -22,8 +22,11 @@ const AuctionBid = ({ id }) => {
 
     const handleCardChange = (e) => {
         let value = e.target.value.replace(/\D/g, "");
+
         value = value.substring(0, 16);
+
         const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
+
         setCard(formattedValue);
     };
 
@@ -35,12 +38,18 @@ const AuctionBid = ({ id }) => {
         }
     };
 
-    const handlePinChange = (e) => {
-        const value = e.target.value.replace(/\D/g, "");
+    const handleExpiryChange = (e) => {
+        let value = e.target.value.replace(/\D/g, "");
 
-        if (value.length <= 4) {
-            setPin(value);
+        if (value.length > 4) {
+            value = value.slice(0, 4);
         }
+
+        if (value.length >= 3) {
+            value = `${value.slice(0, 2)}/${value.slice(2)}`;
+        }
+
+        setExpiry(value);
     };
 
     const bidAuction = async (id) => {
@@ -50,7 +59,7 @@ const AuctionBid = ({ id }) => {
             return;
         }
 
-        if (!card || !cvv || !pin) {
+        if (!card || !cvv || !expiry) {
             setMessage("Заповніть всі поля.");
             setChecked(true);
             return;
@@ -68,8 +77,8 @@ const AuctionBid = ({ id }) => {
             return;
         }
 
-        if (pin.length !== 4) {
-            setMessage("PIN код повинен містити 4 цифри.");
+        if (expiry.length !== 5) {
+            setMessage("Термін дії повинен бути у форматі MM/YY.");
             setChecked(true);
             return;
         }
@@ -77,7 +86,11 @@ const AuctionBid = ({ id }) => {
         try {
             await api.post(
                 `/pay/lots/${id}`,
-                {card, cvv, pin},
+                {
+                    card,
+                    cvv,
+                    expiry,
+                },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -135,10 +148,10 @@ const AuctionBid = ({ id }) => {
                 />
 
                 <Input
-                    label="Пін код"
-                    placeholder="****"
-                    value={pin}
-                    onChange={handlePinChange}
+                    label="Термін дії"
+                    placeholder="MM/YY"
+                    value={expiry}
+                    onChange={handleExpiryChange}
                 />
 
                 <button

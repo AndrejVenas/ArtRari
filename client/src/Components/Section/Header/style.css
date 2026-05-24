@@ -105,8 +105,7 @@ body.menu-open {
     .menu__list{
         /*display: none;*/
         position: absolute;
-        left: 0;
-        top: 0;
+        left: 0;;
         flex-direction: column;
         background-color: transparent;
     }
@@ -124,11 +123,11 @@ body.menu-open {
     }
 
     .menu__list--1{
-        top: 80px;
+        top: 120px;
     }
 
     .menu__list--2{
-        top: 160px;
+        top: 200px;
     }
 
     .header-overlay{
