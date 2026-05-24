@@ -25,7 +25,7 @@ public class FilterChainConfigurator {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
-                    corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000", "https://artrari.pp.ua"));
+                    corsConfiguration.setAllowedOrigins(List.of("http://localhost:3000"));
                     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     corsConfiguration.setAllowCredentials(true);
                     corsConfiguration.setAllowedHeaders(List.of("*"));
@@ -37,7 +37,6 @@ public class FilterChainConfigurator {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/websocket", "/websocket/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/home",
                                 "/auctions/**",
@@ -46,6 +45,7 @@ public class FilterChainConfigurator {
                                 "/lots/**",
                                 "/artworks/**").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/websocket/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
