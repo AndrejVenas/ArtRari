@@ -18,6 +18,7 @@ const CreateExhibition = () => {
     const [artWorks, setArtWorks] = useState([])
     const [image, setImage] = useState({})
     const [workOpen, setWorkOpen] = useState(false)
+    const [artWorksServer, setArtWorksServer] = useState([])
     const {token} = useSelector(state => state.Auth)
     const location = useLocation()
     const dataExhibition = location.state?.item
@@ -25,12 +26,14 @@ const CreateExhibition = () => {
     const deleteWork = (work) => {
         setWorkOpen(false);
         setWorks(prevWork => prevWork.filter((item) => item.id != work.id))
+        //setArtWorksServer(prevWork => prevWork.filter((item) => item.id != work.id))
+        setArtWorks(prevWork => prevWork.filter((item) => item.id == work.id))
     }
     useEffect(() => {
         console.log(workOpen, works);
     }, [workOpen, works])
     const [form, setForm] = useState({
-        artworksIds: [],
+        artworkIds: [],
         title: "",
         theme: "",
         description: "",
@@ -43,7 +46,7 @@ const CreateExhibition = () => {
             return
         } else {
             setForm({
-                artworksIds: dataExhibition.artworks?.map((item) => item.id),
+                artworkIds: dataExhibition.artworks?.map((item) => item.id),
                 title: dataExhibition.title,
                 theme: theme,
                 thumbnailUrl: dataExhibition.backgroundUrl,
@@ -51,8 +54,10 @@ const CreateExhibition = () => {
                 backgroundUrl: "bck.com"
             })
             setWorks(dataExhibition.artworks)
+            setArtWorksServer(dataExhibition.artworks)
+            console.log(dataExhibition.artworks)
             console.log(dataExhibition.backgroundUrl)
-            setImage(dataExhibition.backgroundUrl)
+            setImage(dataExhibition.thumbnailUrl)
         }
     }, [dataExhibition])
     const getArtWorks = async () => {
@@ -62,7 +67,9 @@ const CreateExhibition = () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            setArtWorks(response.data)
+            console.log(response.data.items)
+            setArtWorks([...response.data.items, ...artWorksServer])
+            console.log(response.data.items)
         } catch(error) {
             console.log(error)
         }
@@ -90,27 +97,30 @@ const CreateExhibition = () => {
     }
     const createExhibitionAction = async () => {
         try {
-
-            if(Object.keys(dataExhibition).length > 0) {
-                setForm(prev => ({...prev, artworksIds: works.map((item) => item.id)}))
-
+            if(dataExhibition) {
+                setForm(prev => ({...prev, artworkIds: works.map((item) => item.id)}))
+                let result = image
+                if(typeof image !== 'string') {
+                    result = await getImage(image)
+                }
                 const data = {
                     ...form,
-                    artworksIds: works.map((item) => item.id),
+                    artworkIds: works.map((item) => item.id),
+                    thumbnailUrl: result
                 }
-                const response = await api.put('/exhibitions', data, {
+                const response = await api.put(`/exhibitions/${dataExhibition.id}`, data, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 })
             } else {
-                setForm(prev => ({...prev, artworksIds: works.map((item) => item.id)}))
+                setForm(prev => ({...prev, artworkIds: works.map((item) => item.id)}))
                 const result = await getImage(image)
                 setForm(prev => ({...prev, thumbnailUrl: result}))
 
                 const data = {
                     ...form,
-                    artworksIds: works.map((item) => item.id),
+                    artworkIds: works.map((item) => item.id),
                     thumbnailUrl: result
                 }
                 const response = await api.post('/exhibitions', data, {
@@ -123,6 +133,9 @@ const CreateExhibition = () => {
             console.log(error)
         }
     }
+    useEffect(() => {
+        console.log(artWorks)
+    }, [artWorks, workOpen])
   return (
     <div className="createExhibition">
         <div className="createExhibition__container">
@@ -151,7 +164,6 @@ const CreateExhibition = () => {
                             <thead>
                                 <tr>
                                     <th className="table__th">Назва</th>
-                                    <th className="table__th">Країна</th>
                                     <th className="table__th">Ціна</th>
                                 </tr>
                             </thead>
@@ -159,15 +171,16 @@ const CreateExhibition = () => {
                             {works?.map((item, index) => {
                                 return <tr className='table__tr'>
                                     <td className="table__tr-td">{item.title}</td>
-                                    <td className="table__tr-td">{item.category}</td>
-                                    <td className="table__tr-td">{item.price}</td>
+                                    <td className="table__tr-td">{item.startPrice} $</td>
                                     <td className="table__tr-td"><img src={require('../../Images/close.svg').default} alt="закрити" onClick={() => deleteWork(item)}/></td>
                                 </tr>
                             })}
                             </tbody>
                             <tfoot>
                                 <tr className="table__trFooter">
-                                    <td colSpan="4" className="table__trFooter-td" onClick={() => setClose('open')}>Додати ще роботи <span className='table__trFooter-span'>+</span></td>
+                                    <td colSpan="4" className="table__trFooter-td" onClick={() => {
+                                    setClose('open')
+                                    setWorkOpen(true)}}>Додати ще роботи <span className='table__trFooter-span'>+</span></td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -187,7 +200,7 @@ const CreateExhibition = () => {
                     </div>
                 </div>
             </form>
-            <Popup close={close} setClose={setClose} workOpen={workOpen} setWorkOpen={setWorkOpen} setWorks={setWorks} artWorks={artWorks}/>
+            <Popup close={close} setClose={setClose} workOpen={workOpen} setWorkOpen={setWorkOpen} setWorks={setWorks} artWorks={artWorks} artWorksServer={artWorksServer} setArtWorks={setArtWorks} works={works}/>
         </div>
     </div>
   )

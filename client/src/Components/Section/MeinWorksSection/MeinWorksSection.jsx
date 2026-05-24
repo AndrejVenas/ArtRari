@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useActionState, useEffect, useState } from 'react'
 import './MeinWorksSection.css'
 
 import MyWorkCard from "../../UI/MyWorkCard/MyWorkCard";
@@ -9,6 +9,7 @@ import api from '../../../api/axiosInstance'
 import {useSelector} from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CREATE_EXHIBITION, WORK_UPLOAD } from '../../../constants';
+import Message from '../../UI/Message/Message';
 const worksMock = Array.from({ length: 8 }, (_, index) => ({
     id: index + 1,
     title: "Тиша, що пам’ятає світло",
@@ -24,6 +25,9 @@ const MeinWorksSection = () => {
     const [myWork, setMyWork] = useState({})
     const {token} = useSelector(state => state.Auth)
     const [action, setAction] = useState('')
+    const [deleteWork, setDeleteWork] = useState(0)
+    const [flag, setFlag] = useState(false)
+    const [message, setMessage] = useState('')
     const location = useLocation()
     const navigate = useNavigate()
     const [data, setData] = useState({
@@ -56,7 +60,7 @@ const MeinWorksSection = () => {
     const handleEdit = async (item) => {
         if(action.includes('artworks')) {
         try {
-            const response = await api.get(`/artworks/${item.id}`, {
+            const response = await api.get(`/artworks/my/${item.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -68,7 +72,7 @@ const MeinWorksSection = () => {
         }
         } else if(action.includes('exhibitions')) {
             try {
-            const response = await api.get(`/exhibitions/${item.id}`, {
+            const response = await api.get(`/exhibitions/my/${item.id}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -82,9 +86,10 @@ const MeinWorksSection = () => {
     };
 
     const handleDeleteClick = (item) => {
-        navigate(CREATE_EXHIBITION, {state: {item}})
+        //navigate(CREATE_EXHIBITION, {state: {item}})
         //setSelectedId(id);
-        //setIsModalOpen(true);
+        setIsModalOpen(true);
+        setDeleteWork(item)
     };
     const handleDate = async (data, id) => {
         data['exhibitionId'] = id
@@ -100,11 +105,27 @@ const MeinWorksSection = () => {
             console.log(error)
         }
     }
-    const confirmDelete = () => {
+    const confirmDelete = async () => {
         console.log("delete", selectedId);
-
+        
         setIsModalOpen(false);
-        setSelectedId(null);
+        try {
+            const response = await api.delete(window.location.pathname.includes('Exhibitions') ? `/exhibitions/${deleteWork}` : `/artworks/${deleteWork}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 3000)
+            setMessage('Ваша робота успішно видалена.')
+            setFlag(true)
+        } catch(error) {
+            const message = error.response.data.message
+            console.log(message)
+            setMessage(message)
+            setFlag(true)
+        }
     };
     useEffect(() => {
         console.log(action)
@@ -112,6 +133,7 @@ const MeinWorksSection = () => {
         myWorkGet()
     }, [action])
     return (
+        <>
         <section className="mein-works">
             <div className="container">
 
@@ -146,8 +168,9 @@ const MeinWorksSection = () => {
                 onClose={() => setIsModalOpen(false)}
                 onConfirm={confirmDelete}
             />
-
         </section>
+        <Message flag={flag} setFlag={setFlag} message={message} />
+        </>
     );
 };
 

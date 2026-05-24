@@ -3,7 +3,7 @@ import Input from '../Input/Input'
 import Button from '../Button/Button'
 import './style.css'
 
-const PopupConfirmation = ({close, setClose, onDate}) => {
+const PopupConfirmation = ({close, setClose, onDate, setOpen}) => {
     const [data, setData] = useState({
         startDate: "",
         startTime: "",
@@ -30,7 +30,10 @@ const PopupConfirmation = ({close, setClose, onDate}) => {
                     <div className="popup__top">
                         <h1 className="popup__top-title">Оберіть роботи</h1>
                         <img src={require('../../../Images/close.svg').default} alt="закрити"
-                             className="popup__top-close" onClick={() => setClose('close')}/>
+                             className="popup__top-close" onClick={() => {
+                                //setClose('close')
+                                setOpen(false)
+                             }}/>
                     </div>
                     <div className="popup__cards">
                         <form action="" className="popupConfirmation__form">

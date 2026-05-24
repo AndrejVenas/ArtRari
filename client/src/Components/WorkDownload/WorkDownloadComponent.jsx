@@ -77,6 +77,7 @@ const WorkDownloadComponent = () => {
         }
     }
     const handleClick = async () => {
+        console.log(form)
         const formData = new FormData()
         Object.keys(form).forEach(key => {
             formData.append(key, form[key])
@@ -84,20 +85,21 @@ const WorkDownloadComponent = () => {
         console.log(form['photoUrl'])
         //setForm(prev => ({...prev, photoUrl: ''})) 
         let data = {}
-        if(!form['photoUrl'].includes('picsum')) {
+        if(typeof form['photoUrl'] !== 'string') {
             const photoOfWork = await convertImage(formData.get('photoUrl'))
         data = {
             ...form,
             photoUrl: photoOfWork
         }
-        } else {
-            
+        }
+        if(dataUpdate) {
             data = Object.keys(form).reduce((acc, key) => {
                 const newKey = "new" + key.charAt(0).toUpperCase() + key.slice(1)
                 acc[newKey] = form[key]
                 return acc
             }, {})
         }
+        
         if(!form['photoUrl']) {
             return
         } else if(!dataUpdate) {
@@ -135,7 +137,10 @@ const WorkDownloadComponent = () => {
                 author: dataUpdate.author,
                 description: dataUpdate.description,
                 technique: dataUpdate.technique,
-                tags: dataUpdate.tags.map((item) => item),
+                tags: (dataUpdate.tags || []).map((item) => ({
+                    id: item.id,
+                    name: item.name
+                })),
                 creationDate: dataUpdate.creationDate,
                 photoUrl: dataUpdate.photoUrl,
                 startPrice: dataUpdate.startPrice
@@ -153,7 +158,7 @@ const WorkDownloadComponent = () => {
                         <Input value={form?.title} label='Назва роботи' type='text' placeholder='Грані реальності' name='title' onChange={(event) => setForm(prev => ({...prev, title: event.target.value}))}/>
                         <Textarea value={form?.description} label='Опис роботи' placeholder='Грані реальності' name='description' onChange={(event) => setForm(prev => ({...prev, description: event.target.value}))}/>
                         <div className="formInputs__inputs-block">
-                            <Input value={form?.creationDate} label='Дата створення' type='date' placeholder='ДД.ММ.РРРР' onChange={(event) => {
+                            <Input value={form?.creationDate.slice(0, 10)} label='Дата створення' type='date' placeholder='ДД.ММ.РРРР' onChange={(event) => {
                                 let value = new Date(event.target.value).toISOString()
                                 setForm(prev => ({...prev, creationDate: value}))}
                             }/>
@@ -164,11 +169,11 @@ const WorkDownloadComponent = () => {
                             <div className="input-group">
                                 <label className='input-label'>Теги роботи</label>
                                 <CheckBoxComponent
-                                    returnType="objects"
+                                    returnType="ids"
                                     onChange={(name, tags) =>
                                         setForm(prev => ({
                                             ...prev,
-                                            tags: tags
+                                            tags
                                         }))
                                     }
                                     tagsServer={form.tags}

@@ -4,11 +4,16 @@ import './style.css'
 import '../../Images/auction.svg'
 import Button from '../UI/Button/Button'
 
-const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks, artWorks}) => {
+const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks, artWorks, artWorksServer = [], setArtWorks = [], works}) => {
     const addWork = (item) => {
-        setWorks(prev => [...prev, {...item}])
+        console.log(item)
+        setWorks(prev => [...prev, item])
+        setArtWorks(prev => prev.filter((element) => element.id != item.id))
+        //setArtWorksServer(prev => prev.filter((element) => element.id != item.id))
         setClose('close')
     }
+
+    console.log(artWorks)
   return (
     <div className={"popup" + " " + close}>
         <div className="popup__container">
@@ -18,8 +23,8 @@ const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks, artWorks}) => 
                     <img src={require('../../Images/close.svg').default} alt="закрити" className="popup__top-close" onClick={() => setClose('close')}/>
                 </div>
                 <div className="popup__cards">
-                    {artWorks.items?.map((item, index) => {
-                        return <div className={'popup__card' + (index % 2 == 0 ? ' active' : '')} key={index}>
+                    {artWorks?.map((item, index) => {
+                        return works.every(element => element.id != item.id) && <div className={'popup__card' + (index % 2 == 0 ? ' active' : '')} key={index}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="popup__image" />
                                 <div className="popup__description">
                                     <h3 className="popup__description-title">{item.title}</h3>

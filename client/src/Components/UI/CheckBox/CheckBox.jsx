@@ -30,10 +30,12 @@ const CheckBox = ({setWorkOpen, tagsArray, setTagsArray, onChange}) => {
                 </div>
                 <div className="checkBox__cards">
                     {tags.map((item) => {
-
+                        console.log(item)
+                        console.log(tagsArray)
                         const isChecked = tagsArray.some(
-                            tag => tag.name === item.name
+                            tag => tag.id == item.id
                         )
+                        console.log(isChecked)
 
                         return (
                             <div className='checkBox__card' key={item.id}>
@@ -46,12 +48,14 @@ const CheckBox = ({setWorkOpen, tagsArray, setTagsArray, onChange}) => {
                                     value={item.name}
                                     onChange={() => {
 
-                                        setTagsArray(prev =>
-                                            prev.some(tag => tag.name === item.name)
-                                                ? prev.filter(tag => tag.name !== item.name)
-                                                : [...prev, item]
+                                        setTagsArray(prev => {
+                                        console.log("Prev", prev)
+                                        if (!item?.id && !item?.name) return prev
+                                            const exists = prev.some(tag => tag.id === item.id)
+                                                if(exists) return prev.filter(tag => tag.id !== item.id)
+                                                return [...prev, item]
+                                        }
                                         )
-
                                     }}
                                 />
 

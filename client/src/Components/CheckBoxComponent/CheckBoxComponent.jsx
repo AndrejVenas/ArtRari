@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CheckBox from '../UI/CheckBox/CheckBox';
 import './style.css'
 
@@ -10,32 +10,30 @@ const CheckBoxComponent = ({
 
     const [workOpen, setWorkOpen] = useState(false);
     const [tags, setTags] = useState([])
-
+    const initialized = useRef(false)
     useEffect(() => {
-
+        console.log(tagsServer)
+        //if(!tags) return
+        let payload = tags;
         if (returnType === "ids") {
-            onChange(
-                "checkbox",
-                tags.map(item => item.id)
-            )
+            payload = tags.map(item => item.id)
         } else if (returnType === "names") {
-            onChange(
-                "checkbox",
-                tags.map(item => item.name)
-            )
+            payload = tags.map(item => item.name)
         } else {
-            onChange("checkbox", tags)
+            payload = tags
         }
-
+        onChange("checkbox", payload)
     }, [tags])
 
     useEffect(() => {
-        if (tagsServer.length === 0) {
+        if (!tagsServer || tagsServer.length === 0 || initialized.current) {
             return
         }
 
-        setTags(tagsServer)
-
+        if (typeof tagsServer[0] === 'object') {
+            setTags(tagsServer)
+            initialized.current = true
+        }
     }, [tagsServer])
 
     return (
@@ -46,10 +44,10 @@ const CheckBoxComponent = ({
                 <div className="form__block-tagsList">
                     {tags.map((item, index) => (
                         <div
-                            key={index}
+                            key={item.id}
                             className="form__block-tagsBlock"
                         >
-                            {item.name}
+                            {item?.name}
                         </div>
                     ))}
                 </div>
