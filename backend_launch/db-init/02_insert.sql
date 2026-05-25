@@ -1,7 +1,8 @@
 INSERT INTO USERS(first_name,last_name,phone,email,password_hash,role,is_banned)
 VALUES ('Ivan', 'Ivanov', '123', 'abc@gmail.com','$2a$10$N1m7kGCKNuXMehcfx1gQkOOWseeZRrtwJWER2GiKVE06GejG8eLgm', 'user',false),
        ('Petro','Petrenko','456','xyz@gmail.com','$2a$10$HvPRLsI/6l68VMgwGx9.u.fkOCDzvkByJAhPWOqawqOGURDZCgeS.','user',false),
-       ('Mykola','Curator','789','curator@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false);
+       ('Mykola','Curator','789','curator@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false),
+       ('Ivan','Curator','228','curator1@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false);
 
 -- Теги
 INSERT INTO tag (name) VALUES
