@@ -14,7 +14,7 @@ public class AuctionStateScheduler {
         auctionService.openAuctions();
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedRate = 1000)
     public void closeAuctions() {
         auctionService.closeAuctions();
     }
