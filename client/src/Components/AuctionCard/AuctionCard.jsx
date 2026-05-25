@@ -35,11 +35,39 @@ const AuctionCard = ({ item, onClick }) => {
         return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
     };
 
+    const calculateStartDate = (endDate) => {
+        const now = Date.now();
+        const end = new Date(endDate).getTime();
+
+        const diff = end - now;
+
+        // Аукцион завершен
+        if (diff <= 0) {
+            return "Аукціон розпочато";
+        }
+
+        // Дни
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+        if (days >= 1) {
+            return `${days} днів`;
+        }
+
+        // Часы / минуты / секунды
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        const pad = (num) => String(num).padStart(2, "0");
+
+        return `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+    };
+
     useEffect(() => {
         const updateTimer = () => {
             setTimeLeft(calculateTimeLeft(item.endDate));
         };
-
+        
         updateTimer();
 
         const interval = setInterval(updateTimer, 1000);
@@ -56,7 +84,7 @@ const AuctionCard = ({ item, onClick }) => {
                 <p>{item.theme}</p>
 
                 <div className="tags">
-                    <span>{item.status == "scheduled" ? `До старту: ${calculateTimeLeft(item.startDate)}`: timeLeft}</span>
+                    <span>{item.status == "scheduled" ? `До старту: ${calculateStartDate(item.startDate)}`: timeLeft}</span>
 
                     {item?.tags?.map((tag, index) => (
                         <span key={index}>{tag}</span>

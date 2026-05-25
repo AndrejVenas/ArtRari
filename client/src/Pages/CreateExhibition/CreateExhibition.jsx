@@ -177,7 +177,7 @@ const CreateExhibition = () => {
     const deleteWork = (work) => {
         setWorks(prev => prev.filter(item => item.id !== work.id))
     }
-    const createExhibitionAction = async () => {
+    /*const createExhibitionAction = async () => {
 
     if (!validate()) {
         setMessage("Заповніть всі поля!")
@@ -226,7 +226,7 @@ const CreateExhibition = () => {
         setMessage(error?.response?.data?.message || "Сталася помилка")
         setActive(true)
     }
-}
+}*/
     useEffect(() => {
         console.log(artWorks)
     }, [artWorks, workOpen])

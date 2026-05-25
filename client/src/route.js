@@ -13,7 +13,7 @@ import MeinWork from "./Pages/MeinWorks/MeinWorks";
 import EditWork from "./Pages/WorkEdit/WorkEdit";
 import LotPayment from "./Pages/LotPayment/LotPayment";
 import HistoryBuy from "./Pages/HistoryBuy/HistoryBuy";
-
+import NotFound from "./Pages/NotFound/NotFound"
 import {
     ABOUT_US, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
     PROFILE, MY_WORK, PAYMENT_SUCCESSFUL,
@@ -97,6 +97,10 @@ export const authRoute = [
     {
         path: EDIT_WORK,
         Element: WorkDownload
+    },
+    {
+        path: NOT_FOUND,
+        Element: NotFound
     }
 ]
 
@@ -211,5 +215,9 @@ export const publicRoute = [
     {
         path: EXHIBITIONS + '/:title' + '/:id' + '/work' + '/:idOfWork?',
         Element: lot
+    },
+    {
+        path: NOT_FOUND,
+        Element: NotFound
     }
 ]

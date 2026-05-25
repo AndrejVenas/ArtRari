@@ -10,7 +10,7 @@ import "./LotPaymentForm.css";
 const AuctionBid = ({ id }) => {
     const [card, setCard] = useState("");
     const [cvv, setCvv] = useState("");
-    const [expiry, setExpiry] = useState("");
+    const [expDate, setExpDate] = useState("");
 
     const { token } = useSelector((state) => state.Auth);
 
@@ -49,7 +49,7 @@ const AuctionBid = ({ id }) => {
             value = `${value.slice(0, 2)}/${value.slice(2)}`;
         }
 
-        setExpiry(value);
+        setExpDate(value);
     };
 
     const bidAuction = async (id) => {
@@ -59,7 +59,7 @@ const AuctionBid = ({ id }) => {
             return;
         }
 
-        if (!card || !cvv || !expiry) {
+        if (!card || !cvv || !expDate) {
             setMessage("Заповніть всі поля.");
             setChecked(true);
             return;
@@ -77,7 +77,7 @@ const AuctionBid = ({ id }) => {
             return;
         }
 
-        if (expiry.length !== 5) {
+        if (expDate.length !== 5) {
             setMessage("Термін дії повинен бути у форматі MM/YY.");
             setChecked(true);
             return;
@@ -89,7 +89,7 @@ const AuctionBid = ({ id }) => {
                 {
                     card,
                     cvv,
-                    expiry,
+                    expDate,
                 },
                 {
                     headers: {
@@ -150,7 +150,7 @@ const AuctionBid = ({ id }) => {
                 <Input
                     label="Термін дії"
                     placeholder="MM/YY"
-                    value={expiry}
+                    value={expDate}
                     onChange={handleExpiryChange}
                 />
 

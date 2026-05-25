@@ -148,15 +148,10 @@ const AuctionPage = () => {
                                     <td>{work.startDate}</td>
                                 </tr>
                                 }
-                                {idOfLot && lot.status != "scheduled" ? (
+                                {idOfLot && lot.status != "scheduled" && (
                                     <tr>
                                         <td>Залишилось часу:</td>
                                         <td>{timeLeft}</td>
-                                    </tr>
-                                ) : (
-                                    <tr>
-                                        <td>Автор:</td>
-                                        <td>{work.author}</td>
                                     </tr>
                                 )}
 
