@@ -3,6 +3,7 @@ import { authRoute, curatorRoute, publicRoute } from '../route'
 import { Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Message from './UI/Message/Message'
+import NotFound from '../Pages/NotFound/NotFound'
 
 const ActiveContext = createContext()
 export const useActiveContext = () => useContext(ActiveContext)
@@ -26,6 +27,7 @@ const AppRouter = () => {
             {checkRoute(role).map(({path, Element}, index) => {
                 return <Route key={index} path={path} element={<Element />} />
             })}
+            <Route path="*" element={<NotFound />} />
         </Routes>
     </ActiveContext.Provider>
     {message?.length > 0 && <Message flag={active} setFlag={setActive} message={message}/>}
