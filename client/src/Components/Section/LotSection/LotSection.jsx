@@ -1,11 +1,11 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./LotSection.css";
 import Title from "../../UI/title/Title";
-import { useLocation, useParams } from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import api from "../../../api/axiosInstance";
 import AuctionBid from "../AuctionBid/AuctionBid";
-import { subscribeToLotBids } from "../../../socketClient";
-import { useSelector } from "react-redux";
+import {subscribeToLotBids} from "../../../socketClient";
+import {useSelector} from "react-redux";
 
 const AuctionPage = () => {
     const [lot, setLot] = useState({});
@@ -13,9 +13,9 @@ const AuctionPage = () => {
     const [work, setWork] = useState({});
     const [timeLeft, setTimeLeft] = useState("");
 
-    const { idOfLot, idOfWork } = useParams();
+    const {idOfLot, idOfWork} = useParams();
     const location = useLocation();
-    const {token} = useSelector(state => state.Auth)
+    const {token} = useSelector(state => state.Auth);
 
     const getLot = async (id) => {
         const res = await api.get(`/lots/${id}`);
@@ -160,9 +160,37 @@ const AuctionPage = () => {
                                             <td>${Number(lot.startPrice) || 0}</td>
                                         </tr>
 
+                                        {/* 🔥 FIXED BLOCK */}
                                         <tr>
                                             <td>Поточна ставка:</td>
-                                            <td>${currentPrice}</td>
+
+                                            <td className="price-cell">
+                                                ${currentPrice}
+
+                                                <div className="price-tooltip">
+
+                                                    {bids.length > 0 ? (
+
+                                                        [...bids]
+                                                            .sort((a, b) => Number(b.amount) - Number(a.amount))
+                                                            .map((bid, index) => (
+                                                                <div
+                                                                    className="price-tooltip__item"
+                                                                    key={index}
+                                                                >
+                                                                    <span>{bid.user}</span>
+                                                                    <span>${bid.amount}</span>
+                                                                </div>
+                                                            ))
+
+                                                    ) : (
+                                                        <div className="price-tooltip__empty">
+                                                            Ставок ще не було
+                                                        </div>
+                                                    )}
+
+                                                </div>
+                                            </td>
                                         </tr>
 
                                         <tr>
@@ -178,7 +206,9 @@ const AuctionPage = () => {
                                         <tr>
                                             <td>Комісія:</td>
                                             <td>10%</td>
-                                        </tr><tr>
+                                        </tr>
+
+                                        <tr>
                                             <td>Крок:</td>
                                             <td>{lot.step} $</td>
                                         </tr>
@@ -214,7 +244,7 @@ const AuctionPage = () => {
                             />
                         ) : (
                             <div className="auction-description">
-                                <Title title={work.title} />
+                                <Title title={work.title}/>
 
                                 <div className="desc-grid">
                                     <p>{work.description}</p>
@@ -232,7 +262,7 @@ const AuctionPage = () => {
                     {/* DESCRIPTION */}
                     {idOfLot && (
                         <div className="auction-description">
-                            <Title title={lot.artwork?.title} />
+                            <Title title={lot.artwork?.title}/>
 
                             <div className="desc-grid">
                                 <p>{lot.artwork?.description}</p>
