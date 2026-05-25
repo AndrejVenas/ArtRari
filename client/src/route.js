@@ -23,10 +23,11 @@ import {
     EDIT_WORK,
     LOT_PAYMENT,
     HISTORY_BUY,
-    EDIT_EXHIBITION
+    EDIT_EXHIBITION, NOT_FOUND
 } from "./constants";
 import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
 import ExhibitionWork from "./Pages/ExhibitionWork.jsx/ExhibitionWork";
+import NotFound from "./Pages/NotFound/NotFound";
 
 export const authRoute = [
     {
@@ -111,6 +112,10 @@ export const authRoute = [
         Element: WorkDownload
     },
     {
+        path: NOT_FOUND,
+        Element: NotFound
+    },
+    {
         path: EDIT_EXHIBITION,
         Element: CreateExhibition
     }
@@ -140,5 +145,9 @@ export const publicRoute = [
     {
         path: REGISTRATION,
         Element: Registration
+    },
+    {
+        path: NOT_FOUND,
+        Element: NotFound
     },
 ]
