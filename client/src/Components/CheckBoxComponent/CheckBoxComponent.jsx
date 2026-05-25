@@ -5,7 +5,8 @@ import './style.css'
 const CheckBoxComponent = ({
                                onChange,
                                tagsServer = [],
-                               returnType = "objects"
+                               returnType = "objects",
+                               className
                            }) => {
 
     const [workOpen, setWorkOpen] = useState(false);
@@ -53,7 +54,7 @@ const CheckBoxComponent = ({
                 </div>
 
                 {/* Кнопка и popup */}
-                <div className="form__block-checkBox">
+                <div className={`form__block-checkBox ${className || ''}`}>
                     <p className="form__block-tags">
                         Теги для роботи
                     </p>

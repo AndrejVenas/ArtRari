@@ -1,7 +1,8 @@
 INSERT INTO USERS(first_name,last_name,phone,email,password_hash,role,is_banned)
 VALUES ('Ivan', 'Ivanov', '123', 'abc@gmail.com','$2a$10$N1m7kGCKNuXMehcfx1gQkOOWseeZRrtwJWER2GiKVE06GejG8eLgm', 'user',false),
        ('Petro','Petrenko','456','xyz@gmail.com','$2a$10$HvPRLsI/6l68VMgwGx9.u.fkOCDzvkByJAhPWOqawqOGURDZCgeS.','user',false),
-       ('Mykola','Curator','789','curator@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false);
+       ('Mykola','Curator','789','curator@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false),
+       ('Ivan','Curator','228','curator1@gmail.com','$2a$10$FPJpgU0ctv17xQfnY5K8tuGFuvM04BJ4xvCASSrIOr.loEv07.YRO','curator',false);
 
 -- Теги
 INSERT INTO tag (name) VALUES
@@ -125,8 +126,8 @@ INSERT INTO tag_work (tag_id, work_id) VALUES
 
 -- Лоты
 INSERT INTO lot (work_id, auction_id, current_price, end_date, status) VALUES
-    (10, 3, 120.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'available'),
-    (11, 3, 90.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'available'),
+    (10, 3, 120.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'scheduled'),
+    (11, 3, 90.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'scheduled'),
     (12, 4, 550.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),
     (13, 4, 400.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),
     (14, 4, 200.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),

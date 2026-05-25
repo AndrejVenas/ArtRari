@@ -15,14 +15,17 @@ const Login = () => {
     });
 
     const [errors, setErrors] = useState({
-        email: false,
-        password: false,
+        email: "",
+        password: "",
     });
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {isAuth} = useSelector(state => state.Auth)
-    const {active, setActive, message, setMessage} = useActiveContext()
+
+    const { isAuth } = useSelector(state => state.Auth);
+
+    const { active, setActive, message, setMessage } = useActiveContext();
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
@@ -33,51 +36,65 @@ const Login = () => {
 
         setErrors({
             ...errors,
-            [name]: false,
+            [name]: "",
         });
     };
 
     const validate = () => {
-        const newErrors = {
-            email: !form.email.includes("@"),
-            password: form.password.length < 6,
-        };
+        let newErrors = {};
+
+        // EMAIL
+        if (!form.email.trim()) {
+            newErrors.email = "Введите email";
+        } else if (!form.email.includes("@")) {
+            newErrors.email = "Некорректный email";
+        }
+
+        // PASSWORD
+        if (!form.password.trim()) {
+            newErrors.password = "Введите пароль";
+        } else if (form.password.length < 1) {
+            newErrors.password = "Минимум 6 символов";
+        }
 
         setErrors(newErrors);
 
-        return !newErrors.email && !newErrors.password;
+        return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (validate()) {
-            console.log(form);
-        } else {
-            console.log("Ошибка валидации");
+        if (!validate()) {
+            setMessage("Заповніть усі поля!");
+            setActive(true);
+            return;
+        }
+
+        try {
+            const { result, message } = await dispatch(signin(form));
+
+            setMessage(message);
+            setActive(true);
+
+            if (result === 200) {
+                navigate("/exhibitions");
+            }
+
+        } catch (error) {
+            const serverMessage = error?.response?.data?.message || "Сталася помилка";
+
+            setMessage(serverMessage);
+            setActive(true);
         }
     };
 
-    const login = async () => {
-        const {result, message} = await dispatch(signin(form))
-        if(result == 200) {
-            setMessage(message)
-            navigate("/exhibitions")
-            setActive(true)
-        } else {
-            setMessage(message)
-            setActive(true)
-        }
-    }
-    /*const login = () => {
-        dispatch(signin(form))
-    }*/
-
     useEffect(() => {
-        if(isAuth) {
+        if (isAuth) {
             // navigate("/exhibitions")
         }
-    }, [])
+    }, []);
+
     return (
         <section className="login">
             <div className="container login-container">
@@ -114,11 +131,11 @@ const Login = () => {
                             </a>
                         </p>
 
-                        <Button type="submit" onClick={login}>
+                        <Button type="submit">
                             Увійти
                         </Button>
-                    </form>
 
+                    </form>
                 </div>
 
                 <div className="login-right">
@@ -133,4 +150,5 @@ const Login = () => {
         </section>
     );
 };
+
 export default Login;

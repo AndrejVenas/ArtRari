@@ -6,7 +6,8 @@ export const signup = (data) => {
         try {
             const response = await api.post('/auth/signup', data)
             return {
-                message: response.data,
+                // message: response.data,
+                message: "Успішна регестрація! Для користування увійдіть у свій новий аккаунт",
                 result: response.status
              }
         } catch (error) {
@@ -40,7 +41,7 @@ export const signin = (data) => {
         } catch (error) {
             console.log(error)   //  dispatch(CategorySlices.actions.fetchIsError())
             return {
-                message: 'Перевірте дані',
+                message: error?.response?.data?.message || 'Сталася помилка',
                 result: error.response.status
              }
         }

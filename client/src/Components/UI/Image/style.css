@@ -9,6 +9,7 @@
 }
 
 .imageDownload__block {
+    border: 1px solid transparent;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,4 +27,8 @@
 }
 .text__bold {
     font-weight: bold;
+}
+
+.imageDownload--error {
+    border: 1px solid #ff3b3b;
 }

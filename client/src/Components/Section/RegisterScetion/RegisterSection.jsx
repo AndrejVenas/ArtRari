@@ -6,8 +6,7 @@ import Button from "../../UI/Button/Button";
 import CodeInput from "../../UI/CodeInput/CodeInput";
 import { signup } from "../../../Actions/authAction";
 import { useDispatch } from "react-redux";
-import {useNavigate} from 'react-router-dom'
-import Message from "../../UI/Message/Message";
+import { useNavigate } from "react-router-dom";
 import { useActiveContext } from "../../AppRouter";
 
 const stepAssets = {
@@ -18,68 +17,142 @@ const stepAssets = {
 
 const Register = () => {
     const [step, setStep] = useState(1);
-    const dispatch = useDispatch();
+
     const [form, setForm] = useState({
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         password: "",
-        //code: "",
+        code: "",
     });
-    const {active, setActive, message, setMessage} = useActiveContext()
-    const navigate = useNavigate()
+
+    const [errors, setErrors] = useState({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        password: "",
+        code: "",
+    });
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { setActive, setMessage } = useActiveContext();
+
     const handleChange = (e) => {
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
+        const { name, value } = e.target;
+
+        setForm((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+
+        setErrors((prev) => ({
+            ...prev,
+            [name]: "",
+        }));
     };
 
     const setCode = (val) => {
         setForm((prev) => ({
             ...prev,
-            //code: val,
+            code: val,
+        }));
+
+        setErrors((prev) => ({
+            ...prev,
+            code: "",
         }));
     };
 
-    const nextStep = () => {
-        setStep((prev) => Math.min(prev + 1, 3));
+    const validateStep = () => {
+        let newErrors = {};
+
+        // STEP 1
+        if (step === 1) {
+            if (!form.firstName.trim()) {
+                newErrors.firstName = "Введіть ім'я";
+            }
+
+            if (!form.lastName.trim()) {
+                newErrors.lastName = "Введіть прізвище";
+            }
+        }
+
+        // STEP 2
+        if (step === 2) {
+            if (!form.email.trim()) {
+                newErrors.email = "Введіть email";
+            } else if (!form.email.includes("@")) {
+                newErrors.email = "Некоректний email";
+            }
+
+            if (!form.phone.trim()) {
+                newErrors.phone = "Введіть номер телефону";
+            }
+
+            if (!form.password.trim()) {
+                newErrors.password = "Введіть пароль";
+            } else if (form.password.length < 2) {
+                newErrors.password = "Мінімум 6 символів";
+            }
+        }
+
+        // STEP 3
+        if (step === 3) {
+            if (!form.code || form.code.length < 6) {
+                newErrors.code = "Введіть код із 6 символів";
+            }
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0;
     };
 
-    const prevStep = () => {
-        setStep((prev) => Math.max(prev - 1, 1));
-    };
-
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
+        if (!validateStep()) {
+            setMessage("Будь ласка, заповніть усі поля правильно");
+            setActive(true);
+            return;
+        }
+
+        // STEP 1
+        if (step === 1) {
+            setStep(2);
+            return;
+        }
+
+        // STEP 2
         if (step === 2) {
-            console.log("REGISTER DATA:", form);
-        } else {
-            nextStep();
+            const { message, result } = await dispatch(signup(form));
+
+            setMessage(message);
+            setActive(true);
+
+            if (result === 200) {
+                navigate("/login");
+                // setStep(3);
+            }
+
+            return;
+        }
+
+        // STEP 3
+        if (step === 3) {
+            setMessage("Код підтверджено");
+            setActive(true);
+            navigate("/login");
         }
     };
 
-    const clickRegistration = async () => {
-        if(step == 2) {
-            const {message, result} = await dispatch(signup(form))
-            if(result == 200) {
-                navigate("/login")
-                setMessage(message)
-                setActive(true)
-            } else {
-                setMessage(message)
-                setActive(true)
-            }
-            console.log(message, result)
-        }
-    }
     return (
         <section className="register">
             <div className="container register-container">
 
-                {/* LEFT SIDE */}
                 <div className="register-left">
 
                     <form className="register-form" onSubmit={handleSubmit}>
@@ -89,10 +162,7 @@ const Register = () => {
                             <>
                                 <Title title="Ласкаво просимо до нашого клубу!" />
 
-                                <p className="register-step">
-                                    Крок {step} з 2
-                                </p>
-
+                                <p className="register-step">Крок 1 з 3</p>
 
                                 <Input
                                     label="Ім'я"
@@ -100,6 +170,7 @@ const Register = () => {
                                     value={form.firstName}
                                     onChange={handleChange}
                                     placeholder="Іван"
+                                    error={errors.firstName}
                                 />
 
                                 <Input
@@ -108,6 +179,7 @@ const Register = () => {
                                     value={form.lastName}
                                     onChange={handleChange}
                                     placeholder="Іванов"
+                                    error={errors.lastName}
                                 />
 
                                 <p className="register-text">
@@ -124,9 +196,7 @@ const Register = () => {
                             <>
                                 <Title title="Залишилось ще трохи" />
 
-                                <p className="register-step">
-                                    Крок {step} з 2
-                                </p>
+                                <p className="register-step">Крок 2 з 3</p>
 
                                 <Input
                                     label="Поштова скринька"
@@ -135,15 +205,16 @@ const Register = () => {
                                     value={form.email}
                                     onChange={handleChange}
                                     placeholder="example@gmail.com"
+                                    error={errors.email}
                                 />
 
                                 <Input
                                     label="Номер телефону"
                                     name="phone"
-                                    type="phone"
                                     value={form.phone}
                                     onChange={handleChange}
                                     placeholder="+380671234678"
+                                    error={errors.phone}
                                 />
 
                                 <Input
@@ -153,52 +224,49 @@ const Register = () => {
                                     value={form.password}
                                     onChange={handleChange}
                                     placeholder="••••••••"
+                                    error={errors.password}
                                 />
-
-                                <p className="register-text">
-                                    Вже є акаунт?{" "}
-                                    <a className="text-link" href="/login">
-                                        Увійти
-                                    </a>
-                                </p>
                             </>
                         )}
 
                         {/* STEP 3 */}
                         {step === 3 && (
                             <>
-                                <Title title="Введіть отриманий код із пошти" />
+                                <Title title="Введіть код із пошти" />
 
-                                <p className="register-step">
-                                    Крок {step} з 3
-                                </p>
-
+                                <p className="register-step">Крок 3 з 3</p>
 
                                 <CodeInput
                                     length={6}
-                                    value={0}
+                                    value={form.code}
                                     onChange={setCode}
                                 />
 
+                                {errors.code && (
+                                    <p className="error-text">{errors.code}</p>
+                                )}
+
                                 <p className="register-text">
-                                    Не отримали пароль?{" "}
+                                    Не отримали код?{" "}
                                     <a className="text-link" href="#">
-                                        Відправити ще раз
+                                        Надіслати ще раз
                                     </a>
                                 </p>
                             </>
                         )}
 
-                        {/* BUTTONS */}
                         <div className="register-buttons">
 
                             {step > 1 && (
-                                <Button type="button" onClick={prevStep}>
+                                <Button
+                                    type="button"
+                                    onClick={() => setStep(step - 1)}
+                                >
                                     Назад
                                 </Button>
                             )}
 
-                            <Button type="submit" onClick={clickRegistration}>
+                            <Button type="submit">
                                 {step === 2 ? "Зареєструватись" : "Далі"}
                             </Button>
 
@@ -207,7 +275,6 @@ const Register = () => {
                     </form>
                 </div>
 
-                {/* RIGHT SIDE */}
                 <div className="register-right">
                     <img
                         src={stepAssets[step]}

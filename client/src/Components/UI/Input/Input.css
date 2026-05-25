@@ -35,6 +35,31 @@
     box-sizing: border-box;
 }
 
+.login-form .input-field,
+.register-form .input-field,
+.contact-form .input-field
+{
+    display: block;
+    padding: 15px 25px;
+    border-radius: 25px;
+
+    /* 🔥 фиксируем border всегда (ВАЖНО) */
+    border: 1px solid #313131;
+
+    outline: none;
+    background-color: #313131;
+    color: #fff;
+
+    width: 100%;
+    min-height: 50px;
+
+    font-size: 20px;
+
+    /* плавность */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
 /* placeholder */
 .input-field::placeholder {
     font-size: 20px;
