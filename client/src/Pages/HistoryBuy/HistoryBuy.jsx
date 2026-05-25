@@ -25,7 +25,7 @@ const HistoryBuy = () => {
 
             const lotsData = await Promise.all(
                 purchases.map(async (item) => {
-                    const res = await api.get(`/lots/${item.id}`);
+                    const res = await api.get(`/lots/${item.lotId}`);
 
                     return {
                         ...res.data,

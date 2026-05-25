@@ -13,7 +13,13 @@ const PopupConfirmation = ({close, setClose, onDate, setOpen}) => {
     })
     const convertToISO = (date, time) => {
         const dateTime = new Date(`${date}T${time}`)
-        return dateTime.toISOString()
+        if(!dateTime.getTime()) return ""
+        const offset = dateTime.getTimezoneOffset()
+        const absOffset = Math.abs(offset)
+        const offsetHours = String(Math.floor(absOffset / 60)).padStart(2, '0')
+        const offsetMinutes = String(absOffset % 60).padStart(2, '0')
+        const offsetSign = offset <= 0 ? '+' : '-'
+        return `${date}T${time}:00${offsetSign}${offsetHours}:${offsetMinutes}`
     }
     const getData = () => {
         console.log(data)

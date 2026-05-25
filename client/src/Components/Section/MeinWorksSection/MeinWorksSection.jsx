@@ -8,7 +8,7 @@ import ConfirmDeleteModal from "../../UI/ConfirmDeleteModal/ConfirmDeleteModal";
 import api from '../../../api/axiosInstance'
 import {useSelector} from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CREATE_EXHIBITION, WORK_UPLOAD } from '../../../constants';
+import { CREATE_EXHIBITION, EDIT_EXHIBITION, EDIT_WORK, WORK_UPLOAD } from '../../../constants';
 import Message from '../../UI/Message/Message';
 const worksMock = Array.from({ length: 8 }, (_, index) => ({
     id: index + 1,
@@ -65,7 +65,7 @@ const MeinWorksSection = () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            navigate(WORK_UPLOAD, {state: {item: response.data}})
+            navigate(EDIT_WORK, {state: {item: response.data}})
             //console.log("edit", item);
         } catch(error) {
             console.log(error)
@@ -77,7 +77,7 @@ const MeinWorksSection = () => {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            navigate(CREATE_EXHIBITION, {state: {item: response.data, theme: item.theme}})
+            navigate(EDIT_EXHIBITION, {state: {item: response.data, theme: item.theme}})
             //console.log("edit", item);
         } catch(error) {
             console.log(error)
