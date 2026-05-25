@@ -125,8 +125,8 @@ INSERT INTO tag_work (tag_id, work_id) VALUES
 
 -- Лоты
 INSERT INTO lot (work_id, auction_id, current_price, end_date, status) VALUES
-    (10, 3, 120.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'available'),
-    (11, 3, 90.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'available'),
+    (10, 3, 120.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'scheduled'),
+    (11, 3, 90.00, CURRENT_TIMESTAMP + INTERVAL '10 days', 'scheduled'),
     (12, 4, 550.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),
     (13, 4, 400.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),
     (14, 4, 200.00, CURRENT_TIMESTAMP + INTERVAL '2 hours', 'available'),
