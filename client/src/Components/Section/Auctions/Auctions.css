@@ -34,6 +34,7 @@
     display: flex;
     margin-bottom: 30px;
     justify-content: space-between;
+    gap: 10px;
 }
 
 .slid-card-text{
@@ -100,6 +101,10 @@
 
     .auctions-slider {
         max-width: 650px;
+    }
+
+    .slid-card-inner .section-title{
+        margin-bottom: 20px;
     }
 
 }

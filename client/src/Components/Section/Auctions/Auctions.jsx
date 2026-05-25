@@ -24,7 +24,7 @@ function Auctions() {
     }, [dispatch]);
 
     return (
-        <section className="auctions">
+        <section id="auctions" className="auctions">
             <div className="container">
                 <div className="auctions-inner">
 

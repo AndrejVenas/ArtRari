@@ -14,7 +14,7 @@
 }
 
 /* форма */
-.contact-form * {
+.contact-form > * {
     margin-bottom: 25px;
 }
 

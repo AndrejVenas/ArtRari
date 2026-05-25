@@ -9,9 +9,11 @@ const Textarea = ({
                       onChange,
                       placeholder,
                       rows = 5,
+                      error,
                   }) => {
     return (
         <div className="input-group">
+
             {label && (
                 <label className="input-label" htmlFor={id || name}>
                     {label}
@@ -19,7 +21,9 @@ const Textarea = ({
             )}
 
             <textarea
-                className="input-field input-textarea"
+                className={`input-textarea ${
+                    error ? "input-error-border" : ""
+                }`}
                 name={name}
                 id={id || name}
                 value={value}
@@ -27,6 +31,7 @@ const Textarea = ({
                 placeholder={placeholder}
                 rows={rows}
             />
+
         </div>
     );
 };

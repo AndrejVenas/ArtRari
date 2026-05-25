@@ -20,10 +20,10 @@ function SocialLinks({ isFooter = false }) {
             </div>
 
             <div className="social-link-target">
-                <a href={isFooter ? "#top" : "#footer"}>
+                <a href={isFooter ? "#top" : "#auctions"}>
                     <img
                         src={angleDown45}
-                        alt={isFooter ? "scroll to top" : "link to footer"}
+                        alt={isFooter ? "scroll to top" : "link to auctions"}
                     />
                 </a>
             </div>
