@@ -37,7 +37,6 @@ public class FilterChainConfigurator {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/websocket", "/websocket/**").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/home",
                                 "/auctions/**",
@@ -46,6 +45,7 @@ public class FilterChainConfigurator {
                                 "/lots/**",
                                 "/artworks/**").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/websocket", "/websocket/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);

@@ -1,19 +1,17 @@
 package com.project.ArtRari.exhibition.dto;
 
-import com.project.ArtRari.artwork.dto.ArtworkPreviewResponse;
-import com.project.ArtRari.user.dto.UserPreviewResponse;
+import com.project.ArtRari.artwork.dto.ArtworkAdvancedPreviewResponse;
 
 import java.time.Instant;
 import java.util.List;
 
-public record ExhibitionResponse(
+public record ExhibitionAdvancedResponse(
         Long id,
         String title,
         String thumbnailUrl,
-        List<ArtworkPreviewResponse> artworks,
+        List<ArtworkAdvancedPreviewResponse> artworks,
         String description,
         String backgroundUrl,
-        UserPreviewResponse curator,
         Instant startDate,
         String status
 ) {}
