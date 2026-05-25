@@ -14,7 +14,7 @@ const ItemsGrid = ({
                    }) => {
     const [filtersState, setFiltersState] = useState({});
     const [page, setPage] = useState(1);
-    
+    const [filter, setFilter] = useState(items)
     const handleFilterChange = (name, value) => {
         setResult((prev) => ({
             ...prev,
@@ -22,10 +22,10 @@ const ItemsGrid = ({
         }));
         setPage(1);
     };
-
     useEffect(() => {
-        console.log(filtersState)
-    }, [])
+        const regex = new RegExp(result.search, 'i')
+        setFilter(items?.filter((item) => regex.test(item.title)))
+    }, [items])
 
     return (
         <section className="items-section">
@@ -33,6 +33,8 @@ const ItemsGrid = ({
 
                 <Title title={title} />
 
+                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> : 
+                <>
                 <Filters
                     filters={filters}
                     values={result}
@@ -40,7 +42,7 @@ const ItemsGrid = ({
                 />
 
                 <div className="items-grid">
-                    {items?.map((item, index) =>
+                    {filter?.map((item, index) =>
                         renderCard(item, index)
                     )}
                 </div>
@@ -50,6 +52,8 @@ const ItemsGrid = ({
                     totalPages={5}
                     onChange={setPage}
                 />
+                </>
+                }
             </div>
         </section>
     );

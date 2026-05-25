@@ -56,7 +56,7 @@ const AuctionCard = ({ item, onClick }) => {
                 <p>{item.theme}</p>
 
                 <div className="tags">
-                    <span>{timeLeft}</span>
+                    <span>{item.status == "scheduled" ? `До старту: ${calculateTimeLeft(item.startDate)}`: timeLeft}</span>
 
                     {item?.tags?.map((tag, index) => (
                         <span key={index}>{tag}</span>

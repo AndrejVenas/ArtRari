@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from 'react'
-import { authRoute, publicRoute } from '../route'
+import { authRoute, curatorRoute, publicRoute } from '../route'
 import { Route, Routes } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import Message from './UI/Message/Message'
@@ -7,18 +7,23 @@ import Message from './UI/Message/Message'
 const ActiveContext = createContext()
 export const useActiveContext = () => useContext(ActiveContext)
 const AppRouter = () => {
-  const {isAuth} = useSelector(state => state.Auth)
+  const {isAuth, role} = useSelector(state => state.Auth)
   const [active, setActive] = useState('')
   const [message, setMessage] = useState('')
+  const checkRoute = (role) => {
+    if(role == "user") {
+        return authRoute
+    } else if(role == "curator") {
+        return curatorRoute
+    } else {
+        return publicRoute
+    }
+  }
   return (
     <main className='main' style={{flex: 1}}>
     <ActiveContext.Provider value={{active, setActive, message, setMessage}}>
         <Routes>
-            {isAuth ? authRoute.map(({path, Element}, index) => {
-                return <Route key={index} path={path} element={<Element />} />
-            })
-            :
-            publicRoute.map(({path, Element}, index) => {
+            {checkRoute(role).map(({path, Element}, index) => {
                 return <Route key={index} path={path} element={<Element />} />
             })}
         </Routes>

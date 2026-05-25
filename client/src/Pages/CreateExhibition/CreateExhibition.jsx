@@ -139,7 +139,7 @@ const CreateExhibition = () => {
   return (
     <div className="createExhibition">
         <div className="createExhibition__container">
-            <h1 className="createExhibition__title">Створення виставки</h1>
+            <h1 className="createExhibition__title">{location.pathname.includes('create') ? 'Створення виставки' : 'Редагування виставки'}</h1>
             <form className="createExhibition__form form">
             <div className="form__mainBlock">
                 <div className="form__block">

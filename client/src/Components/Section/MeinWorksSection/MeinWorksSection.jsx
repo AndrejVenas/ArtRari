@@ -132,12 +132,21 @@ const MeinWorksSection = () => {
         getAction()
         myWorkGet()
     }, [action])
+    const checkPath = (path) => {
+        if(path.includes("Work")) {
+            return "Перегляд своїх робіт"
+        } else if(path.includes("Exhibitions")) {
+            return "Перегляд своїх виставок"
+        } else {
+            return "Перегляд своїх аукціонів"
+        }
+    }
     return (
         <>
         <section className="mein-works">
             <div className="container">
 
-                <Title title={"Перегляд своїх робот"} />
+                <Title title={checkPath(location.pathname)}/>
 
                 <div className="mein-works__grid">
                     {myWork.items?.length == 0 ? <p>Поки у вас немає своїх робот</p> : myWork.items?.map((item) => (

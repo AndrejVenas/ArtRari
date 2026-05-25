@@ -5,7 +5,7 @@ import DateRangeFilter from "../DataRangeFilter/DateRangeFilter";
 import Search from "../Search/Search";
 import CheckBoxComponent from "../../CheckBoxComponent/CheckBoxComponent";
 
-const Filters = ({ filters, values, onChange }) => {
+const Filters = ({ filters, values, onChange}) => {
     useEffect(() => {
         console.log(values)
     })

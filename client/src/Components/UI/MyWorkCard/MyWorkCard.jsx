@@ -52,7 +52,7 @@ const MyWorkCard = ({ item, onEdit, onDelete, location, onDate }) => {
                     </button>
                 </div>
             </div>
-            {open && <PopupConfirmation close={close} setClose={setClose} onDate={(data) => onDate(data, item.id)} setOpen={setOpen}/>}
+            {open && <PopupConfirmation close={close} setClose={setClose} onDate={(data) => onDate(data, item.id)} setOpen={setOpen} title={"Встановити час"}/>}
             <Message flag={flag} setFlag={setFlag} message={message} />
         </div>
     );

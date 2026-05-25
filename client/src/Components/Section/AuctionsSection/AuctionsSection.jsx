@@ -22,11 +22,10 @@ const filtersConfig = [
         returnType: "names"
     },
     {
-        name: "time",
-        label: "Час до завершення",
-        type: "select",
-        options: ["1 день", "7 днів"],
-    },
+        name: "search",
+        label: "Пошук",
+        type: "search"
+    }
 ];
 
 const AuctionsPage = () => {

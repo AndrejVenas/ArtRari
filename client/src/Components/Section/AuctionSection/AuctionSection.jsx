@@ -34,7 +34,9 @@ const AuctionPage = () => {
 
     const getAuction = async (id, page, tags) => {
         const response = await api.get(`/auctions/${id}?page=${page}&tags=${tags}`)
-        response.data.lotPreviews.map(item => item['startDate'] = response.data.startDate)
+        response.data.lotPreviews.map(item => {
+            item['startDate'] = response.data.startDate
+            item['status'] = response.data.status})
         setAuction(response.data)
     }
 

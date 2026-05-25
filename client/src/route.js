@@ -27,6 +27,7 @@ import {
 } from "./constants";
 import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
 import ExhibitionWork from "./Pages/ExhibitionWork.jsx/ExhibitionWork";
+import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 
 export const authRoute = [
     {
@@ -44,10 +45,6 @@ export const authRoute = [
     {
         path: REGISTRATION,
         Element: Registration
-    },
-    {
-        path: CREATE_EXHIBITION,
-        Element: CreateExhibition
     },
     {
         path: WORK_UPLOAD,
@@ -90,11 +87,6 @@ export const authRoute = [
         Element: lot
     },
     {
-        path: MY_EXHIBITIONS,
-        Element: MeinWork
-    },
-    
-    {
         path: LOT_PAYMENT,
         Element: LotPayment
     },
@@ -103,16 +95,75 @@ export const authRoute = [
         Element: HistoryBuy
     },
     {
-        path: MY_AUCTIONS,
-        Element: MeinWork
-    },
-    {
         path: EDIT_WORK,
         Element: WorkDownload
+    }
+]
+
+export const curatorRoute = [
+    {
+        path: CREATE_EXHIBITION,
+        Element: CreateExhibition
     },
     {
         path: EDIT_EXHIBITION,
         Element: CreateExhibition
+    },
+    {
+        path: ABOUT_US,
+        Element: AboutUs
+    },
+    {
+        path: MAIN,
+        Element: Main
+    },
+    {
+        path: EXHIBITIONS,
+        Element: Exhibitions
+    },
+    {
+        path: AUCTIONS,
+        Element: Auctions
+    },
+    {
+        path: PROFILE,
+        Element: ProfilePage
+    },
+    {
+        path: REGISTRATION,
+        Element: Registration
+    },
+    {
+        path: LOGIN,
+        Element: Login
+    },
+    {
+        path: AUCTIONS + '/:title' + '/:id',
+        Element: AuctionsTest
+    },
+    {
+        path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot?',
+        Element: lot
+    },
+    {
+        path: EXHIBITIONWORK,
+        Element: ExhibitionWork
+    },
+    {
+        path: EXHIBITIONS + '/:title' + '/:id' + '/work' + '/:idOfWork?',
+        Element: lot
+    },
+    {
+        path: EDIT_EXHIBITION,
+        Element: CreateExhibition
+    },
+    {
+        path: MY_AUCTIONS,
+        Element: MeinWork
+    },
+    {
+        path: MY_EXHIBITIONS,
+        Element: MeinWork
     }
 ]
 
@@ -141,4 +192,20 @@ export const publicRoute = [
         path: REGISTRATION,
         Element: Registration
     },
+    {
+        path: AUCTIONS + '/:title' + '/:id',
+        Element: AuctionsTest
+    },
+    {
+        path: AUCTIONS + '/:title' + '/:id' + LOT + '/:idOfLot?',
+        Element: lot
+    },
+    {
+        path: EXHIBITIONWORK,
+        Element: ExhibitionWork
+    },
+    {
+        path: EXHIBITIONS + '/:title' + '/:id' + '/work' + '/:idOfWork?',
+        Element: lot
+    }
 ]

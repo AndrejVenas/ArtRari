@@ -2,6 +2,10 @@
     padding: 0 20px;
 }
 
+.confirmation {
+    max-height: 400px;
+}
+
 .form__block {
     max-width: 300px;
 }
@@ -42,6 +46,9 @@
 @media (max-width: 769px) {
     .popup .form__block{
         max-width: 100%;
+    }
+    .confirmation {
+        max-height: 600px;
     }
     .popupConfirmation__form{
         padding-bottom: 20px;

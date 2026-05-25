@@ -15,16 +15,18 @@ const AuctionPage = () => {
 
     const { idOfLot, idOfWork } = useParams();
     const location = useLocation();
-    const {token} = useSelector(state => state.Auth)
+    const {token, role} = useSelector(state => state.Auth)
 
     const getLot = async (id) => {
         const res = await api.get(`/lots/${id}`);
         setLot(res.data);
+        setLot(prev => ({...prev, startDate: res.data.endDate}))
     };
 
     const getWork = async (id) => {
         const res = await api.get(`/artworks/${id}`);
         setWork(res.data);
+        setWork(prev => ({...prev, startDate: res.data.endDate}))
     };
 
     const getBids = async (id) => {
@@ -91,7 +93,7 @@ const AuctionPage = () => {
 
         const updateTimer = () => {
             const now = Date.now();
-            const end = new Date(lot.endDate).getTime();
+            const end = new Date(lot.status == "scheduled" ? lot.startDate : lot.endDate).getTime();
             const diff = end - now;
 
             if (diff <= 0) {
@@ -140,8 +142,13 @@ const AuctionPage = () => {
                         <div className="auction-info">
                             <table>
                                 <tbody>
-
-                                {idOfLot ? (
+                                {work.status == "scheduled" && 
+                                <tr>
+                                    <td>Старт аукціону:</td>
+                                    <td>{work.startDate}</td>
+                                </tr>
+                                }
+                                {idOfLot && lot.status != "scheduled" ? (
                                     <tr>
                                         <td>Залишилось часу:</td>
                                         <td>{timeLeft}</td>
@@ -207,21 +214,26 @@ const AuctionPage = () => {
                         </div>
 
                         {/* BID FORM */}
-                        {idOfLot ? (
+                        {idOfLot && ((role != "curator" && role == "user") && lot.status != "scheduled") ? (
                             <AuctionBid
                                 id={idOfLot}
                                 navigateToPage={location.pathname}
                             />
                         ) : (
                             <div className="auction-description">
-                                <Title title={work.title} />
+                                <Title title={Object.keys(work).length == 0 ? lot.artwork?.title : work.title} />
 
                                 <div className="desc-grid">
-                                    <p>{work.description}</p>
+                                    <p>{Object.keys(work).length == 0 ? lot.artwork?.description : work.description}</p>
                                 </div>
 
                                 <div className="tags">
-                                    {work?.tags?.map((item, index) => (
+                                {Object.keys(work).length == 0 ?
+                                    lot.artwork?.tags?.map((item, index) => (
+                                        <span key={index}>{item}</span>
+                                    ))
+                                :
+                                    work.tags?.map((item, index) => (
                                         <span key={index}>{item}</span>
                                     ))}
                                 </div>
@@ -230,7 +242,7 @@ const AuctionPage = () => {
                     </div>
 
                     {/* DESCRIPTION */}
-                    {idOfLot && (
+                    {idOfLot && role != "curator" && (
                         <div className="auction-description">
                             <Title title={lot.artwork?.title} />
 

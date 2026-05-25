@@ -151,7 +151,7 @@ const WorkDownloadComponent = () => {
     <section className='workDownloadComponent'>
         <div className="workDownloadComponent__container">
             <div className="workDownloadComponent__content">
-                <h1 className="workDownloadComponent__title">Завантаження роботи</h1>
+                <h1 className="workDownloadComponent__title">{location.pathname.includes('edit') ? 'Редагування роботи' : 'Завантаження роботи'}</h1>
                 <form action="" className="workDownloadComponent__form formInputs">
                     <Image value={form?.photoUrl} onChange={(event) => setForm(prev => ({...prev, photoUrl: event.target.files[0]}))}/>
                     <div className="formInputs__inputs">

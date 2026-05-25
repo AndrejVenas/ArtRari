@@ -3,7 +3,7 @@ import Input from '../Input/Input'
 import Button from '../Button/Button'
 import './style.css'
 
-const PopupConfirmation = ({close, setClose, onDate, setOpen}) => {
+const PopupConfirmation = ({close, setClose, onDate, setOpen, title}) => {
     const [data, setData] = useState({
         startDate: "",
         startTime: "",
@@ -31,10 +31,10 @@ const PopupConfirmation = ({close, setClose, onDate, setOpen}) => {
     }
     return (
         <div className={"popup" + " " + close}>
-            <div className="popup__container">
+            <div className="popup__container confirmation">
                 <div className="popup__content">
                     <div className="popup__top">
-                        <h1 className="popup__top-title">Оберіть роботи</h1>
+                        <h1 className="popup__top-title">{title}</h1>
                         <img src={require('../../../Images/close.svg').default} alt="закрити"
                              className="popup__top-close" onClick={() => {
                                 //setClose('close')
