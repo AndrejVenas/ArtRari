@@ -57,7 +57,7 @@ const AuctionBid = ({id, navigateToPage}) => {
             </div>
 
             <p className="note">
-                ціна з урахуванням комісії {Number(bid) + Number(bid) * 0.1} $
+                ціна з урахуванням комісії {Number(bid) + Number(bid) * 0.01} $
                 </p>
                 <Message flag={checked} setFlag={setChecked} message={message}/>
             </div>

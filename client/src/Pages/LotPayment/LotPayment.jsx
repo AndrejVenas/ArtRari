@@ -69,7 +69,7 @@ const LotPayment = () => {
 
                                 <tr>
                                     <td>Комісія:</td>
-                                    <td>10%</td>
+                                    <td>1%</td>
                                 </tr>
 
                                 </tbody>
