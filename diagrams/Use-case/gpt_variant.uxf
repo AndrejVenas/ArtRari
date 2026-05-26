@@ -72,17 +72,6 @@ fontsize=15
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1000</x>
-      <y>304</y>
-      <w>200</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>Бачити час до кінця аукціону</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLUseCase</id>
-    <coordinates>
       <x>688</x>
       <y>520</y>
       <w>144</w>
@@ -507,18 +496,6 @@ fontsize=15
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1120</x>
-      <y>264</y>
-      <w>72</w>
-      <h>56</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.
-&lt;&lt;include&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
       <x>848</x>
       <y>448</y>
       <w>136</w>
@@ -674,5 +651,28 @@ fontsize=15
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1120</x>
+      <y>264</y>
+      <w>80</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1048</x>
+      <y>304</y>
+      <w>168</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Пошук за параметрами</panel_attributes>
+    <additional_attributes/>
   </element>
 </diagram>
