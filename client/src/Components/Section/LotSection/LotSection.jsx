@@ -142,7 +142,7 @@ const       AuctionPage = () => {
                         <div className="auction-info">
                             <table>
                                 <tbody>
-                                {work.status == "scheduled" && 
+                                {work.status == "scheduled" &&
                                 <tr>
                                     <td>Старт аукціону:</td>
                                     <td>{work.startDate}</td>
@@ -170,27 +170,29 @@ const       AuctionPage = () => {
                                                 ${currentPrice}
 
                                                 <div className="price-tooltip">
+                                                    <div className="price-tooltip--inner">
 
-                                                    {bids.length > 0 ? (
+                                                        {bids.length > 0 ? (
 
-                                                        [...bids]
-                                                            .sort((a, b) => Number(b.amount) - Number(a.amount))
-                                                            .map((bid, index) => (
-                                                                <div
-                                                                    className="price-tooltip__item"
-                                                                    key={index}
-                                                                >
-                                                                    <span>{bid.user}</span>
-                                                                    <span>${bid.amount}</span>
-                                                                </div>
-                                                            ))
+                                                            [...bids]
+                                                                .sort((a, b) => Number(b.amount) - Number(a.amount))
+                                                                .map((bid, index) => (
+                                                                    <div
+                                                                        className="price-tooltip__item"
+                                                                        key={index}
+                                                                    >
+                                                                        <span>{bid.user}</span>
+                                                                        <span>${bid.amount}</span>
+                                                                    </div>
+                                                                ))
 
-                                                    ) : (
-                                                        <div className="price-tooltip__empty">
-                                                            Ставок ще не було
-                                                        </div>
-                                                    )}
+                                                        ) : (
+                                                            <div className="price-tooltip__empty">
+                                                                Ставок ще не було
+                                                            </div>
+                                                        )}
 
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
