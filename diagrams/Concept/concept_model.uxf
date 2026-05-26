@@ -191,32 +191,6 @@ theme
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>720</x>
-      <y>576</y>
-      <w>189</w>
-      <h>81</h>
-    </coordinates>
-    <panel_attributes>virtual hall
---
-subtheme</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>720</x>
-      <y>693</y>
-      <w>189</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>design
---
-background</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
       <x>954</x>
       <y>306</y>
       <w>189</w>
@@ -257,36 +231,6 @@ timestamp</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>486</x>
-      <y>153</y>
-      <w>189</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>event log
---</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>720</x>
-      <y>153</y>
-      <w>189</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>log
---
-date
-level of importance
-type of action
-initiator
-ip
-</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>801</x>
@@ -296,28 +240,6 @@ ip
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>810</x>
-      <y>522</y>
-      <w>27</w>
-      <h>72</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>666</x>
-      <y>198</y>
-      <w>72</w>
-      <h>27</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -339,7 +261,7 @@ ip
       <h>423</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>360.0;10.0;360.0;450.0;90.0;450.0;10.0;430.0</additional_attributes>
+    <additional_attributes>360.0;10.0;90.0;450.0;10.0;430.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
@@ -397,30 +319,6 @@ ip
     <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
   </element>
   <element>
-    <id>UMLClass</id>
-    <coordinates>
-      <x>720</x>
-      <y>819</y>
-      <w>189</w>
-      <h>99</h>
-    </coordinates>
-    <panel_attributes>design list
---
-background</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>810</x>
-      <y>783</y>
-      <w>27</w>
-      <h>54</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
-    <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>459</x>
@@ -454,16 +352,5 @@ background</panel_attributes>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>801</x>
-      <y>648</y>
-      <w>27</w>
-      <h>63</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
   </element>
 </diagram>
