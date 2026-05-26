@@ -4,12 +4,12 @@
 
 @media (max-width: 1025px) {
     .exhibitions-page{
-        padding-top: 100px;
+        padding-top: 125px;
     }
 }
 
 @media (max-width: 769px) {
     .exhibitions-page{
-        padding-top: 75px;
+        padding-top: 125px;
     }
 }

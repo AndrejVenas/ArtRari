@@ -25,13 +25,14 @@ export const signin = (data) => {
         try {
             const response = await api.post('/auth/signin', data)
             console.log(response)
-            const {email, firstName, lastName, role, phone} = response.data
+            // const {email, firstName, lastName, role, phone} = response.data
+            const {role} = response.data
             dispatch(AuthSlice.actions.login({
-                email,
-                firstName,
-                lastName,
+                // email,
+                // firstName,
+                // lastName,
                 role,
-                phone,
+                // phone,
                 token: response.data.jwtToken
             }))
             return {

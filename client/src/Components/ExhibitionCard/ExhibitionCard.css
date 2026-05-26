@@ -36,6 +36,12 @@
     color: #ccc;
 }
 
+.exhibitions-page .exhibition-card img{
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+}
+
 @media(max-width: 1025px) {
     .exhibition-card {
         border: 8px solid #fff;

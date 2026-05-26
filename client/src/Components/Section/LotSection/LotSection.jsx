@@ -7,7 +7,7 @@ import AuctionBid from "../AuctionBid/AuctionBid";
 import {subscribeToLotBids} from "../../../socketClient";
 import {useSelector} from "react-redux";
 
-const AuctionPage = () => {
+const       AuctionPage = () => {
     const [lot, setLot] = useState({});
     const [bids, setBids] = useState([]);
     const [work, setWork] = useState({});
@@ -267,7 +267,7 @@ const AuctionPage = () => {
                     </div>
 
                     {/* DESCRIPTION */}
-                    {idOfLot && role != "curator" && (
+                    {idOfLot && role != "curator" && lot.status != "scheduled" && (
                         <div className="auction-description">
                             <Title title={lot.artwork?.title}/>
 

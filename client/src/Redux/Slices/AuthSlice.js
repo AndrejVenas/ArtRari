@@ -16,12 +16,12 @@ export const AuthSlice = createSlice({
         email: localStorage.getItem(EMAIL_KEY) ?? '',
         password: localStorage.getItem(PASSWORD_KEY) ?? '',
         firstName: localStorage.getItem(FIRSTNAME_KEY) ?? '',
-        lastName: localStorage.getItem(LASTNAME_KEY) ?? '', 
+        lastName: localStorage.getItem(LASTNAME_KEY) ?? '',
         role: localStorage.getItem(ROLE_KEY) ?? '',
         phone: localStorage.getItem(PHONE_KEY) ?? '',
         isError: '',
         isAuth: Boolean(localStorage.getItem(TOKEN_KEY))
-        
+
     },
     reducers: {
         logout: (state) => {
@@ -34,7 +34,7 @@ export const AuthSlice = createSlice({
             state.password = ''
             state.password_repeat = ''
             state.isAuth = false
-            
+
             localStorage.removeItem(FIRSTNAME_KEY)
             localStorage.removeItem(LASTNAME_KEY)
             localStorage.removeItem(EMAIL_KEY)

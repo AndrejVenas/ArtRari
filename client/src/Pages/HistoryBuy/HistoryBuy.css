@@ -96,9 +96,9 @@
 }
 
 @media (max-width: 768px) {
-    .history-page {
-        padding-top: 100px;
-    }
+    /*.history-page {*/
+    /*    padding-top: 100px;*/
+    /*}*/
 }
 
 @media (max-width: 500px) {

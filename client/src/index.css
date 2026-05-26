@@ -130,12 +130,12 @@ input:focus, textarea:focus {
 
 @media (max-width: 1025px) {
   .auction-wrapper{
-    padding-top: 100px;
+    padding-top: 125px;
   }
 }
 
 @media (max-width: 769px) {
   .auction-wrapper{
-    padding-top: 75px;
+    padding-top: 100px;
   }
 }
