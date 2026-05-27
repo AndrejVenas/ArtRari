@@ -14,6 +14,8 @@ import EditWork from "./Pages/WorkEdit/WorkEdit";
 import LotPayment from "./Pages/LotPayment/LotPayment";
 import HistoryBuy from "./Pages/HistoryBuy/HistoryBuy";
 import NotFound from "./Pages/NotFound/NotFound"
+import TermsUse from "./Pages/TermsUse/TermsUse"
+
 import {
     ABOUT_US, AUCTIONS, CREATE_EXHIBITION, EXHIBITIONS, LOGIN, MAIN, REGISTRATION, WORK_UPLOAD, LOT,
     PROFILE, MY_WORK, PAYMENT_SUCCESSFUL,
@@ -23,7 +25,7 @@ import {
     EDIT_WORK,
     LOT_PAYMENT,
     HISTORY_BUY,
-    EDIT_EXHIBITION, NOT_FOUND
+    EDIT_EXHIBITION, NOT_FOUND, TERMS_USE
 } from "./constants";
 import PaymentSuccessful from "./Pages/PaymenSuccessful/PaymentSuccessful";
 import ExhibitionWork from "./Pages/ExhibitionWork.jsx/ExhibitionWork";
@@ -101,7 +103,11 @@ export const authRoute = [
     {
         path: NOT_FOUND,
         Element: NotFound
-    }
+    },
+    {
+        path: TERMS_USE,
+        Element: TermsUse
+    },
 ]
 
 export const curatorRoute = [
@@ -172,7 +178,11 @@ export const curatorRoute = [
     {
         path: MY_EXHIBITIONS,
         Element: MeinWork
-    }
+    },
+    {
+        path: TERMS_USE,
+        Element: TermsUse
+    },
 ]
 
 export const publicRoute = [
@@ -219,5 +229,9 @@ export const publicRoute = [
     {
         path: NOT_FOUND,
         Element: NotFound
-    }
+    },
+    {
+        path: TERMS_USE,
+        Element: TermsUse
+    },
 ]
