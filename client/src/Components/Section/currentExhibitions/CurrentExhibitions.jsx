@@ -76,7 +76,7 @@ function CurrentExhibitions() {
                 <Title title="Поточні виставки" />
 
                 <div className="exhibitions-box">
-                    {exhibitions?.map((item, index) => (
+                    {exhibitions?.slice(0, 6).map((item, index) => (
                         <CardCurrentExhibitions
                             key={index}
                             image={item.thumbnailUrl}

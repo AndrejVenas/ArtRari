@@ -39,8 +39,9 @@ const CreateExhibition = () => {
     })
 
     const [errors, setErrors] = useState({
-        title: "",
-        image: ""
+        title: false,
+        theme: false,
+        image: false
     })
 
     const handleChange = (e) => {
@@ -57,22 +58,57 @@ const CreateExhibition = () => {
         }))
     }
 
+    // const validate = () => {
+    //     let newErrors = {}
+    //
+    //     if (!form.title.trim()) {
+    //         newErrors.title = "Введите название выставки"
+    //     } else if (form.title.trim().length < 3) {
+    //         newErrors.title = "Минимум 3 символа"
+    //     }
+    //
+    //     if (!image) {
+    //         newErrors.image = "Добавьте изображение"
+    //     }
+    //
+    //     setErrors(newErrors)
+    //
+    //     return Object.keys(newErrors).length === 0
+    // }
     const validate = () => {
         let newErrors = {}
+        let messages = []
 
         if (!form.title.trim()) {
-            newErrors.title = "Введите название выставки"
+            newErrors.title = true
+            messages.push("Введіть назву виставки")
         } else if (form.title.trim().length < 3) {
-            newErrors.title = "Минимум 3 символа"
+            newErrors.title = true
+            messages.push("Назва повинна містити мінімум 3 символи")
+        }
+
+        if (!form.theme.trim()) {
+            newErrors.theme = true
+            messages.push("Введіть тему виставки")
+        } else if (form.theme.trim().length < 3) {
+            newErrors.theme = true
+            messages.push("Тема повина містити мінімум 3 символи")
         }
 
         if (!image) {
-            newErrors.image = "Добавьте изображение"
+            newErrors.image = true
+            messages.push("Додайте зображення")
         }
 
         setErrors(newErrors)
 
-        return Object.keys(newErrors).length === 0
+        if (messages.length) {
+            setMessage(messages[0])
+            setActive(true)
+            return false
+        }
+
+        return true
     }
 
     useEffect(() => {
@@ -109,8 +145,8 @@ const CreateExhibition = () => {
     const createExhibitionAction = async () => {
 
         if (!validate()) {
-            setMessage("Заповніть всі поля!")
-            setActive(true)
+            // setMessage("Заповніть всі поля!")
+            // setActive(true)
             return
         }
 
@@ -258,7 +294,7 @@ const CreateExhibition = () => {
                 <div className="form__mainBlock">
                     <div className="form__block">
                         <label htmlFor="" className="form__block-label">Додавання робіт</label>
-                        
+
                         {works?.length > 0 ?
                         <table className="form__block-table table">
                             <thead>
@@ -339,8 +375,9 @@ const CreateExhibition = () => {
                         <div className="form__block">
 
                             <Input
-                                label='Тема виставки'
+                                label='Тема виставки *'
                                 placeholder='Японія'
+                                error={errors.theme}
                                 name="theme"
                                 value={form.theme}
                                 onChange={handleChange}

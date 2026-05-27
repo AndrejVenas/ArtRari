@@ -60,7 +60,7 @@ function Auctions() {
                             slidesPerView={1}
                         >
 
-                            {page?.items?.map((slide) => (
+                            {page?.items?.slice(0, 6).map((slide) => (
                                 <SwiperSlide key={slide.id}>
 
                                     <div className="auctions-slid-card">
