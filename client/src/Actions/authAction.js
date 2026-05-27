@@ -8,13 +8,13 @@ export const signup = (data) => {
             return {
                 // message: response.data,
                 message: "Успішна регестрація! Для користування увійдіть у свій новий аккаунт",
-                result: response.status
+                status: response?.status
              }
         } catch (error) {
             console.log(error)   //  dispatch(CategorySlices.actions.fetchIsError())
             return {
                 message: error.response.data.message,
-                result: error.response.data.status
+                status: error.response.data.status
              }
         }
     }

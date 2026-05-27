@@ -115,7 +115,7 @@ const Register = () => {
         e.preventDefault();
 
         if (!validateStep()) {
-            setMessage("Будь ласка, заповніть усі поля правильно");
+            setMessage("Будь ласка, заповніть усі поля");
             setActive(true);
             return;
         }
@@ -128,12 +128,13 @@ const Register = () => {
 
         // STEP 2
         if (step === 2) {
-            const { message, result } = await dispatch(signup(form));
+            const { message, status } = await dispatch(signup(form));
 
             setMessage(message);
             setActive(true);
-
-            navigate("/login");
+            if(status == 201) {
+                navigate("/login");
+            }
             // setStep(3);
 
             return;
@@ -160,7 +161,7 @@ const Register = () => {
                             <>
                                 <Title title="Ласкаво просимо до нашого клубу!" />
 
-                                <p className="register-step">Крок 1 з 3</p>
+                                <p className="register-step">Крок 1 з 2</p>
 
                                 <Input
                                     label="Ім'я"
@@ -194,7 +195,7 @@ const Register = () => {
                             <>
                                 <Title title="Залишилось ще трохи" />
 
-                                <p className="register-step">Крок 2 з 3</p>
+                                <p className="register-step">Крок 2 з 2</p>
 
                                 <Input
                                     label="Поштова скринька"
