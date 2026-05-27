@@ -10,7 +10,8 @@ const ItemsGrid = ({
                        filters,
                        renderCard,
                        setResult,
-                       result
+                       result,
+                       className
                    }) => {
     const [filtersState, setFiltersState] = useState({});
     const [page, setPage] = useState(1);
@@ -28,7 +29,7 @@ const ItemsGrid = ({
     }, [items])
 
     return (
-        <section className="items-section">
+        <section className={`items-section ${className || ""}`}>
             <div className="container">
 
                 <Title title={title} />
@@ -39,7 +40,7 @@ const ItemsGrid = ({
                     values={result}
                     onChange={handleFilterChange}
                 />
-                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> : 
+                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> :
                 <div className="items-grid">
                     {filter?.map((item, index) =>
                         renderCard(item, index)

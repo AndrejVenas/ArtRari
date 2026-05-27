@@ -32,6 +32,7 @@ const ExhibitionWork = () => {
     const navigate = useNavigate()
   return (
         <ItemsGrid
+            className="exhibition-work-section"
             title={`Виставка ${title}`}
             items={exhibition?.artworks}
             filters={filtersConfig}

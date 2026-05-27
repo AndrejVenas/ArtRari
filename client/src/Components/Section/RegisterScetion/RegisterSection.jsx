@@ -164,7 +164,7 @@ const Register = () => {
                                 <p className="register-step">Крок 1 з 2</p>
 
                                 <Input
-                                    label="Ім'я"
+                                    label="Ім'я *"
                                     name="firstName"
                                     value={form.firstName}
                                     onChange={handleChange}
@@ -173,7 +173,7 @@ const Register = () => {
                                 />
 
                                 <Input
-                                    label="Прізвище"
+                                    label="Прізвище *"
                                     name="lastName"
                                     value={form.lastName}
                                     onChange={handleChange}
@@ -198,7 +198,7 @@ const Register = () => {
                                 <p className="register-step">Крок 2 з 2</p>
 
                                 <Input
-                                    label="Поштова скринька"
+                                    label="Поштова скринька *"
                                     name="email"
                                     type="email"
                                     value={form.email}
@@ -208,7 +208,7 @@ const Register = () => {
                                 />
 
                                 <Input
-                                    label="Номер телефону"
+                                    label="Номер телефону *"
                                     name="phone"
                                     value={form.phone}
                                     onChange={handleChange}
@@ -217,7 +217,7 @@ const Register = () => {
                                 />
 
                                 <Input
-                                    label="Пароль"
+                                    label="Пароль *"
                                     name="password"
                                     type="password"
                                     value={form.password}
