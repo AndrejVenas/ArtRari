@@ -47,7 +47,7 @@ const AuctionBid = ({id, navigateToPage}) => {
                     обробкою персональних даних
             </label>
 
-            <a href="#" className="text-link auction-link">
+            <a href="/termsOfUse" className="text-link auction-link">
                 Правила використання
             </a>
 

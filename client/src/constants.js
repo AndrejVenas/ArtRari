@@ -19,3 +19,4 @@ export const LOT_PAYMENT = "/lotPayment/:id"
 export const HISTORY_BUY = "/historyOfBuy"
 export const EDIT_EXHIBITION = '/editExhibition'
 export const NOT_FOUND = '/404'
+export const TERMS_USE = '/termsOfUse'
