@@ -39,7 +39,7 @@ const ItemsGrid = ({
                     values={result}
                     onChange={handleFilterChange}
                 />
-                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> : 
+                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : (title ? "робіт" : "виставок")} немає</p> : 
                 <div className="items-grid">
                     {filter?.map((item, index) =>
                         renderCard(item, index)

@@ -34,7 +34,7 @@ const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks, artWorks, artW
                                             <p className="information__block-author">Автор: {item.author}</p>
                                         </div>
                                         <div className="information__block">
-                                            <p className="information__block-category">Категорія: {item.tags?.map((item) => item.tags?.length > 1 ? item + ", " : item)}</p>
+                                            <p className="information__block-category">Категорія: {item.tags?.join(", ")}</p>
                                             <p className="information__block-dateOfCreating">Техніка: {item.technique}</p>
                                         </div>
                                         <div className="information__button">

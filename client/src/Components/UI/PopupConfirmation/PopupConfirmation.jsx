@@ -187,7 +187,7 @@ const PopupConfirmation = ({ close, setClose, onDate, setOpen, title }) => {
                             </div>
 
                             <div className="form__block">
-                                <label className='label'>Шаг аукціону</label>
+                                <label className='label'>Крок аукціону</label>
                                 <Input
                                     type="number"
                                     value={data.step}

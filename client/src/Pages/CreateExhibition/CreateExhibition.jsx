@@ -174,12 +174,14 @@ const CreateExhibition = () => {
     }
 
     useEffect(() => {
-        if (workOpen) getArtWorks()
-    }, [workOpen])
+        getArtWorks()
+    }, [])
 
     const deleteWork = (work) => {
         setWorks(prev => prev.filter(item => item.id !== work.id))
         setArtWorks(prev => [...prev, work])
+        setArtWorks(prev => [...new Set(prev)])
+        //setArtWorksServer(prev => [...new Set(prev)])
     }
     /*const createExhibitionAction = async () => {
 
