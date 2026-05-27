@@ -46,11 +46,11 @@ const ItemsGrid = ({
                     )}
                 </div>
                 }
-                <Pagination
+                {/*<Pagination
                     currentPage={page}
                     totalPages={5}
                     onChange={setPage}
-                />
+                />*/}
                 </>
             </div>
         </section>

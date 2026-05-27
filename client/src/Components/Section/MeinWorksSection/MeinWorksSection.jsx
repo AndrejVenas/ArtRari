@@ -172,13 +172,13 @@ const MeinWorksSection = () => {
                     ))}
                 </div>
 
-                {myWork.items?.length > 0 && <div className="mein-works__pagination">
+                {/*myWork.items?.length > 0 && <div className="mein-works__pagination">
                     <Pagination
                         currentPage={page}
                         onChange={setPage}
                         totalPages={2}
                     />
-                </div>
+                </div>*/
                 }
 
             </div>

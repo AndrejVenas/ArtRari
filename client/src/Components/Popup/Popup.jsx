@@ -23,7 +23,7 @@ const Popup = ({close, setClose, workOpen, setWorkOpen, setWorks, artWorks, artW
                     <img src={require('../../Images/close.svg').default} alt="закрити" className="popup__top-close" onClick={() => setClose('close')}/>
                 </div>
                 <div className="popup__cards">
-                    {artWorks?.map((item, index) => {
+                    {artWorks.length == 0 ? <p>Поки що тут немає робіт</p> : artWorks?.map((item, index) => {
                         return works.every(element => element.id != item.id) && <div className={'popup__card' + (index % 2 == 0 ? ' active' : '')} key={index}>
                                 <img src={item.thumbnailUrl} alt={item.title} className="popup__image" />
                                 <div className="popup__description">

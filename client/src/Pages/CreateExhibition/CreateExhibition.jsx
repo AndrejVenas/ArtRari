@@ -86,7 +86,7 @@ const CreateExhibition = () => {
             backgroundUrl: "bck.com",
             thumbnailUrl: dataExhibition.thumbnailUrl
         })
-
+        console.log(dataExhibition.artworks)
         setWorks(dataExhibition.artworks)
         setArtWorksServer(dataExhibition.artworks)
         setImage(dataExhibition.thumbnailUrl)
@@ -179,6 +179,7 @@ const CreateExhibition = () => {
 
     const deleteWork = (work) => {
         setWorks(prev => prev.filter(item => item.id !== work.id))
+        setArtWorks(prev => [...prev, work])
     }
     /*const createExhibitionAction = async () => {
 
