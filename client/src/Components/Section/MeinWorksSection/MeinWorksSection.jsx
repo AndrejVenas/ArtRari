@@ -91,20 +91,32 @@ const MeinWorksSection = () => {
         setIsModalOpen(true);
         setDeleteWork(item)
     };
+    // const handleDate = async (data, id) => {
+    //     data['exhibitionId'] = id
+    //     console.log(data)
+    //     try {
+    //         const response = await api.post('/auctions', data, {
+    //             headers: {
+    //                 'Authorization': `Bearer ${token}`
+    //             }
+    //         })
+    //         console.log(response.data)
+    //     } catch(error) {
+    //         console.log(error)
+    //     }
+    // }
     const handleDate = async (data, id) => {
-        data['exhibitionId'] = id
-        console.log(data)
-        try {
-            const response = await api.post('/auctions', data, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            })
-            console.log(response.data)
-        } catch(error) {
-            console.log(error)
-        }
+        data.exhibitionId = id
+
+        const response = await api.post('/auctions', data, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+
+        return response
     }
+
     const confirmDelete = async () => {
         console.log("delete", selectedId);
         
