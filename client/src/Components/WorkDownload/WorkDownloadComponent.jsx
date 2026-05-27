@@ -64,55 +64,221 @@ const WorkDownloadComponent = () => {
     }
 
     // ================= VALIDATION =================
+    // const validate = () => {
+    //
+    //     let newErrors = {}
+    //
+    //     // TITLE
+    //     if (!form.title.trim()) {
+    //         newErrors.title = "Введите название работы"
+    //     } else if (form.title.trim().length < 3) {
+    //         newErrors.title = "Минимум 3 символа"
+    //     }
+    //
+    //     // DESCRIPTION
+    //     if (!form.description.trim()) {
+    //         newErrors.description = "Введите описание"
+    //     } else if (form.description.trim().length < 10) {
+    //         newErrors.description = "Минимум 10 символов"
+    //     }
+    //
+    //     // CREATION DATE
+    //     if (!form.creationDate) {
+    //         newErrors.creationDate = "Введите дату"
+    //     }
+    //
+    //     // AUTHOR
+    //     if (!form.author.trim()) {
+    //         newErrors.author = "Введите автора"
+    //     }
+    //
+    //     // START PRICE
+    //     if (!form.startPrice || Number(form.startPrice) <= 0) {
+    //         newErrors.startPrice = "Введите корректную цену"
+    //     }
+    //
+    //     // TAGS
+    //     if (!form.tags.length) {
+    //         newErrors.tags = "Выберите хотя бы один тег"
+    //     }
+    //
+    //     // IMAGE
+    //     const isEmptyImage =
+    //         !form.photoUrl ||
+    //         (typeof form.photoUrl === "string" &&
+    //             form.photoUrl.trim() === "")
+    //
+    //     if (isEmptyImage) {
+    //         newErrors.photoUrl = "Добавьте изображение"
+    //     }
+    //
+    //     setErrors(newErrors)
+    //
+    //     return Object.keys(newErrors).length === 0
+    // }
     const validate = () => {
 
-        let newErrors = {}
+        const newErrors = {}
 
-        // TITLE
-        if (!form.title.trim()) {
-            newErrors.title = "Введите название работы"
-        } else if (form.title.trim().length < 3) {
-            newErrors.title = "Минимум 3 символа"
+        // ================= TITLE =================
+        const title = form.title.trim()
+
+        if (!title) {
+
+            newErrors.title =
+                "Введіть назву роботи"
+
+        } else if (title.length < 3) {
+
+            newErrors.title =
+                "Назва повинна містити мінімум 3 символи"
+
+        } else if (title.length > 100) {
+
+            newErrors.title =
+                "Назва не повинна перевищувати 100 символів"
         }
 
-        // DESCRIPTION
-        if (!form.description.trim()) {
-            newErrors.description = "Введите описание"
-        } else if (form.description.trim().length < 10) {
-            newErrors.description = "Минимум 10 символов"
+        // ================= DESCRIPTION =================
+        const description = form.description.trim()
+
+        if (!description) {
+
+            newErrors.description =
+                "Введіть опис роботи"
+
+        } else if (description.length < 10) {
+
+            newErrors.description =
+                "Опис повинен містити мінімум 10 символів"
+
+        } else if (description.length > 2000) {
+
+            newErrors.description =
+                "Опис занадто довгий"
         }
 
-        // CREATION DATE
+        // ================= AUTHOR =================
+        const author = form.author.trim()
+
+        if (!author) {
+
+            newErrors.author =
+                "Вкажіть автора"
+
+        } else if (author.length < 2) {
+
+            newErrors.author =
+                "Ім’я автора занадто коротке"
+
+        } else if (
+            !/^[a-zA-Zа-яА-ЯіІїЇєЄґҐ\s'-]+$/.test(author)
+        ) {
+
+            newErrors.author =
+                "Автор може містити лише літери"
+        }
+
+        // ================= DATE =================
         if (!form.creationDate) {
-            newErrors.creationDate = "Введите дату"
+
+            newErrors.creationDate =
+                "Вкажіть дату створення"
+
+        } else {
+
+            const selectedDate =
+                new Date(form.creationDate)
+
+            const currentDate = new Date()
+
+            if (selectedDate > currentDate) {
+
+                newErrors.creationDate =
+                    "Дата створення не може бути у майбутньому"
+            }
         }
 
-        // AUTHOR
-        if (!form.author.trim()) {
-            newErrors.author = "Введите автора"
+        // ================= PRICE =================
+        const price = Number(form.startPrice)
+
+        if (!form.startPrice) {
+
+            newErrors.startPrice =
+                "Вкажіть стартову ціну"
+
+        } else if (isNaN(price)) {
+
+            newErrors.startPrice =
+                "Ціна повинна бути числом"
+
+        } else if (price <= 0) {
+
+            newErrors.startPrice =
+                "Ціна повинна бути більшою за 0"
+
+        } else if (price > 10000000) {
+
+            newErrors.startPrice =
+                "Занадто велика стартова ціна"
         }
 
-        // START PRICE
-        if (!form.startPrice || Number(form.startPrice) <= 0) {
-            newErrors.startPrice = "Введите корректную цену"
-        }
-
-        // TAGS
+        // ================= TAGS =================
         if (!form.tags.length) {
-            newErrors.tags = "Выберите хотя бы один тег"
+
+            newErrors.tags =
+                "Оберіть хоча б один тег"
         }
 
-        // IMAGE
+        // ================= IMAGE =================
         const isEmptyImage =
             !form.photoUrl ||
-            (typeof form.photoUrl === "string" &&
-                form.photoUrl.trim() === "")
+            (
+                typeof form.photoUrl === "string" &&
+                form.photoUrl.trim() === ""
+            )
 
         if (isEmptyImage) {
-            newErrors.photoUrl = "Добавьте изображение"
+
+            newErrors.photoUrl =
+                "Завантажте зображення"
+
+        } else if (typeof form.photoUrl !== "string") {
+
+            const allowedTypes = [
+                "image/jpeg",
+                "image/png",
+                "image/webp"
+            ]
+
+            if (
+                !allowedTypes.includes(form.photoUrl.type)
+            ) {
+
+                newErrors.photoUrl =
+                    "Дозволені лише JPG, PNG або WEBP"
+            }
+
+            const maxSize = 5 * 1024 * 1024
+
+            if (form.photoUrl.size > maxSize) {
+
+                newErrors.photoUrl =
+                    "Розмір файлу не повинен перевищувати 5MB"
+            }
         }
 
         setErrors(newErrors)
+
+        // первое уведомление сверху
+        if (Object.keys(newErrors).length > 0) {
+
+            setMessage(
+                Object.values(newErrors)[0]
+            )
+
+            setActive(true)
+        }
 
         return Object.keys(newErrors).length === 0
     }
@@ -172,8 +338,8 @@ const WorkDownloadComponent = () => {
     const handleClick = async () => {
 
         if (!validate()) {
-            setMessage("Заповніть всі поля!")
-            setActive(true)
+            // setMessage("Заповніть всі поля!")
+            // setActive(true)
             return
         }
 

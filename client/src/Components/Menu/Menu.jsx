@@ -3,7 +3,7 @@ import {Link, useLocation} from 'react-router-dom'
 import { arrayMenu } from '../../Arrays/arrayMenu'
 import logo from '../../Images/logo.svg'
 import './style.css'
-import { AUCTIONS, EXHIBITIONS } from '../../constants'
+import {AUCTIONS, EXHIBITIONS, MAIN} from '../../constants'
 
 const Menu = () => {
   const location = useLocation()
@@ -20,7 +20,9 @@ const Menu = () => {
           })}
           </ul>
           <li className="menu__item">
-            <img src={logo} alt="logo" />
+            <Link to={MAIN}>
+              <img src={logo} alt="logo" />
+            </Link>
           </li>
         <ul className="menu__list menu__list--2">
           {secondMenu.map((item) => {

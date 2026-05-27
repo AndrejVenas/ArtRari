@@ -5,6 +5,7 @@ import {arrayMenu} from '../../../Arrays/arrayMenu.js'
 import {Link, useLocation} from 'react-router-dom'
 import Search from '../../UI/Search/Search.jsx'
 import './style.css'
+import {MAIN} from "../../../constants";
 
 const Footer = () => {
     const location = useLocation();
@@ -15,7 +16,9 @@ const Footer = () => {
             <div className="footer__container">
                 <div className="footer__content">
                     <nav className="footer__nav">
-                        <img src={logo} alt="logo" className="footer__logo"/>
+                        <Link to={MAIN}>
+                            <img src={logo} alt="logo" className="footer__logo"/>
+                        </Link>
                         <ul className="footer__list">
                             {firstMenu.map((item) => {
                                 return <li
