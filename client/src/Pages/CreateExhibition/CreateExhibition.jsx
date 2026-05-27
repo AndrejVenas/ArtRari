@@ -313,7 +313,7 @@ const CreateExhibition = () => {
                         <div className="form__block">
 
                             <Input
-                                label='Назва виставки'
+                                label='Назва виставки *'
                                 name="title"
                                 type='text'
                                 placeholder='Грані реальності'
@@ -328,6 +328,7 @@ const CreateExhibition = () => {
 
                             <Textarea
                                 label='Опис виставки'
+                                placeholder='Опис виставки'
                                 name="description"
                                 value={form.description}
                                 onChange={handleChange}
@@ -339,6 +340,7 @@ const CreateExhibition = () => {
 
                             <Input
                                 label='Тема виставки'
+                                placeholder='Японія'
                                 name="theme"
                                 value={form.theme}
                                 onChange={handleChange}
@@ -434,6 +436,10 @@ const CreateExhibition = () => {
                                 </label>
 
                             )}
+
+                            <label className="form__block-label">
+                                Додавання фотографії виставки *
+                            </label>
 
                             <Image
                                 className={errors.image ? "imageDownload--error" : ""}

@@ -42,16 +42,42 @@ const CheckBoxComponent = ({
             <div className="form__block-checkBox--wrapper">
 
                 {/* Теги */}
-                <div className="form__block-tagsList">
-                    {tags.map((item, index) => (
-                        <div
-                            key={item.id}
-                            className="form__block-tagsBlock"
+                {/*<div className="form__block-tagsList">*/}
+                {/*    {tags.map((item, index) => (*/}
+                {/*        <div*/}
+                {/*            key={item.id}*/}
+                {/*            className="form__block-tagsBlock"*/}
+                {/*        >*/}
+                {/*            {item?.name}*/}
+                {/*        </div>*/}
+                {/*    ))}*/}
+                {/*</div>*/}
+                {tags.map((item) => (
+                    <div
+                        key={item.id}
+                        className="form__block-tagsBlock"
+                    >
+
+        <span>
+            {item?.name}
+        </span>
+
+                        <button
+                            type="button"
+                            className="form__block-tagRemove"
+                            onClick={() =>
+                                setTags(prev =>
+                                    prev.filter(
+                                        tag => tag.id !== item.id
+                                    )
+                                )
+                            }
                         >
-                            {item?.name}
-                        </div>
-                    ))}
-                </div>
+                            ×
+                        </button>
+
+                    </div>
+                ))}
 
                 {/* Кнопка и popup */}
                 <div className={`form__block-checkBox ${className || ''}`}>

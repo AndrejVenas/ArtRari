@@ -105,7 +105,7 @@ const Login = () => {
                     <form className="login-form" onSubmit={handleSubmit}>
 
                         <Input
-                            label="Поштова скринька"
+                            label="Поштова скринька *"
                             name="email"
                             type="email"
                             value={form.email}
@@ -115,7 +115,7 @@ const Login = () => {
                         />
 
                         <Input
-                            label="Пароль"
+                            label="Пароль *"
                             name="password"
                             type="password"
                             value={form.password}

@@ -287,6 +287,13 @@ BEGIN
                 v_price,
                 'available'
             ) RETURNING id INTO v_work_id;
+
+            -- Додаємо до роботи 1–3 випадкові теги (для фільтрів/виводу в UI)
+            INSERT INTO tag_work (tag_id, work_id)
+            SELECT t.id, v_work_id
+            FROM tag t
+            ORDER BY random()
+            LIMIT (floor(random() * 3) + 1)::int;
             
             -- 5. ЯКЩО ЦЕ АУКЦІОН — СТВОРЮЄМО ЛОТИ ТА СИМУЛЮЄМО ТОРГИ (BIDDING WARS)
             IF v_auction_id IS NOT NULL THEN

@@ -10,7 +10,8 @@ const ItemsGrid = ({
                        filters,
                        renderCard,
                        setResult,
-                       result
+                       result,
+                       className
                    }) => {
     const [filtersState, setFiltersState] = useState({});
     const [page, setPage] = useState(1);
@@ -28,7 +29,7 @@ const ItemsGrid = ({
     }, [items])
 
     return (
-        <section className="items-section">
+        <section className={`items-section ${className || ""}`}>
             <div className="container">
 
                 <Title title={title} />
