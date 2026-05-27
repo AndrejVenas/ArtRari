@@ -158,3 +158,188 @@ INSERT INTO purchase_history (user_id, lot_id, final_price, win_date, status) VA
     (5, 9, 205.00, CURRENT_TIMESTAMP - INTERVAL '10 days', 'completed'),
     (4, 10, 95.00, CURRENT_TIMESTAMP - INTERVAL '10 days', 'pending_shipment'),
     (1, 10, 95.00, CURRENT_TIMESTAMP - INTERVAL '9 days', 'cancelled');
+
+-- =============================================================================
+-- МЕГА-ГЕНЕРАТОР ДАНИХ: 30 виставок, 20 аукціонів, сотні робіт та ставок
+-- =============================================================================
+DO $$
+DECLARE
+    v_curator_id BIGINT;
+    v_exhibition_id BIGINT;
+    v_auction_id BIGINT;
+    v_work_id BIGINT;
+    v_lot_id BIGINT;
+    v_user_id BIGINT;
+    
+    i INT;
+    j INT;
+    b INT;
+    
+    -- Назви для 30 виставок
+    titles TEXT[] := ARRAY[
+        'Whispers of Nature', 'Urban Geometry', 'Faces of the World', 'Abstract Dimensions', 'Silent Ocean', 
+        'Neon Dreams', 'Classic Revival', 'Surreal Mind', 'Industrial Era', 'Future Tech', 
+        'Minimalist Approach', 'Vibrant Colors', 'Dark Fantasy', 'Golden Age', 'Modern Sculptures', 
+        'Digital Canvas', 'Monochrome Dreams', 'Street Art Vibes', 'Renaissance 2.0', 'Pop Culture', 
+        'Mythology Today', 'Space Exploration', 'Deep Sea', 'Forest Magic', 'Desert Heat', 
+        'Frozen Time', 'Liquid Metal', 'Ethereal Light', 'Shadow Play', 'Cosmic Dust'
+    ];
+    
+    -- Частини для генерації назв картин
+    work_prefixes TEXT[] := ARRAY['Morning', 'Dark', 'Golden', 'Fading', 'Hidden', 'Silent', 'Neon', 'Forgotten', 'Abstract', 'Vivid'];
+    work_suffixes TEXT[] := ARRAY['Light', 'Shadows', 'City', 'Portrait', 'Landscape', 'Dream', 'Illusion', 'Concept', 'Figure', 'Space'];
+    
+    -- Техніки
+    techs TEXT[] := ARRAY['Oil on Canvas', 'Digital', 'Watercolor', 'Acrylic', 'Mixed Media', 'Photography', 'Sculpture', 'Charcoal', 'Pencil', 'Ink'];
+    
+    v_status exhibition_status;
+    v_auction_status auction_status;
+    v_lot_status lot_status;
+    
+    v_base_date TIMESTAMPTZ;
+    v_auction_start TIMESTAMPTZ;
+    v_auction_end TIMESTAMPTZ;
+    
+    v_price NUMERIC;
+    v_auction_step NUMERIC;
+
+BEGIN
+    -- Отримуємо ID будь-якого куратора (наприклад, Mykola Curator з вашого скрипта)
+    SELECT id INTO v_curator_id FROM users WHERE role = 'curator' LIMIT 1;
+    
+    -- 1. СТВОРЮЄМО 15 НОВИХ АКТИВНИХ КОЛЕКЦІОНЕРІВ (ЮЗЕРІВ)
+    FOR i IN 1..15 LOOP
+        INSERT INTO users (first_name, last_name, phone, email, password_hash, role, is_banned)
+        VALUES (
+            'User' || i, 
+            'Collector' || i, 
+            '090' || LPAD(i::text, 7, '0'), 
+            'mega_collector' || i || '@gmail.com', 
+            '$2a$10$N1m7kGCKNuXMehcfx1gQkOOWseeZRrtwJWER2GiKVE06GejG8eLgm', -- Стандартний пароль
+            'user', 
+            false
+        );
+    END LOOP;
+    
+    -- 2. СТВОРЮЄМО 30 ВИСТАВОК
+    FOR i IN 1..30 LOOP
+        -- Перші 20 виставок будуть аукціонами, інші 10 - просто виставками
+        IF i <= 20 THEN v_status := 'converted_into_auction';
+        ELSE v_status := 'running';
+        END IF;
+        
+        v_base_date := CURRENT_TIMESTAMP - (random() * 60 || ' days')::interval;
+        
+        INSERT INTO exhibition (curator_id, title, theme, description, background_url, start_date, status, thumbnail_url)
+        VALUES (
+            v_curator_id, 
+            titles[i], 
+            'Epic Theme ' || i, 
+            'A massive collection of incredible artworks featuring ' || titles[i], 
+            'https://picsum.photos/seed/mega_bg' || i || '/1920/1080', 
+            v_base_date, 
+            v_status, 
+            'https://picsum.photos/seed/mega_thumb' || i || '/400/300'
+        ) RETURNING id INTO v_exhibition_id;
+        
+        -- 3. СТВОРЮЄМО АУКЦІОНИ (ДЛЯ 20 ВИСТАВОК)
+        IF v_status = 'converted_into_auction' THEN
+            -- Розподіл: 8 завершених, 7 активних, 5 запланованих
+            IF i <= 8 THEN
+                v_auction_status := 'finished';
+                v_auction_start := CURRENT_TIMESTAMP - (random() * 20 + 10 || ' days')::interval;
+                v_auction_end := v_auction_start + INTERVAL '7 days';
+            ELSIF i <= 15 THEN
+                v_auction_status := 'active';
+                v_auction_start := CURRENT_TIMESTAMP - (random() * 5 || ' days')::interval;
+                v_auction_end := CURRENT_TIMESTAMP + (random() * 5 + 1 || ' days')::interval;
+            ELSE
+                v_auction_status := 'scheduled';
+                v_auction_start := CURRENT_TIMESTAMP + (random() * 5 + 1 || ' days')::interval;
+                v_auction_end := v_auction_start + INTERVAL '7 days';
+            END IF;
+            
+            v_auction_step := (floor(random() * 10) + 1) * 25.00; -- Крок від 25 до 250
+            
+            INSERT INTO auction (exhibition_id, start_date, auction_step, status, end_date)
+            VALUES (v_exhibition_id, v_auction_start, v_auction_step, v_auction_status, v_auction_end)
+            RETURNING id INTO v_auction_id;
+        ELSE
+            v_auction_id := NULL;
+        END IF;
+        
+        -- 4. ГЕНЕРУЄМО КАРТИНИ (від 4 до 8 на КОЖНУ виставку)
+        FOR j IN 1..(floor(random() * 5) + 4) LOOP
+            -- Вибираємо випадкового власника картини
+            SELECT id INTO v_user_id FROM users WHERE role = 'user' ORDER BY random() LIMIT 1;
+            v_price := (floor(random() * 40) + 10) * 50.00; -- Стартова ціна від 500 до 2500
+            
+            INSERT INTO work (owner_id, exhibition_id, title, author, description, technique, creation_date, photo_url, start_price, status)
+            VALUES (
+                v_user_id,
+                v_exhibition_id,
+                work_prefixes[floor(random() * 10) + 1] || ' ' || work_suffixes[floor(random() * 10) + 1] || ' ' || j,
+                'Artist ' || (floor(random() * 500) + 1),
+                'A magnificent piece of art created with passion.',
+                techs[floor(random() * 10) + 1],
+                CURRENT_DATE - (random() * 2000 || ' days')::interval,
+                'https://picsum.photos/seed/mega_work_' || v_exhibition_id || '_' || j || '/800/800',
+                v_price,
+                'available'
+            ) RETURNING id INTO v_work_id;
+            
+            -- 5. ЯКЩО ЦЕ АУКЦІОН — СТВОРЮЄМО ЛОТИ ТА СИМУЛЮЄМО ТОРГИ (BIDDING WARS)
+            IF v_auction_id IS NOT NULL THEN
+                IF v_auction_status = 'scheduled' THEN v_lot_status := 'scheduled';
+                ELSIF v_auction_status = 'active' THEN v_lot_status := 'available';
+                ELSE 
+                    -- Для завершених аукціонів: 80% лотів продано, 20% не продано
+                    IF random() > 0.2 THEN v_lot_status := 'sold'; ELSE v_lot_status := 'unsold'; END IF;
+                END IF;
+                
+                INSERT INTO lot (work_id, auction_id, current_price, end_date, status)
+                VALUES (v_work_id, v_auction_id, v_price, v_auction_end, v_lot_status)
+                RETURNING id INTO v_lot_id;
+                
+                -- Симуляція ставок (для активних та проданих лотів)
+                IF (v_auction_status = 'active') OR (v_auction_status = 'finished' AND v_lot_status = 'sold') THEN
+                    -- Робимо від 1 до 7 ставок на кожен лот (імітація активності)
+                    FOR b IN 1..(floor(random() * 7) + 1) LOOP
+                        SELECT id INTO v_user_id FROM users WHERE role = 'user' ORDER BY random() LIMIT 1;
+                        
+                        -- Підіймаємо ціну (крок аукціону * 1 або 2)
+                        v_price := v_price + (v_auction_step * (floor(random() * 2) + 1));
+                        
+                        INSERT INTO bid (user_id, lot_id, amount, created_at, is_win)
+                        VALUES (
+                            v_user_id, 
+                            v_lot_id, 
+                            v_price, 
+                            v_auction_start + (b * INTERVAL '4 hours'), -- Хронологія ставок
+                            FALSE
+                        );
+                    END LOOP;
+                    
+                    -- Оновлюємо фінальну/поточну ціну лота після всіх ставок
+                    UPDATE lot SET current_price = v_price WHERE id = v_lot_id;
+                    
+                    -- Якщо лот проданий (аукціон закінчився) — фіксуємо переможця
+                    IF v_lot_status = 'sold' THEN
+                        UPDATE bid SET is_win = TRUE WHERE lot_id = v_lot_id AND amount = v_price;
+                        UPDATE work SET status = 'sold' WHERE id = v_work_id;
+                        
+                        -- Додаємо випадковий статус в історію покупок
+                        INSERT INTO purchase_history (user_id, lot_id, final_price, win_date, status)
+                        VALUES (
+                            v_user_id, 
+                            v_lot_id, 
+                            v_price, 
+                            v_auction_end, 
+                            (ARRAY['pending_payment', 'pending_shipment', 'completed']::purchase_status[])[floor(random() * 3) + 1]
+                        );
+                    END IF;
+                END IF;
+            END IF;
+        END LOOP;
+    END LOOP;
+END $$;
