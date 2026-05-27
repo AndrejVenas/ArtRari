@@ -133,10 +133,8 @@ const Register = () => {
             setMessage(message);
             setActive(true);
 
-            if (result === 200) {
-                navigate("/login");
-                // setStep(3);
-            }
+            navigate("/login");
+            // setStep(3);
 
             return;
         }

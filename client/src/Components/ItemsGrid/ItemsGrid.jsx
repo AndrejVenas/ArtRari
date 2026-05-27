@@ -33,27 +33,25 @@ const ItemsGrid = ({
 
                 <Title title={title} />
 
-                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> : 
                 <>
                 <Filters
                     filters={filters}
                     values={result}
                     onChange={handleFilterChange}
                 />
-
+                {items?.length == 0 ? <p>Поки що {title == "Аукціони" ? "аукціонів" : "виставок"} немає</p> : 
                 <div className="items-grid">
                     {filter?.map((item, index) =>
                         renderCard(item, index)
                     )}
                 </div>
-
+                }
                 <Pagination
                     currentPage={page}
                     totalPages={5}
                     onChange={setPage}
                 />
                 </>
-                }
             </div>
         </section>
     );

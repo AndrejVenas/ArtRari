@@ -7,8 +7,9 @@ import Popup from '../../Components/Popup/Popup'
 import Image from '../../Components/UI/Image/Image'
 import { useSelector } from 'react-redux'
 import api from '../../api/axiosInstance'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useActiveContext } from "../../Components/AppRouter"
+import { EXHIBITIONS } from '../../constants'
 
 const CreateExhibition = () => {
 
@@ -24,6 +25,7 @@ const CreateExhibition = () => {
 
     const dataExhibition = location.state?.item
     const theme = location.state?.theme
+    const navigate = useNavigate()
 
     const { setMessage, setActive } = useActiveContext()
 
@@ -135,7 +137,7 @@ const CreateExhibition = () => {
                 })
 
                 setMessage("Виставку успішно оновлено!")
-
+                navigate(EXHIBITIONS)
             } else {
 
                 await api.post('/exhibitions', data, {
@@ -145,6 +147,7 @@ const CreateExhibition = () => {
                 })
 
                 setMessage("Виставку успішно створено!")
+                navigate(EXHIBITIONS)
             }
 
             setActive(true)
@@ -297,7 +300,7 @@ const CreateExhibition = () => {
             <div className="createExhibition__container">
 
                 <h1 className="createExhibition__title">
-                    Створення виставки
+                    {location.pathname.includes("edit") ? "Редагування роботи" : "Створення виставки"}
                 </h1>
 
                 <form className="createExhibition__form form">

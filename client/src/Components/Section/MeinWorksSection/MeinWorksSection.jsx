@@ -8,7 +8,7 @@ import ConfirmDeleteModal from "../../UI/ConfirmDeleteModal/ConfirmDeleteModal";
 import api from '../../../api/axiosInstance'
 import {useSelector} from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CREATE_EXHIBITION, EDIT_EXHIBITION, EDIT_WORK, WORK_UPLOAD } from '../../../constants';
+import { AUCTIONS, CREATE_EXHIBITION, EDIT_EXHIBITION, EDIT_WORK, WORK_UPLOAD } from '../../../constants';
 import Message from '../../UI/Message/Message';
 const worksMock = Array.from({ length: 8 }, (_, index) => ({
     id: index + 1,
@@ -113,7 +113,6 @@ const MeinWorksSection = () => {
                 'Authorization': `Bearer ${token}`
             }
         })
-
         return response
     }
 

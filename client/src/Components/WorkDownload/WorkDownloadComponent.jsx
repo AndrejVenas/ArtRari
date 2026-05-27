@@ -7,10 +7,11 @@ import './style.css'
 import Button from '../UI/Button/Button'
 import api from '../../api/axiosInstance'
 import { useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import CheckBox from '../UI/CheckBox/CheckBox'
 import CheckBoxComponent from '../CheckBoxComponent/CheckBoxComponent'
 import { useActiveContext } from "../../Components/AppRouter"
+import { MY_WORK } from '../../constants'
 
 const WorkDownloadComponent = () => {
 
@@ -44,6 +45,7 @@ const WorkDownloadComponent = () => {
 
     const location = useLocation()
     const dataUpdate = location.state?.item
+    const navigate = useNavigate()
 
     // ================= HANDLE CHANGE =================
     const handleChange = (e) => {
@@ -212,6 +214,7 @@ const WorkDownloadComponent = () => {
                 })
 
                 setMessage("Роботу успішно оновлено!")
+                navigate(MY_WORK)
             }
 
             // CREATE
@@ -224,6 +227,7 @@ const WorkDownloadComponent = () => {
                 })
 
                 setMessage("Роботу успішно створено!")
+                navigate(MY_WORK)
             }
 
             setActive(true)
@@ -315,7 +319,7 @@ const WorkDownloadComponent = () => {
                 <div className="workDownloadComponent__content">
 
                     <h1 className="workDownloadComponent__title">
-                        Завантаження роботи
+                        {location.pathname.includes("edit") ? "Редагування роботи" : "Завантаження роботи"}
                     </h1>
 
                     <form

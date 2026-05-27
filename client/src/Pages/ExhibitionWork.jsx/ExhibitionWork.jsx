@@ -8,15 +8,9 @@ import ExhibitionCard from '../../Components/ExhibitionCard/ExhibitionCard';
 
 const filtersConfig = [
     {
-        name: "checkbox",
-        label: "Теги",
-        type: "checkbox",
-        options: [],
-    },
-    {
         name: "search",
         label: "Пошук",
-        type: "search",
+        type: "search"
     }
 ];
 
@@ -33,12 +27,7 @@ const ExhibitionWork = () => {
     }
 
     useEffect(() => {
-        if(Object.keys(result).length == 0) {
-            getExhibition(id, 0, "")
-        } else {
-            getExhibition(id, 0, result['checkbox'].map(item => item.name).join(","))
-        }
-        console.log(filtersConfig)
+        getExhibition(id, 0, "")
     }, [id, result])
     const navigate = useNavigate()
   return (

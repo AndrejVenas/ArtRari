@@ -15,16 +15,10 @@ const auctionsMock = Array(12).fill({
 
 const filtersConfig = [
     {
-        name: "checkbox",
-        label: "Теги",
-        type: "checkbox"
-    },
-    {
-        name: "time",
-        label: "Час до завершення",
-        type: "select",
-        options: ["1 день", "7 днів"],
-    },
+        name: "search",
+        label: "Пошук",
+        type: "search"
+    }
 ];
 
 const AuctionPage = () => {
@@ -41,11 +35,7 @@ const AuctionPage = () => {
     }
 
     useEffect(() => {
-        if (Object.keys(result).length == 0) {
-            getAuction(id, 0, "")
-        } else {
-            getAuction(id, 0, result['checkbox'].map(item => item.name).join(","))
-        }
+        getAuction(id, 0, "")
     }, [id, result])
     const navigate = useNavigate()
     return (
