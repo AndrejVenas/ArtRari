@@ -89,6 +89,7 @@
 
     .register-container {
         justify-content: center;
+        padding-top: 100px;
     }
 
     .register-left {
