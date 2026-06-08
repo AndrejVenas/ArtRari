@@ -107,3 +107,10 @@ CREATE TABLE tag_work (
   PRIMARY KEY (tag_id, work_id)
 );
 
+CREATE TABLE shedlock (
+  name VARCHAR(64) NOT NULL PRIMARY locked_by,
+  lock_until TIMESTAMP NOT NULL,
+  locked_at TIMESTAMP NOT NULL,
+  locked_by VARCHAR(255) NOT NULL,
+)
+
