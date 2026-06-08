@@ -29,13 +29,13 @@ public class BidController {
 
     @PostMapping
     @PreAuthorize("hasRole('user')")
-    public ResponseEntity<BidPreviewResponse> placeBid(
+    public ResponseEntity<?> placeBid(
             @PathVariable Long lotId,
             @Valid @RequestBody BidPlaceRequest bidPlaceRequest,
             @AuthenticationPrincipal UserDetailsImpl udi
     ) {
-        BidPreviewResponse response = bidService.placeBid(lotId, bidPlaceRequest.amount(), udi);
-        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        bidService.submitBidAsync(lotId, bidPlaceRequest.amount(), udi);
+        return ResponseEntity.accepted().body("Ставка прийнята в обробку");
     }
 
 }

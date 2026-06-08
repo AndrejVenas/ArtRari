@@ -102,14 +102,14 @@ function Auctions() {
 
                             <button className="custom-prev">
                                 <img
-                                    src="/Images/arrow-prev.svg"
+                                    src="/images/arrow-prev.svg"
                                     alt="arrow prev"
                                 />
                             </button>
 
                             <button className="custom-next">
                                 <img
-                                    src="/Images/arrow-next.svg"
+                                    src="/images/arrow-next.svg"
                                     alt="arrow next"
                                 />
                             </button>

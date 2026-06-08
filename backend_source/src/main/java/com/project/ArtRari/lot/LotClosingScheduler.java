@@ -1,6 +1,7 @@
 package com.project.ArtRari.lot;
 
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ public class LotClosingScheduler {
     private final LotService lotService;
 
     @Scheduled(fixedRate = 10000)
+    @SchedulerLock(name = "LotClosingScheduler_closeLots", lockAtLeastFor = "5s", lockAtMostFor = "30s")
     public void closeLots() {
         lotService.closeLots();
     }

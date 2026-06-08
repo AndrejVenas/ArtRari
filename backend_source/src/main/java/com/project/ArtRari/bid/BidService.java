@@ -2,7 +2,9 @@ package com.project.ArtRari.bid;
 
 import com.project.ArtRari.auction.Auction;
 import com.project.ArtRari.auction.AuctionStatus;
+import com.project.ArtRari.bid.dto.BidMessage;
 import com.project.ArtRari.bid.dto.BidPreviewResponse;
+import com.project.ArtRari.common.RabbitConfig;
 import com.project.ArtRari.exception.ArtrariException;
 import com.project.ArtRari.lot.Lot;
 import com.project.ArtRari.lot.LotRepository;
@@ -11,6 +13,7 @@ import com.project.ArtRari.security.UserDetailsImpl;
 import com.project.ArtRari.user.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,7 @@ public class BidService {
     private final LotRepository lotRepository;
     private final UserRepository userRepository;
     private final SimpMessagingTemplate messagingTemplate;
-
+    private final RabbitTemplate rabbitTemplate;
 
     private Map<Long,Integer> getAnonymousIds(Long lotId) {
         List<Bid> bids = bidRepository.findByLotIdOrderByCreatedAtDesc(lotId);
@@ -43,6 +46,11 @@ public class BidService {
             }
         }
         return anonymousIds;
+    }
+    
+    public void submitBidAsync(Long lotId, BigDecimal amount, UserDetailsImpl udi){
+      BidMessage message = new BidMessage(lotId, amount, udi.getId());
+      rabbitTemplate.convertAndSend(RabbitConfig.BIDS_QUEUE, message);
     }
 
     public List<BidPreviewResponse> getBidPreviews(Long lotId, UserDetailsImpl udi) {
@@ -57,14 +65,14 @@ public class BidService {
     }
 
     @Transactional
-    public BidPreviewResponse placeBid(Long lotId, BigDecimal amount, UserDetailsImpl udi) {
+    public void processBidSync(Long lotId, BigDecimal amount, Long userId) {
         Lot lot = lotRepository.findByIdForUpdate(lotId).orElseThrow(
                 () -> new ResponseStatusException(HttpStatus.NOT_FOUND)
         );
         Auction auction = lot.getAuction();
         BigDecimal step = auction.getStep();
         Long sellerId = lot.getArtwork().getOwner().getId();
-        if (sellerId.equals(udi.getId())) {
+        if (sellerId.equals(userId)) {
             throw new ArtrariException(HttpStatus.BAD_REQUEST, "Ви не можете робити ставку на свій лот");
         }
         if (lot.getStatus().equals(LotStatus.scheduled)) {
@@ -90,28 +98,21 @@ public class BidService {
 
         lot.setCurrentPrice(amount);
         Bid bid = new Bid();
-        bid.setUser(userRepository.getReferenceById(udi.getId()));
+        bid.setUser(userRepository.getReferenceById(userId));
         bid.setLot(lot);
         bid.setAmount(amount);
         bid.setCreatedAt(Instant.now());
         bid.setWin(false);
         Bid savedBid = bidRepository.save(bid);
 
-        Integer userId = getAnonymousIds(savedBid.getLot().getId()).get(savedBid.getUser().getId());
+        Integer anonId = getAnonymousIds(savedBid.getLot().getId()).get(savedBid.getUser().getId());
         BidPreviewResponse response = new BidPreviewResponse(
-                "Невідомий поціновувач мистецтва " + userId,
+                "Невідомий поціновувач мистецтва " + anonId,
                 savedBid.getAmount(),
                 savedBid.getCreatedAt(),
                 false
         );
         messagingTemplate.convertAndSend("/topic/lots/" + savedBid.getLot().getId() + "/bids", response);//todo ивент паблишер
-
-        return new BidPreviewResponse(
-                "Невідомий поціновувач мистецтва " + userId,
-                savedBid.getAmount(),
-                savedBid.getCreatedAt(),
-                true
-        );
     }
 
 }

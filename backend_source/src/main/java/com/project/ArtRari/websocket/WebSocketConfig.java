@@ -1,6 +1,7 @@
 package com.project.ArtRari.websocket;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.ChannelRegistration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
@@ -13,6 +14,9 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 @RequiredArgsConstructor
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final WebSocketAuthInterceptor authInterceptor;
+    
+    @Value("${spring.rabbitmq.host:lovalhost}")
+    private String rabbitmqHost;
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
@@ -27,7 +31,13 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic", "/queue");
+        config.enableStompBrokerRelay("/topic", "/queue")
+          .setRelayHost(rabbitmqHost)
+          .setRelayHost("61613")
+          .setClientLogin("guest")
+          .setClientPasscode("guest")
+          .setSystemLogin("guest")
+          .setSystemPasscode("guest");
         config.setUserDestinationPrefix("/user");
     }
 
