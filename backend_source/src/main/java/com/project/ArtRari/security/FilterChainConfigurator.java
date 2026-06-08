@@ -25,12 +25,16 @@ public class FilterChainConfigurator {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
-                    corsConfiguration.setAllowedOrigins(List.of(
-                            "http://localhost:3000",
-                            "https://artrari.pp.ua"));
+                    corsConfiguration.setAllowedOriginPatterns(List.of(
+                            "http://localhost:*",
+                            "https://artrari.pp.ua",
+                            "https://www.artrari.pp.ua",
+                            "https://*.artrari.pp.ua"));
                     corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
                     corsConfiguration.setAllowCredentials(true);
                     corsConfiguration.setAllowedHeaders(List.of("*"));
+                    corsConfiguration.setExposedHeaders(List.of("Authorization"));
+                    corsConfiguration.setMaxAge(3600L);
                     return corsConfiguration;
                 }))
                 .exceptionHandling(exceptions -> exceptions

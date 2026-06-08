@@ -14,7 +14,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
   backend:
-    image: k3ve1/artrari-backend:latest
+    build: .
     container_name: artrari-app
     ports:
       - "8080:8080"
@@ -25,7 +25,7 @@ services:
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: password
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
-      CLOUDINARY_URL: ${CLOUDINARY_URL}
+      CLOUDINARY_URL: "cloudinary://585674141627634:dLa7raVu71BJTk8gayyu_nCqYHA@daxiid35t"
 
 volumes:
   pgdata:
