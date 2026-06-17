@@ -12,7 +12,7 @@ export const subscribeToLotBids = (lotId, onNewBidReceived) => {
     client.onConnect = () => {
         console.log("STOMP CONNECTED");
 
-        client.subscribe(`/topic/lots/${lotId}/bids`, (message) => {
+        client.subscribe(`/topic/lots.${lotId}.bids`, (message) => {
             // console.log("MESSAGE OBJECT:", message);
             // console.log("BODY:", message.body);
 

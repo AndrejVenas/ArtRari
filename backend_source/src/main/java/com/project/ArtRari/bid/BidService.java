@@ -112,7 +112,7 @@ public class BidService {
                 savedBid.getCreatedAt(),
                 false
         );
-        messagingTemplate.convertAndSend("/topic/lots/" + savedBid.getLot().getId() + "/bids", response);//todo ивент паблишер
+        messagingTemplate.convertAndSend("/topic/lots." + savedBid.getLot().getId() + ".bids", response);//todo ивент паблишер
     }
 
 }

@@ -15,7 +15,7 @@ import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerCo
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     private final WebSocketAuthInterceptor authInterceptor;
     
-    @Value("${spring.rabbitmq.host:lovalhost}")
+    @Value("${spring.rabbitmq.host:localhost}")
     private String rabbitmqHost;
 
     @Override
@@ -33,7 +33,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry config) {
         config.enableStompBrokerRelay("/topic", "/queue")
           .setRelayHost(rabbitmqHost)
-          .setRelayHost("61613")
+          .setRelayPort(61613)
           .setClientLogin("guest")
           .setClientPasscode("guest")
           .setSystemLogin("guest")

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="acd80ab8-719e-4d56-bc66-eefdb80bf60f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/backend_launch/db-init/01_create.sql" beforeDir="false" afterPath="$PROJECT_DIR$/backend_launch/db-init/01_create.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_launch/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_launch/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/auction/AuctionStateScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/auction/AuctionStateScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/bid/BidController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/bid/BidController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/bid/BidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/bid/BidService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/lot/LotClosingScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/lot/LotClosingScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/java/com/project/ArtRari/websocket/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend_source/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend_source/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/Components/Section/Auctions/Auctions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/Components/Section/Auctions/Auctions.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/config/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/config/api.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/Concept/concept_model.uxf" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Concept/concept_model.uxf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/diagrams/Use-case/gpt_variant.uxf" beforeDir="false" afterPath="$PROJECT_DIR$/diagrams/Use-case/gpt_variant.uxf" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="3EKX0NZi5H7NaxoDcF7SMrh8Uf8" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "server__optimization",
+    "ignore_missing_gitignore": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/malinka/ArtRari/backend_source",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="acd80ab8-719e-4d56-bc66-eefdb80bf60f" name="Changes" comment="" />
+      <created>1779928012636</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1779928012636</updated>
+      <workItem from="1779928015682" duration="3000" />
+      <workItem from="1779928423421" duration="1123000" />
+      <workItem from="1780930493310" duration="306000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
